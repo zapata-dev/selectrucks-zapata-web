@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Selectrucks Zapata — Camiones seminuevos verificados</title>
+<meta name="description" content="Marketplace de camiones seminuevos verificados de Corporación Zapata. Más de 300 unidades en 9 sucursales de México. Financiamiento aprobado en 48 horas." />
+<meta name="ext-resource-dependency" content="assets/logo-selectrucks.png" data-resource-id="logo" />
+<meta name="ext-resource-dependency" content="assets/truck-cascadia-square.png" data-resource-id="cascadia" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="sections.css" />
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#1e1e1e">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#1e1e1e"/>
+    <rect x="0" y="0" width="1200" height="12" fill="#ce0000"/>
+    <g transform="translate(600 380)">
+      <g transform="translate(-180 -80)">
+        <rect x="0" y="40" width="220" height="110" fill="#ce0000"/>
+        <rect x="220" y="70" width="120" height="80" fill="#ce0000"/>
+        <polygon points="220,40 260,40 260,70 220,70" fill="#ce0000"/>
+        <circle cx="70" cy="170" r="22" fill="#111"/>
+        <circle cx="70" cy="170" r="10" fill="#ce0000"/>
+        <circle cx="280" cy="170" r="22" fill="#111"/>
+        <circle cx="280" cy="170" r="10" fill="#ce0000"/>
+      </g>
+      <text x="-130" y="170" fill="#ffffff" font-family="Arial Black, sans-serif" font-size="40" font-weight="900" letter-spacing="2">SELECTRUCKS</text>
+    </g>
+  </svg>
+</template>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script src="data.js"></script>
+<script type="text/babel" src="components-top.standalone.jsx"></script>
+<script type="text/babel" src="components-bottom.standalone.jsx"></script>
+
+<script type="text/babel">
+function App() {
+  const [filters, setFilters] = React.useState({});
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [modalUnit, setModalUnit] = React.useState(null);
+  const [toast, setToast] = React.useState(null);
+
+  const filtered = React.useMemo(() => {
+    return UNITS.filter(u => {
+      if (filters.brand && u.brand !== filters.brand) return false;
+      if (filters.type && u.type !== filters.type) return false;
+      if (filters.branch && u.branch !== filters.branch) return false;
+      if (filters.price && (u.price < filters.price.min || u.price >= filters.price.max)) return false;
+      if (filters.quick === 'featured' && !u.featured) return false;
+      if (filters.quick === 'new' && u.status !== 'Nuevo ingreso') return false;
+      if (filters.quick === 'offer' && u.status !== 'Oferta') return false;
+      if (filters.quick === 'warranty' && !u.warranty) return false;
+      return true;
+    });
+  }, [filters]);
+
+  const openContact = (unit) => { setModalUnit(unit || null); setModalOpen(true); };
+  const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(null), 3200); };
+
+  return (
+    <>
+      <Navbar onContact={() => openContact(null)} />
+      <Hero onContact={() => openContact(null)} />
+      <SearchBar filters={filters} setFilters={setFilters} resultsCount={filtered.length} />
+      <Inventory filters={filters} setFilters={setFilters} onQuote={openContact} filtered={filtered} />
+      <Trust />
+      <FinStrip />
+      <Branches />
+      <Process />
+      <CTAStrip onContact={() => openContact(null)} />
+      <Footer />
+      <ContactModal open={modalOpen} onClose={() => setModalOpen(false)} unit={modalUnit}
+        onSubmit={() => showToast('✓ Solicitud enviada. Un asesor te contacta pronto.')} />
+      <div className={`toast ${toast ? 'is-visible' : ''}`}>
+        <Icon.Check /><span>{toast}</span>
+      </div>
+    </>
+  );
+}
+
+function mount() {
+  if (!window.Navbar || !window.Inventory) { setTimeout(mount, 50); return; }
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+}
+mount();
+</script>
+</body>
+</html>

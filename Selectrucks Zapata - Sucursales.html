@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sucursales — Selectrucks Zapata</title>
+<meta name="description" content="9 sucursales en todo México. Encuentra la más cercana y visita nuestro piso de camiones seminuevos verificados." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="sections.css" />
+<style>
+/* Page-specific styles */
+.page-hero {
+  padding-top: 136px;
+  padding-bottom: 64px;
+  background: var(--black);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 4px solid var(--red);
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+.page-hero__eyebrow {
+  display: flex; gap: 12px; align-items: center;
+  color: var(--red); margin-bottom: 20px;
+}
+.page-hero__eyebrow .dot {
+  width: 8px; height: 8px; background: var(--red); border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(206,0,0,0.25);
+  animation: pulse 2s infinite;
+}
+.page-hero h1 { font-size: clamp(48px, 7vw, 88px); line-height: 0.9; margin-bottom: 20px; }
+.page-hero h1 em { font-style: normal; color: var(--red); }
+.page-hero p { font-size: 17px; color: var(--fog); max-width: 520px; line-height: 1.6; }
+
+/* Branch grid */
+.suc-section { padding: 80px 0; background: var(--ink); }
+.suc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--graphite);
+  margin-bottom: 64px;
+}
+@media (max-width: 900px) { .suc-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .suc-grid { grid-template-columns: 1fr; } }
+
+.suc-card {
+  background: var(--ink);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: background .18s;
+  position: relative;
+  overflow: hidden;
+}
+.suc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease;
+}
+.suc-card:hover { background: var(--graphite); }
+.suc-card:hover::before { transform: scaleX(1); }
+
+.suc-card__name {
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.suc-card__state {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--red);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.suc-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--fog);
+}
+.suc-card__info span {
+  display: flex; gap: 8px; align-items: flex-start;
+}
+.suc-card__info svg { flex-shrink: 0; color: var(--red); margin-top: 2px; }
+.suc-card__count {
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 800;
+  font-size: 40px;
+  color: var(--red);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.suc-card__count small {
+  font-size: 14px;
+  color: var(--ash);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-left: 4px;
+}
+.suc-card__actions {
+  display: flex; gap: 8px; margin-top: auto; padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.suc-card__btn {
+  flex: 1;
+  padding: 11px 12px;
+  background: var(--graphite);
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: flex; gap: 6px; align-items: center; justify-content: center;
+  transition: all .15s;
+  color: var(--bone);
+  text-decoration: none;
+}
+.suc-card__btn--red { background: var(--red); color: var(--white); }
+.suc-card__btn:hover { background: var(--red); color: var(--white); }
+.suc-card--flagship .suc-card__name::after {
+  content: ' ◆';
+  color: var(--red);
+  font-size: 0.7em;
+}
+
+/* Mexico map placeholder */
+.suc-map {
+  background: var(--graphite);
+  padding: 64px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.suc-map::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.suc-map__inner { position: relative; }
+.suc-map__title {
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 800;
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 0.9;
+  margin-bottom: 48px;
+}
+.suc-map__title em { font-style: normal; color: var(--red); }
+/* SVG map of Mexico with dots */
+.suc-map svg { max-width: 700px; width: 100%; }
+.map-dot {
+  fill: var(--red);
+  filter: drop-shadow(0 0 6px rgba(206,0,0,0.6));
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; r: 8; }
+  50%       { opacity: 0.7; r: 10; }
+}
+
+/* CTA strip */
+.suc-cta {
+  background: var(--red);
+  padding: 64px 0;
+  position: relative;
+  overflow: hidden;
+}
+.suc-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(45deg, rgba(0,0,0,0.08) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.08) 75%);
+  background-size: 30px 30px;
+  opacity: 0.5;
+}
+.suc-cta__inner {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.suc-cta h2 { font-size: clamp(32px, 4vw, 52px); line-height: 0.9; max-width: 640px; }
+.suc-cta__btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* Reuse footer from sections.css */
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="nav" id="navbar">
+  <div class="wrap nav__inner">
+    <a href="Selectrucks Zapata - Home.html" class="nav__logo">
+      <img src="assets/logo-selectrucks.png" alt="SelecTrucks | Zapata" />
+    </a>
+    <nav class="nav__links hide-mobile">
+      <a href="Selectrucks Zapata - Inventario.html">Inventario</a>
+      <a href="Selectrucks Zapata - Financiamiento.html">Financiamiento</a>
+      <a href="Selectrucks Zapata - Sucursales.html" style="color:var(--white)">Sucursales</a>
+      <a href="Selectrucks Zapata - Contacto.html">Contacto</a>
+    </nav>
+    <div class="nav__cta">
+      <div class="nav__tel hide-mobile">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <strong>800 ZAPATA 1</strong>
+      </div>
+      <a class="btn btn--red" href="Selectrucks Zapata - Inventario.html">Ver unidades</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="wrap">
+    <div class="page-hero__eyebrow">
+      <span class="dot"></span>
+      <span class="eyebrow">Red nacional · 9 sucursales activas</span>
+    </div>
+    <h1>Encuentra tu<br/>sucursal más<br/><em>cercana</em></h1>
+    <p>Visita cualquiera de nuestros pisos en todo México. Asesores especializados, unidades en piso para inspección inmediata y financiamiento en sitio.</p>
+  </div>
+</section>
+
+<!-- BRANCHES GRID -->
+<section class="suc-section">
+  <div class="wrap">
+    <div class="suc-grid">
+
+      <!-- 1. Tlalnepantla (Flagship) -->
+      <div class="suc-card suc-card--flagship">
+        <div class="suc-card__name">Tlalnepantla</div>
+        <div class="suc-card__state">Estado de México · Matriz</div>
+        <div class="suc-card__info">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Av. 1° de Mayo S/N Esq. Roberto Fulton, Tlalnepantla Centro, C.P. 54000</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(55) 5321 3030</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Lun-Vie 9:00–18:00 · Sáb 9:00–14:00</span>
+        </div>
+        <div class="suc-card__actions">
+          <a class="suc-card__btn suc-card__btn--red" href="https://maps.google.com/?q=Av.+1+de+Mayo+S/N+Tlalnepantla+Centro+54000" target="_blank">📍 Cómo llegar</a>
+          <a class="suc-card__btn" href="tel:5553213030">📞 Llamar</a>
+        </div>
+      </div>
+
+      <!-- 2. Aeropuerto (Texcoco) -->
+      <div class="suc-card">
+        <div class="suc-card__name">Aeropuerto</div>
+        <div class="suc-card__state">Estado de México · Texcoco</div>
+        <div class="suc-card__info">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Carr. Los Reyes-Texcoco Lechería Km. 23, C.P. 56200, Texcoco</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(59) 5954 9933</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Lun-Vie 9:00–18:00 · Sáb 9:00–14:00</span>
+        </div>
+        <div class="suc-card__actions">
+          <a class="suc-card__btn suc-card__btn--red" href="https://maps.google.com/?q=Carretera+Los+Reyes+Texcoco+Lecheria+Km+23+Texcoco+56200" target="_blank">📍 Cómo llegar</a>
+          <a class="suc-card__btn" href="tel:5959549933">📞 Llamar</a>
+        </div>
+      </div>
+
+      <!-- 3. Monterrey (Apodaca) -->
+      <div class="suc-card">
+        <div class="suc-card__name">Monterrey</div>
+        <div class="suc-card__state">Nuevo León · Apodaca</div>
+        <div class="suc-card__info">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Carr. Monterrey-Laredo Km. 19 Santa Rosa, C.P. 66600, Apodaca</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(81) 8305 4500</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Lun-Vie 9:00–18:00 · Sáb 9:00–14:00</span>
+        </div>
+        <div class="suc-card__actions">
+          <a class="suc-card__btn suc-card__btn--red" href="https://maps.google.com/?q=Carretera+Monterrey+Laredo+Km+19+Santa+Rosa+Apodaca+66600" target="_blank">📍 Cómo llegar</a>
+          <a class="suc-card__btn" href="tel:8183054500">📞 Llamar</a>
+        </div>
+      </div>
+
+      <!-- 4. Guadalajara (Zapopan) -->
+      <div class="suc-card">
+        <div class="suc-card__name">Guadalajara</div>
+        <div class="suc-card__state">Jalisco · Zapopan</div>
+        <div class="suc-card__info">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Periférico Sur No. 1823, Col. El Briseño, C.P. 45070, Zapopan</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>33 3180 8541</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Lun-Vie 9:00–18:00 · Sáb 9:00–14:00</span>
+        </div>
+        <div class="suc-card__actions">
+          <a class="suc-card__btn suc-card__btn--red" href="https://maps.google.com/?q=Periferico+Sur+1823+Col+El+Briseno+Zapopan+45070" target="_blank">📍 Cómo llegar</a>
+          <a class="suc-card__btn" href="tel:3331808541">📞 Llamar</a>
+        </div>
+      </div>
+
+      <!-- 5. GDL R. Michel -->
+      <div class="suc-card">
+        <div class="suc-card__name">GDL R. Michel</div>
+        <div class="suc-card__state">Jalisco · Álamo Industrial</div>
+        <div class="suc-card__info">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Av. Dr. R. Michel No. 2604, Col. Álamo Industrial, C.P. 44895, Guadalajara</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>33 3837 6500</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Lun-Vie 9:00–18:00 · Sáb 9:00–14:00</span>
+        </div>
+        <div class="suc-card__actions">
+          <a class="suc-card__btn suc-card__btn--red" href="https://maps.google.com/?q=Av+Dr+R+Michel+2604+Col+Alamo+Industrial+Guadalajara+44895" target="_blank">📍 Cómo llegar</a>
+          <a class="suc-card__btn" href="tel:3338376500">📞 Llamar</a>
+        </div>
+      </div>
+
+      <!-- 6. León -->
+      <div class="suc-card">
+        <div class="suc-card__name">León</div>
+        <div class="suc-card__state">Guanajuato · San José El Alto</div>
+        <div class="suc-card__info">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Blvd. Aeropuerto 744, San José El Alto, C.P. 37660, León</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(47) 710 0016</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Lun-Vie 9:00–18:00 · Sáb 9:00–14:00</span>
+        </div>
+        <div class="suc-card__actions">
+          <a class="suc-card__btn suc-card__btn--red" href="https://maps.google.com/?q=Blvd+Aeropuerto+744+San+Jose+El+Alto+Leon+Guanajuato+37660" target="_blank">📍 Cómo llegar</a>
+          <a class="suc-card__btn" href="tel:4777100016">📞 Llamar</a>
+        </div>
+      </div>
+
+      <!-- 7. Querétaro -->
+      <div class="suc-card">
+        <div class="suc-card__name">Querétaro</div>
+        <div class="suc-card__state">Querétaro · San Pedrito Peñuelas</div>
+        <div class="suc-card__info">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Blvd. Bernardo Quintana 588, Col. San Pedrito Peñuelas, C.P. 76148, Querétaro</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(44) 2209 6900</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Lun-Vie 9:00–18:00 · Sáb 9:00–14:00</span>
+        </div>
+        <div class="suc-card__actions">
+          <a class="suc-card__btn suc-card__btn--red" href="https://maps.google.com/?q=Blvd+Bernardo+Quintana+588+San+Pedrito+Penuelas+Queretaro+76148" target="_blank">📍 Cómo llegar</a>
+          <a class="suc-card__btn" href="tel:4422096900">📞 Llamar</a>
+        </div>
+      </div>
+
+      <!-- 8. Tampico (Altamira) -->
+      <div class="suc-card">
+        <div class="suc-card__name">Tampico</div>
+        <div class="suc-card__state">Tamaulipas · Altamira</div>
+        <div class="suc-card__info">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Autopista Tampico-Altamira No. 2102, Col. Laguna de la Puerta, C.P. 89603, Altamira</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(833) 301 4653</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Lun-Vie 9:00–18:00 · Sáb 9:00–14:00</span>
+        </div>
+        <div class="suc-card__actions">
+          <a class="suc-card__btn suc-card__btn--red" href="https://maps.google.com/?q=Autopista+Tampico+Altamira+2102+Col+Laguna+de+la+Puerta+Altamira+89603" target="_blank">📍 Cómo llegar</a>
+          <a class="suc-card__btn" href="tel:8333014653">📞 Llamar</a>
+        </div>
+      </div>
+
+      <!-- 9. Celaya -->
+      <div class="suc-card">
+        <div class="suc-card__name">Celaya</div>
+        <div class="suc-card__state">Guanajuato · Crespo</div>
+        <div class="suc-card__info">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Carretera Celaya-Villagrán Km 5.1, Col. Segunda Fracción de Crespo, C.P. 38110, Celaya</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>461 689 1108</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Lun-Vie 9:00–18:00 · Sáb 9:00–14:00</span>
+        </div>
+        <div class="suc-card__actions">
+          <a class="suc-card__btn suc-card__btn--red" href="https://maps.google.com/?q=Carretera+Celaya+Villagran+Km+5.1+Col+Segunda+Fraccion+de+Crespo+Celaya+38110" target="_blank">📍 Cómo llegar</a>
+          <a class="suc-card__btn" href="tel:4616891108">📞 Llamar</a>
+        </div>
+      </div>
+
+    </div><!-- /suc-grid -->
+  </div>
+</section>
+
+<!-- MAP SECTION -->
+<section class="suc-map">
+  <div class="wrap suc-map__inner">
+    <h2 class="suc-map__title">Presencia <em>nacional</em><br/>en 9 estados</h2>
+    <!-- Simplified SVG silhouette of Mexico with dots at city locations -->
+    <svg viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- Mexico mainland — coordinates mapped from real geo bounds (118°W–86°W, 33°N–14°N) -->
+      <path d="M105,27 L203,61 L301,50 L347,102 L433,124 L454,153 L498,190
+               L490,281 L500,313 L529,352 L566,381
+               L623,368 L651,339 L668,303 L732,287
+               L717,330 L699,371 L682,388
+               L616,468 L548,427 L446,412 L349,356
+               L328,320 L303,257 L245,194 L205,144 L148,61 Z"
+            stroke="rgba(255,255,255,0.14)" stroke-width="1.5" fill="rgba(255,255,255,0.035)"/>
+      <!-- Baja California peninsula -->
+      <path d="M72,32 L94,80 L118,146 L179,223 L227,269
+               L218,235 L196,189 L146,119 L120,68 L105,27 L72,32 Z"
+            stroke="rgba(255,255,255,0.11)" stroke-width="1.5" fill="rgba(255,255,255,0.03)"/>
+
+      <!-- Tlalnepantla / CDMX (19.4°N 99.1°W) -->
+      <circle cx="463" cy="349" r="9" class="map-dot"/>
+      <text x="463" y="336" fill="rgba(255,255,255,0.55)" font-size="9" font-family="JetBrains Mono,monospace" text-anchor="middle" letter-spacing="1">CDMX</text>
+
+      <!-- Monterrey (25.7°N 100.3°W) -->
+      <circle cx="437" cy="197" r="8" class="map-dot" style="animation-delay:.3s"/>
+      <text x="437" y="185" fill="rgba(255,255,255,0.55)" font-size="9" font-family="JetBrains Mono,monospace" text-anchor="middle" letter-spacing="1">MTY</text>
+
+      <!-- Guadalajara (20.7°N 103.4°W) -->
+      <circle cx="369" cy="318" r="8" class="map-dot" style="animation-delay:.6s"/>
+      <text x="362" y="334" fill="rgba(255,255,255,0.45)" font-size="8" font-family="JetBrains Mono,monospace" text-anchor="middle" letter-spacing="1">GDL</text>
+
+      <!-- León (21.1°N 101.7°W) -->
+      <circle cx="406" cy="308" r="7" class="map-dot" style="animation-delay:.9s"/>
+      <text x="395" y="302" fill="rgba(255,255,255,0.4)" font-size="7.5" font-family="JetBrains Mono,monospace" text-anchor="middle" letter-spacing="0.5">LÉN</text>
+
+      <!-- Querétaro (20.6°N 100.4°W) -->
+      <circle cx="435" cy="322" r="7" class="map-dot" style="animation-delay:1.2s"/>
+      <text x="447" y="318" fill="rgba(255,255,255,0.4)" font-size="7.5" font-family="JetBrains Mono,monospace" text-anchor="start" letter-spacing="0.5">QRO</text>
+
+      <!-- Tampico (22.2°N 97.9°W) -->
+      <circle cx="490" cy="281" r="7" class="map-dot" style="animation-delay:1.5s"/>
+      <text x="490" y="269" fill="rgba(255,255,255,0.45)" font-size="8" font-family="JetBrains Mono,monospace" text-anchor="middle" letter-spacing="1">TAM</text>
+
+      <!-- Celaya (20.5°N 100.8°W) -->
+      <circle cx="426" cy="336" r="7" class="map-dot" style="animation-delay:1.8s"/>
+      <text x="418" y="350" fill="rgba(255,255,255,0.4)" font-size="7.5" font-family="JetBrains Mono,monospace" text-anchor="middle" letter-spacing="0.5">CEL</text>
+    </svg>
+    <p style="color:var(--fog); font-size:13px; margin-top:16px; font-family:'JetBrains Mono',monospace; letter-spacing:.06em;">◆ Tlalnepantla · CDMX · Monterrey · Guadalajara · GDL Occ. · León · Querétaro · Tampico · Celaya</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="suc-cta">
+  <div class="wrap suc-cta__inner">
+    <h2>¿No encuentras lo que buscas<br/>en tu sucursal?</h2>
+    <div class="suc-cta__btns">
+      <a class="btn btn--ghost btn--lg" href="Selectrucks Zapata - Inventario.html">Ver inventario completo</a>
+      <a class="btn btn--dark btn--lg" href="Selectrucks Zapata - Contacto.html">Hablar con un asesor</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__logo">
+        <img src="assets/logo-selectrucks.png" alt="SelecTrucks Zapata" />
+        <p>Marketplace de camiones seminuevos verificados de Corporación Zapata. Más de 306 unidades en 9 sucursales.</p>
+        <div class="footer__social">
+          <a href="#" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5-.1-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3 0-.2-.2-.3-.5-.4zM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.4A10 10 0 1 0 12 2z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.87v-6.99H7.9V12h2.5V9.8c0-2.47 1.47-3.83 3.72-3.83 1.08 0 2.21.19 2.21.19v2.43h-1.24c-1.23 0-1.61.76-1.61 1.54V12h2.73l-.44 2.89h-2.29v6.99A10 10 0 0 0 22 12z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h5>Inventario</h5>
+        <ul>
+          <li><a href="Selectrucks Zapata - Inventario.html">Ver todo</a></li>
+          <li><a href="#">Tractocamiones</a></li>
+          <li><a href="#">Volteos</a></li>
+          <li><a href="#">Refrigerados</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h5>Empresa</h5>
+        <ul>
+          <li><a href="Selectrucks Zapata - Nosotros.html">Nosotros</a></li>
+          <li><a href="Selectrucks Zapata - Sucursales.html">Sucursales</a></li>
+          <li><a href="Selectrucks Zapata - Financiamiento.html">Financiamiento</a></li>
+          <li><a href="Selectrucks Zapata - Contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer__col footer__contact">
+        <h5>Contacto</h5>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span><strong>800 ZAPATA 1</strong></span></li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16"/><polyline points="22,6 12,13 2,6"/></svg><span>ventas@selectrucks.mx</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Corporación Zapata S.A. de C.V. — Todos los derechos reservados</span>
+      <div class="footer__bottom-links">
+        <a href="#">Aviso de Privacidad</a>
+        <a href="#">Términos y Condiciones</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll effect
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  nav.style.background = window.scrollY > 40 ? 'rgba(10,10,10,0.96)' : 'rgba(17,17,17,0.92)';
+});
+</script>
+</body>
+</html>

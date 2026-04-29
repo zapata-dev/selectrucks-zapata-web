@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Financiamiento — Selectrucks Zapata</title>
+<meta name="description" content="Financia tu próximo camión con Selectrucks Zapata. Enganche desde 20%, plazos hasta 60 meses, aprobación en 48 horas." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="sections.css" />
+<style>
+.page-hero {
+  padding-top: 136px; padding-bottom: 72px;
+  background: var(--black);
+  position: relative; overflow: hidden;
+  border-bottom: 4px solid var(--red);
+}
+.page-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.page-hero__eyebrow { display: flex; gap: 12px; align-items: center; color: var(--red); margin-bottom: 20px; }
+.page-hero__eyebrow .dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; box-shadow: 0 0 0 4px rgba(206,0,0,0.25); animation: pulse 2s infinite; }
+.page-hero h1 { font-size: clamp(48px, 7vw, 96px); line-height: 0.88; margin-bottom: 24px; }
+.page-hero h1 em { font-style: italic; color: var(--lime); }
+.page-hero p { font-size: 17px; color: var(--fog); max-width: 560px; line-height: 1.6; }
+.page-hero__badges { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
+.page-hero__badge {
+  display: flex; gap: 10px; align-items: center;
+  background: rgba(255,255,255,0.06); padding: 12px 20px;
+  font-family: 'League Spartan', sans-serif; font-weight: 700;
+  font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--bone); border-left: 3px solid var(--red);
+}
+
+/* Plans section */
+.plans-section { padding: 80px 0; background: var(--ink); }
+.plans-section h2 { font-size: clamp(36px, 5vw, 60px); line-height: 0.9; margin-bottom: 56px; }
+.plans-section h2 em { font-style: normal; color: var(--red); }
+.plans-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  background: var(--graphite); margin-bottom: 80px;
+}
+@media (max-width: 800px) { .plans-grid { grid-template-columns: 1fr; } }
+
+.plan-card {
+  background: var(--ink); padding: 40px 32px;
+  display: flex; flex-direction: column; gap: 20px;
+  position: relative; transition: background .2s;
+}
+.plan-card:hover { background: #222; }
+.plan-card--featured {
+  background: var(--graphite);
+  border-top: 4px solid var(--red);
+}
+.plan-card--featured:hover { background: #333; }
+.plan-card__tag {
+  position: absolute; top: -1px; right: 32px;
+  background: var(--red); color: var(--white);
+  font-family: 'League Spartan', sans-serif; font-weight: 800;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 6px 14px;
+}
+.plan-card__plazo {
+  font-family: 'JetBrains Mono', monospace; font-size: 64px;
+  font-weight: 600; color: var(--red); line-height: 1;
+  letter-spacing: -0.02em;
+}
+.plan-card__plazo small { font-size: 20px; color: var(--fog); font-weight: 400; }
+.plan-card h3 {
+  font-family: 'League Spartan', sans-serif; font-weight: 800;
+  font-size: 22px; text-transform: uppercase; letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+.plan-card__details { display: flex; flex-direction: column; gap: 10px; }
+.plan-card__row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 13px;
+}
+.plan-card__row .k { color: var(--fog); font-family: 'League Spartan', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+.plan-card__row .v { font-family: 'JetBrains Mono', monospace; color: var(--white); font-weight: 500; }
+.plan-card__cta {
+  margin-top: auto;
+  width: 100%;
+  background: var(--red); color: var(--white);
+  font-family: 'League Spartan', sans-serif; font-weight: 800;
+  font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 16px 24px;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: background .15s;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%); padding-right: 28px;
+}
+.plan-card:not(.plan-card--featured) .plan-card__cta { background: var(--graphite); }
+.plan-card:not(.plan-card--featured) .plan-card__cta:hover { background: var(--red); }
+.plan-card__cta:hover { background: var(--red-hot); }
+
+/* Calculator */
+.calc-section {
+  background: var(--graphite); padding: 80px 0;
+}
+.calc-wrap {
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: start;
+}
+@media (max-width: 900px) { .calc-wrap { grid-template-columns: 1fr; } }
+.calc-section h2 { font-size: clamp(36px, 4.5vw, 56px); line-height: 0.9; margin-bottom: 20px; }
+.calc-section h2 em { font-style: normal; color: var(--red); }
+.calc-section p { color: var(--fog); font-size: 15px; margin-bottom: 40px; line-height: 1.6; }
+
+.calc-card {
+  background: var(--black); padding: 36px;
+  border-top: 3px solid var(--red);
+}
+.calc-card h4 {
+  font-family: 'League Spartan', sans-serif; font-weight: 700;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--lime); margin-bottom: 24px;
+}
+.calc-field { margin-bottom: 28px; }
+.calc-field label {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'League Spartan', sans-serif; font-weight: 600;
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--fog); margin-bottom: 10px;
+}
+.calc-field label strong { color: var(--white); font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 600; }
+.calc-slider {
+  width: 100%; -webkit-appearance: none; appearance: none;
+  height: 4px; background: var(--steel); outline: none; border-radius: 2px;
+}
+.calc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 20px; height: 20px;
+  background: var(--lime); cursor: pointer; border-radius: 0;
+  border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.calc-slider::-moz-range-thumb {
+  width: 20px; height: 20px; background: var(--lime);
+  cursor: pointer; border: none; border-radius: 0;
+}
+.calc-terms { display: flex; gap: 4px; margin-top: 8px; }
+.calc-term {
+  flex: 1; padding: 11px 8px;
+  background: rgba(255,255,255,0.05);
+  font-family: 'League Spartan', sans-serif; font-weight: 700;
+  font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); border: none; cursor: pointer;
+  transition: all .15s;
+}
+.calc-term.active { background: var(--lime); color: var(--black); }
+.calc-term:not(.active):hover { background: rgba(255,255,255,0.1); color: var(--white); }
+.calc-result {
+  margin-top: 28px; padding: 24px;
+  background: var(--graphite);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.calc-result__row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-family: 'League Spartan', sans-serif;
+}
+.calc-result__row:last-child { border-bottom: none; padding-top: 16px; }
+.calc-result__row label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fog); font-weight: 600; }
+.calc-result__row .val { font-weight: 800; font-size: 18px; }
+.calc-result__row--total .val { color: var(--lime); font-size: 32px; letter-spacing: -0.01em; }
+.calc-cta {
+  margin-top: 20px; width: 100%;
+  background: var(--red); color: var(--white);
+  font-family: 'League Spartan', sans-serif; font-weight: 800;
+  font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 18px 24px; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: background .15s;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%); padding-right: 34px;
+}
+.calc-cta:hover { background: var(--red-hot); }
+
+/* Requisitos */
+.req-section { background: var(--ink); padding: 80px 0; }
+.req-section h2 { font-size: clamp(36px, 4.5vw, 56px); line-height: 0.9; margin-bottom: 48px; }
+.req-section h2 em { font-style: normal; color: var(--red); }
+.req-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+@media (max-width: 700px) { .req-grid { grid-template-columns: 1fr; } }
+.req-col h3 {
+  font-family: 'League Spartan', sans-serif; font-weight: 800;
+  font-size: 18px; text-transform: uppercase; letter-spacing: 0.02em;
+  margin-bottom: 20px; padding-bottom: 12px;
+  border-bottom: 2px solid var(--red);
+}
+.req-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.req-list li {
+  display: flex; gap: 12px; align-items: flex-start;
+  font-size: 14px; color: var(--bone); line-height: 1.5;
+}
+.req-check {
+  width: 22px; height: 22px; min-width: 22px;
+  background: var(--red); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+}
+.req-note {
+  margin-top: 32px; padding: 20px 24px;
+  background: var(--graphite); border-left: 3px solid var(--lime);
+  font-size: 13px; color: var(--fog); line-height: 1.6;
+}
+.req-note strong { color: var(--white); }
+
+/* Form strip */
+.form-strip { background: var(--black); padding: 80px 0; border-top: 4px solid var(--red); }
+.form-strip__wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+@media (max-width: 900px) { .form-strip__wrap { grid-template-columns: 1fr; } }
+.form-strip h2 { font-size: clamp(32px, 4vw, 52px); line-height: 0.9; margin-bottom: 20px; }
+.form-strip h2 em { font-style: normal; color: var(--red); }
+.form-strip p { color: var(--fog); font-size: 15px; line-height: 1.6; }
+.fin-form { display: flex; flex-direction: column; gap: 14px; }
+.fin-field { display: flex; flex-direction: column; gap: 6px; }
+.fin-field label {
+  font-family: 'League Spartan', sans-serif; font-weight: 700;
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fog);
+}
+.fin-field input, .fin-field select {
+  background: var(--graphite); border: 1px solid var(--steel);
+  padding: 14px 16px; color: var(--white);
+  font-family: 'Poppins', sans-serif; font-size: 14px;
+  transition: border-color .15s; width: 100%;
+}
+.fin-field input:focus, .fin-field select:focus {
+  outline: none; border-color: var(--red);
+}
+.fin-field select option { background: var(--graphite); }
+.fin-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 480px) { .fin-row { grid-template-columns: 1fr; } }
+.fin-submit {
+  width: 100%; background: var(--red); color: var(--white);
+  font-family: 'League Spartan', sans-serif; font-weight: 800;
+  font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 18px 24px; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: background .15s; margin-top: 8px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%); padding-right: 34px;
+}
+.fin-submit:hover { background: var(--red-hot); }
+.fin-disclaimer { font-size: 11px; color: var(--ash); line-height: 1.6; margin-top: 8px; }
+.fin-success { display: none; background: var(--graphite); padding: 32px; text-align: center; }
+.fin-success.visible { display: block; }
+.fin-success h3 { font-size: 24px; margin-bottom: 12px; color: var(--red); }
+.fin-success p { color: var(--fog); font-size: 14px; }
+</style>
+</head>
+<body>
+
+<header class="nav" id="navbar">
+  <div class="wrap nav__inner">
+    <a href="Selectrucks Zapata - Home.html" class="nav__logo">
+      <img src="assets/logo-selectrucks.png" alt="SelecTrucks | Zapata" />
+    </a>
+    <nav class="nav__links hide-mobile">
+      <a href="Selectrucks Zapata - Inventario.html">Inventario</a>
+      <a href="Selectrucks Zapata - Financiamiento.html" style="color:var(--white)">Financiamiento</a>
+      <a href="Selectrucks Zapata - Sucursales.html">Sucursales</a>
+      <a href="Selectrucks Zapata - Contacto.html">Contacto</a>
+    </nav>
+    <div class="nav__cta">
+      <div class="nav__tel hide-mobile">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <strong>800 ZAPATA 1</strong>
+      </div>
+      <a class="btn btn--red" href="Selectrucks Zapata - Inventario.html">Ver unidades</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="wrap">
+    <div class="page-hero__eyebrow"><span class="dot"></span><span class="eyebrow">Financiamiento · Aprobación en 48 horas</span></div>
+    <h1>Financia tu<br/>próximo camión<br/><em>hoy mismo</em></h1>
+    <p>Trabajamos con las principales financieras del país. Enganche desde 20%, plazos hasta 60 meses, y respuesta en menos de 48 horas. Sin burocracia, sin sorpresas.</p>
+    <div class="page-hero__badges">
+      <div class="page-hero__badge">✓ Enganche desde 20%</div>
+      <div class="page-hero__badge">✓ Hasta 60 meses</div>
+      <div class="page-hero__badge">✓ Respuesta en 48h</div>
+      <div class="page-hero__badge">✓ Sin aval en muchos casos</div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANES -->
+<section class="plans-section">
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--red);margin-bottom:16px">— Daimler Financial Services · Financiera de Casa</div>
+    <h2>Crédito <em>directo</em> con<br/>la financiera Freightliner</h2>
+    <div class="plans-grid">
+      <div class="plan-card">
+        <div class="plan-card__plazo">24 <small>meses</small></div>
+        <h3>Plan Ágil</h3>
+        <div class="plan-card__details">
+          <div class="plan-card__row"><span class="k">Enganche mín.</span><span class="v">20%</span></div>
+          <div class="plan-card__row"><span class="k">Tasa fija anual</span><span class="v">15.4%</span></div>
+          <div class="plan-card__row"><span class="k">Comisión apertura</span><span class="v">2%</span></div>
+          <div class="plan-card__row"><span class="k">Ejemplo $1M · 20% eng.</span><span class="v">~$38,950/mes</span></div>
+          <div class="plan-card__row"><span class="k">Financiera</span><span class="v">Daimler Financial Services</span></div>
+        </div>
+        <button class="plan-card__cta" onclick="document.getElementById('form-fin').scrollIntoView({behavior:'smooth'})">
+          Solicitar este plan →
+        </button>
+      </div>
+
+      <div class="plan-card plan-card--featured">
+        <div class="plan-card__tag">Más popular</div>
+        <div class="plan-card__plazo">36 <small>meses</small></div>
+        <h3>Plan Balance</h3>
+        <div class="plan-card__details">
+          <div class="plan-card__row"><span class="k">Enganche mín.</span><span class="v">20%</span></div>
+          <div class="plan-card__row"><span class="k">Tasa fija anual</span><span class="v">15.9%</span></div>
+          <div class="plan-card__row"><span class="k">Comisión apertura</span><span class="v">2%</span></div>
+          <div class="plan-card__row"><span class="k">Ejemplo $1M · 20% eng.</span><span class="v">~$27,900/mes</span></div>
+          <div class="plan-card__row"><span class="k">Financiera</span><span class="v">Daimler Financial Services</span></div>
+        </div>
+        <button class="plan-card__cta" onclick="document.getElementById('form-fin').scrollIntoView({behavior:'smooth'})">
+          Solicitar este plan →
+        </button>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-card__plazo">48 <small>meses</small></div>
+        <h3>Plan Largo</h3>
+        <div class="plan-card__details">
+          <div class="plan-card__row"><span class="k">Enganche mín.</span><span class="v">20%</span></div>
+          <div class="plan-card__row"><span class="k">Tasa variable</span><span class="v">16.4% (TIIE+9%)</span></div>
+          <div class="plan-card__row"><span class="k">Comisión apertura</span><span class="v">2%</span></div>
+          <div class="plan-card__row"><span class="k">Ejemplo $1M · 20% eng.</span><span class="v">~$22,850/mes</span></div>
+          <div class="plan-card__row"><span class="k">Financiera</span><span class="v">Daimler Financial Services</span></div>
+        </div>
+        <button class="plan-card__cta" onclick="document.getElementById('form-fin').scrollIntoView({behavior:'smooth'})">
+          Solicitar este plan →
+        </button>
+      </div>
+    </div>
+    <div style="margin-top:24px;padding:20px 28px;background:var(--graphite);border-left:3px solid var(--lime);display:flex;gap:16px;align-items:flex-start;">
+      <div style="font-size:22px;line-height:1;">ℹ️</div>
+      <div>
+        <div style="font-family:'League Spartan',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Condición Daimler: Antigüedad + Plazo ≤ 10 años</div>
+        <div style="font-size:13px;color:var(--fog);line-height:1.6;">La suma de la antigüedad del camión y el plazo del crédito no puede superar 10 años. Ejemplo: una unidad 2017 (9 años) solo califica a plazo máximo de 12 meses bajo esta política. Consulta con tu asesor para unidades de mayor antigüedad.</div>
+      </div>
+    </div>
+    <div style="margin-top:48px;">
+      <div class="eyebrow" style="color:var(--fog);margin-bottom:16px">— También disponible</div>
+      <h3 style="font-size:clamp(22px,3vw,36px);line-height:0.95;margin-bottom:20px;">Arrendamiento <em style="color:var(--red);font-style:normal;">Puro</em></h3>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--graphite);">
+        <div style="background:var(--ink);padding:28px 24px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:40px;font-weight:600;color:var(--red);line-height:1;margin-bottom:12px;">24<small style="font-size:16px;color:var(--fog);font-weight:400;"> m</small></div>
+          <div style="font-size:13px;color:var(--fog);line-height:1.6;margin-bottom:8px;">Renta fija mensual · Valor residual 30–40% al vencimiento</div>
+          <div style="font-family:'League Spartan',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ash);">Residual opcional al final</div>
+        </div>
+        <div style="background:var(--ink);padding:28px 24px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:40px;font-weight:600;color:var(--red);line-height:1;margin-bottom:12px;">36<small style="font-size:16px;color:var(--fog);font-weight:400;"> m</small></div>
+          <div style="font-size:13px;color:var(--fog);line-height:1.6;margin-bottom:8px;">Renta fija mensual · Valor residual 25–35% al vencimiento</div>
+          <div style="font-family:'League Spartan',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ash);">Residual opcional al final</div>
+        </div>
+        <div style="background:var(--ink);padding:28px 24px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:40px;font-weight:600;color:var(--red);line-height:1;margin-bottom:12px;">48<small style="font-size:16px;color:var(--fog);font-weight:400;"> m</small></div>
+          <div style="font-size:13px;color:var(--fog);line-height:1.6;margin-bottom:8px;">Renta fija mensual · Valor residual 15–20% al vencimiento</div>
+          <div style="font-family:'League Spartan',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--ash);">Residual opcional al final</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULADORA -->
+<section class="calc-section">
+  <div class="wrap calc-wrap">
+    <div>
+      <div class="eyebrow" style="color:var(--red);margin-bottom:16px">— Calculadora</div>
+      <h2>Calcula tu <em>cuota</em><br/>mensual</h2>
+      <p>Ajusta los parámetros y obtén una estimación inmediata. Los resultados son orientativos; el monto exacto depende de la aprobación de la financiera.</p>
+      <div style="margin-top:40px;display:flex;flex-direction:column;gap:20px;">
+        <div style="padding:24px;background:var(--black);border-left:3px solid var(--red);">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fog);letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;">Tasa de aprobación</div>
+          <div style="font-family:'League Spartan',sans-serif;font-weight:800;font-size:48px;color:var(--red);">94%</div>
+          <div style="font-size:13px;color:var(--fog);margin-top:4px;">de solicitudes en primeras 48 horas</div>
+        </div>
+        <div style="padding:24px;background:var(--black);border-left:3px solid var(--lime);">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fog);letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;">Financieras aliadas</div>
+          <div style="font-family:'League Spartan',sans-serif;font-weight:800;font-size:48px;color:var(--lime);">8+</div>
+          <div style="font-size:13px;color:var(--fog);margin-top:4px;">instituciones financieras asociadas</div>
+        </div>
+      </div>
+    </div>
+    <div class="calc-card">
+      <h4>◆ Calculadora de cuota</h4>
+      <div class="calc-field">
+        <label>Valor del vehículo <strong id="val-precio">$1,000,000</strong></label>
+        <input type="range" class="calc-slider" id="sl-precio" min="400000" max="2500000" step="50000" value="1000000" />
+      </div>
+      <div class="calc-field">
+        <label>Enganche <strong id="val-enganche">25%</strong></label>
+        <input type="range" class="calc-slider" id="sl-enganche" min="10" max="50" step="5" value="25" />
+      </div>
+      <div class="calc-field">
+        <label>Plazo</label>
+        <div class="calc-terms">
+          <button class="calc-term" data-months="24">24 m</button>
+          <button class="calc-term active" data-months="36">36 m</button>
+          <button class="calc-term" data-months="48">48 m</button>
+          <button class="calc-term" data-months="60">60 m</button>
+        </div>
+      </div>
+      <div class="calc-result">
+        <div class="calc-result__row">
+          <label>Precio del vehículo</label><span class="val" id="res-precio">$1,000,000</span>
+        </div>
+        <div class="calc-result__row">
+          <label>Enganche estimado</label><span class="val" id="res-enganche">$250,000</span>
+        </div>
+        <div class="calc-result__row">
+          <label>Monto a financiar</label><span class="val" id="res-financiar">$750,000</span>
+        </div>
+        <div class="calc-result__row calc-result__row--total">
+          <label>Cuota mensual est.</label><span class="val" id="res-cuota">$28,600</span>
+        </div>
+      </div>
+      <button class="calc-cta" onclick="document.getElementById('form-fin').scrollIntoView({behavior:'smooth'})">
+        Solicitar pre-aprobación →
+      </button>
+      <p style="font-size:11px;color:var(--ash);margin-top:12px;line-height:1.6;font-family:'JetBrains Mono',monospace;">*Cálculo orientativo con tasa referencial Daimler Financial Services. 24m: 15.4% fija · 36m: 15.9% fija · 48m: 16.4% variable (TIIE+9%). Comisión apertura 2% no incluida. Sujeto a aprobación crediticia.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REQUISITOS -->
+<section class="req-section">
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--red);margin-bottom:16px">— Documentación</div>
+    <h2>Requisitos para <em>persona física</em><br/>y <em>moral</em></h2>
+    <div class="req-grid">
+      <div class="req-col">
+        <h3>Persona Física</h3>
+        <ul class="req-list">
+          <li><span class="req-check">✓</span><span>Identificación oficial vigente (INE/Pasaporte)</span></li>
+          <li><span class="req-check">✓</span><span>RFC con Constancia de Situación Fiscal</span></li>
+          <li><span class="req-check">✓</span><span>Comprobante de domicilio (no mayor a 3 meses)</span></li>
+          <li><span class="req-check">✓</span><span>Estados de cuenta bancarios (últimos 3 meses)</span></li>
+          <li><span class="req-check">✓</span><span>Declaración de ISR del último ejercicio fiscal</span></li>
+          <li><span class="req-check">✓</span><span>Acreditar actividad económica o ingresos</span></li>
+        </ul>
+        <div class="req-note">
+          <strong>Sin aval disponible</strong> para clientes con buen historial crediticio en Buró de Crédito. Consulta con tu asesor.
+        </div>
+      </div>
+      <div class="req-col">
+        <h3>Persona Moral</h3>
+        <ul class="req-list">
+          <li><span class="req-check">✓</span><span>Acta constitutiva y poder notarial del representante</span></li>
+          <li><span class="req-check">✓</span><span>RFC de la empresa y Constancia de Situación Fiscal</span></li>
+          <li><span class="req-check">✓</span><span>Identificación oficial del representante legal</span></li>
+          <li><span class="req-check">✓</span><span>Estados financieros auditados (últimos 2 ejercicios)</span></li>
+          <li><span class="req-check">✓</span><span>Estados de cuenta empresariales (últimos 6 meses)</span></li>
+          <li><span class="req-check">✓</span><span>Declaraciones de ISR (últimos 2 ejercicios)</span></li>
+        </ul>
+        <div class="req-note">
+          <strong>Flota nueva:</strong> Condiciones especiales para empresas que adquieren 3 o más unidades. Pregunta por nuestro programa de flota.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULARIO -->
+<section class="form-strip" id="form-fin">
+  <div class="wrap form-strip__wrap">
+    <div>
+      <div class="eyebrow" style="color:var(--red);margin-bottom:16px">— Pre-solicitud</div>
+      <h2>Inicia tu <em>solicitud</em><br/>en 2 minutos</h2>
+      <p>Completa el formulario y un asesor especializado te contactará en menos de 24 horas para revisar tu caso y encontrar la mejor opción.</p>
+      <div style="margin-top:40px;padding:24px 28px;background:var(--graphite);border-left:3px solid var(--red);">
+        <div style="font-family:'League Spartan',sans-serif;font-weight:800;font-size:18px;margin-bottom:8px;">¿Prefieres hablar ahora?</div>
+        <div style="display:flex;gap:16px;margin-top:16px;flex-wrap:wrap;">
+          <a href="tel:8009272821" style="display:flex;gap:8px;align-items:center;padding:12px 20px;background:var(--ink);font-family:'League Spartan',sans-serif;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;transition:background .15s;" onmouseover="this.style.background='var(--red)'" onmouseout="this.style.background='var(--ink)'">
+            📞 800 ZAPATA 1
+          </a>
+          <a href="https://wa.me/5215555550101" target="_blank" style="display:flex;gap:8px;align-items:center;padding:12px 20px;background:#25D366;color:#fff;font-family:'League Spartan',sans-serif;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;">
+            💬 WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <form class="fin-form" id="fin-form" onsubmit="submitFin(event)">
+        <div class="fin-row">
+          <div class="fin-field">
+            <label>Nombre *</label>
+            <input type="text" placeholder="Tu nombre completo" required />
+          </div>
+          <div class="fin-field">
+            <label>Apellidos *</label>
+            <input type="text" placeholder="Apellidos" required />
+          </div>
+        </div>
+        <div class="fin-row">
+          <div class="fin-field">
+            <label>Teléfono *</label>
+            <input type="tel" placeholder="(55) 1234-5678" required />
+          </div>
+          <div class="fin-field">
+            <label>Email *</label>
+            <input type="email" placeholder="correo@empresa.com" required />
+          </div>
+        </div>
+        <div class="fin-field">
+          <label>RFC de la empresa / persona</label>
+          <input type="text" placeholder="XXXX000000XXX" maxlength="13" />
+        </div>
+        <div class="fin-row">
+          <div class="fin-field">
+            <label>Sucursal de interés</label>
+            <select>
+              <option value="">Seleccionar...</option>
+              <option>Tlalnepantla</option>
+              <option>CDMX Aeropuerto</option>
+              <option>Monterrey</option>
+              <option>Guadalajara</option>
+              <option>GDL Occidente</option>
+              <option>León</option>
+              <option>Querétaro</option>
+              <option>Tampico</option>
+              <option>Celaya</option>
+            </select>
+          </div>
+          <div class="fin-field">
+            <label>Unidad de interés</label>
+            <select>
+              <option value="">Seleccionar...</option>
+              <option>Freightliner Cascadia</option>
+              <option>Kenworth T680</option>
+              <option>Volvo VNL 860</option>
+              <option>Peterbilt 579</option>
+              <option>International LT</option>
+              <option>Otro modelo</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="fin-submit">Enviar pre-solicitud →</button>
+        <p class="fin-disclaimer">Al enviar acepta nuestro Aviso de Privacidad. Sus datos se usan únicamente para contactarle sobre su solicitud de financiamiento.</p>
+      </form>
+      <div class="fin-success" id="fin-success">
+        <div style="font-size:48px;margin-bottom:16px;color:var(--red)">✓</div>
+        <h3>¡Solicitud enviada!</h3>
+        <p>Un asesor de financiamiento se pondrá en contacto contigo en menos de 24 horas para revisar tu caso.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__logo">
+        <img src="assets/logo-selectrucks.png" alt="SelecTrucks Zapata" />
+        <p>Marketplace de camiones seminuevos verificados de Corporación Zapata. Más de 306 unidades en 9 sucursales.</p>
+        <div class="footer__social">
+          <a href="#" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5-.1-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3 0-.2-.2-.3-.5-.4zM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.4A10 10 0 1 0 12 2z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.87v-6.99H7.9V12h2.5V9.8c0-2.47 1.47-3.83 3.72-3.83 1.08 0 2.21.19 2.21.19v2.43h-1.24c-1.23 0-1.61.76-1.61 1.54V12h2.73l-.44 2.89h-2.29v6.99A10 10 0 0 0 22 12z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h5>Inventario</h5>
+        <ul><li><a href="Selectrucks Zapata - Inventario.html">Ver todo</a></li><li><a href="#">Tractocamiones</a></li><li><a href="#">Volteos</a></li></ul>
+      </div>
+      <div class="footer__col">
+        <h5>Empresa</h5>
+        <ul>
+          <li><a href="Selectrucks Zapata - Nosotros.html">Nosotros</a></li>
+          <li><a href="Selectrucks Zapata - Sucursales.html">Sucursales</a></li>
+          <li><a href="Selectrucks Zapata - Financiamiento.html">Financiamiento</a></li>
+          <li><a href="Selectrucks Zapata - Contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer__col footer__contact">
+        <h5>Contacto</h5>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span><strong>800 ZAPATA 1</strong></span></li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16"/><polyline points="22,6 12,13 2,6"/></svg><span>ventas@selectrucks.mx</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Corporación Zapata S.A. de C.V. — Todos los derechos reservados</span>
+      <div class="footer__bottom-links"><a href="#">Aviso de Privacidad</a><a href="#">Términos y Condiciones</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  nav.style.background = window.scrollY > 40 ? 'rgba(10,10,10,0.96)' : 'rgba(17,17,17,0.92)';
+});
+
+// Calculator logic
+const slPrecio   = document.getElementById('sl-precio');
+const slEnganche = document.getElementById('sl-enganche');
+let plazo = 36;
+// Tasas reales Daimler Financial Services (actualizadas ene 2026)
+const TASAS = { 12: 0.149/12, 24: 0.154/12, 36: 0.159/12, 48: 0.164/12, 60: 0.164/12 };
+const TASA = TASAS[plazo];
+
+function fmt(n) { return '$' + Math.round(n).toLocaleString('es-MX'); }
+function calcCuota(monto, meses) {
+  const r = TASAS[meses] || TASAS[48];
+  return monto * (r * Math.pow(1+r, meses)) / (Math.pow(1+r, meses) - 1);
+}
+function update() {
+  const precio   = +slPrecio.value;
+  const pctEng   = +slEnganche.value;
+  const enganche = precio * pctEng / 100;
+  const financiar = precio - enganche;
+  const cuota    = calcCuota(financiar, plazo);
+  document.getElementById('val-precio').textContent  = fmt(precio);
+  document.getElementById('val-enganche').textContent= pctEng + '%';
+  document.getElementById('res-precio').textContent  = fmt(precio);
+  document.getElementById('res-enganche').textContent= fmt(enganche);
+  document.getElementById('res-financiar').textContent= fmt(financiar);
+  document.getElementById('res-cuota').textContent   = fmt(cuota);
+}
+slPrecio.addEventListener('input', update);
+slEnganche.addEventListener('input', update);
+document.querySelectorAll('.calc-term').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.calc-term').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    plazo = +btn.dataset.months;
+    update();
+  });
+});
+update();
+
+function submitFin(e) {
+  e.preventDefault();
+  document.getElementById('fin-form').style.display = 'none';
+  document.getElementById('fin-success').classList.add('visible');
+}
+</script>
+</body>
+</html>

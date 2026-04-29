@@ -1,0 +1,32 @@
+# ─── Sistema Operativo ───────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+*.lnk
+
+# ─── Editor / IDE ────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ─── Archivos de respaldo locales ────────────────────────────────
+_backup/
+
+# ─── Uploads / activos de marca (no van en git — van en Drive) ───
+# Compartir via Google Drive con el equipo
+uploads/
+
+# ─── Variables de entorno ────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ─── Logs ────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+
+# ─── Dependencias (si se agrega un bundler más adelante) ─────────
+node_modules/
+dist/
+build/
