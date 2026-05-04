@@ -146,55 +146,85 @@ function Trust() {
 // ─────────────────────────────────────────────────────────── Branches
 function Branches() {
   const [sel, setSel] = React.useState(BRANCHES[0]);
+  const WA_NUM = '521XXXXXXXXXX';
+  const waMsg = encodeURIComponent(
+    `Hola, me interesa visitar la sucursal ${sel.name} (${sel.state}) y conocer las unidades disponibles.`
+  );
   return (
     <section className="branches section-pad" id="sucursales">
       <div className="wrap">
         <div className="branches__head">
           <div>
             <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: 16 }}>— Red nacional</div>
-            <h2>9 sucursales <em>en todo México</em></h2>
+            <h2>9 sucursales, <em>un solo estándar</em></h2>
           </div>
-          <p style={{ color: 'var(--fog)', maxWidth: 420, fontSize: 15 }}>
-            Visita la sucursal más cercana para inspeccionar tu unidad en persona o coordina una videollamada con un asesor.
+          <p className="branches__sub">
+            Más de 300 unidades verificadas en 6 estados. Visita en persona o coordina una videollamada con el asesor de tu sucursal.
           </p>
         </div>
         <div className="branches__layout">
           <div className="branches__list">
             {BRANCHES.map(b => (
               <button key={b.id}
-                className={`branch ${sel.id === b.id ? 'is-active' : ''}`}
-                onClick={() => setSel(b)}>
-                <div>
-                  <div className="branch__name">{b.name}</div>
-                  <div className="branch__meta">
+                className={`branch-item ${sel.id === b.id ? 'branch-item--active' : ''}`}
+                onClick={() => setSel(b)}
+                data-branch={b.id}>
+                <div className="branch-item__info">
+                  <div className="branch-item__name">{b.name}</div>
+                  <div className="branch-item__state">
                     <span>{b.state}</span>
-                    {b.flagship && <span>· Flagship</span>}
+                    {b.flagship && <span className="branch-item__flag">· Flagship</span>}
                   </div>
                 </div>
-                <div className="branch__count">{b.count}</div>
+                <div className="branch-item__count-wrap">
+                  <div className="branch-item__num">{b.count}</div>
+                  <div className="branch-item__unit">unidades</div>
+                </div>
               </button>
             ))}
           </div>
           <aside className="branches__detail">
-            <h3>{sel.name}</h3>
-            <div className="loc"><Icon.Pin /> {sel.state}, México</div>
-            <div className="branches__map" aria-hidden="true"></div>
-            <div className="stats">
-              <div>
+            <div className="branches__detail-header">
+              <h3>{sel.name}</h3>
+              <div className="branches__loc"><Icon.Pin /> {sel.state}, México</div>
+            </div>
+            <div className="branches__map" aria-label={`Zona de cobertura — ${sel.name}`}>
+              <span className="branches__map-label">{sel.name}<br />{sel.state}</span>
+            </div>
+            <div className="branches__stats">
+              <div className="branches__stat">
                 <strong>{sel.count}</strong>
-                <span>Unidades en piso</span>
+                <span>Unidades disponibles</span>
               </div>
-              <div>
+              <div className="branches__stat">
                 <strong>{sel.flagship ? 'Flagship' : 'Sucursal'}</strong>
-                <span>Tipo</span>
+                <span>Tipo de sede</span>
               </div>
             </div>
-            <p style={{ fontSize: 13, color: 'var(--fog)', marginBottom: 20, fontFamily: 'JetBrains Mono, monospace' }}>
-              {sel.hours}
-            </p>
-            <div className="contact">
-              <a href={`tel:${sel.tel.replace(/\s/g,'')}`}><Icon.Phone /> {sel.tel}</a>
-              <a href="#"><Icon.Wa /> WhatsApp</a>
+            <p className="branches__hours">{sel.hours}</p>
+            <div className="branches__actions">
+              <a
+                href={`/inventario?sucursal=${sel.id}`}
+                className="btn btn--red branches__cta-inv"
+                data-branch={sel.id}
+                data-action="ver-inventario-sucursal">
+                Ver unidades en {sel.name}
+              </a>
+              <div className="branches__contact">
+                <a href={`tel:${sel.tel.replace(/\s/g,'')}`}
+                   className="branches__tel"
+                   data-branch={sel.id}>
+                  <Icon.Phone /> {sel.tel}
+                </a>
+                <a href={`https://wa.me/${WA_NUM}?text=${waMsg}`}
+                   className="branches__wa"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   data-branch={sel.id}
+                   data-action="whatsapp-sucursal">
+                  <Icon.Wa /> WhatsApp
+                </a>
+              </div>
             </div>
           </aside>
         </div>
@@ -424,4 +454,258 @@ window.FinStrip = FinStrip;
 window.Process = Process;
 window.CTAStrip = CTAStrip;
 window.Footer = Footer;
+
+// ─── WhatDefinesUs — Confianza antes de arrancar ─────────────────────────────
+function WhatDefinesUs() {
+  const pillars = [
+    {
+      stat: '65',
+      unit: 'Puntos de inspección',
+      title: '65 Puntos de Inspección',
+      body: 'Revisamos sistemas clave para que tomes una decisión con mayor certeza desde el primer contacto.',
+    },
+    {
+      stat: '90',
+      unit: 'Días garantía tren motriz',
+      title: '90 Días en Tren Motriz',
+      body: 'Garantía incluida en componentes clave del tren motriz para que arranques con mayor tranquilidad.',
+    },
+    {
+      icon: (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>),
+      title: 'Respaldo Corporación Zapata',
+      body: 'Compra con el respaldo de una empresa con trayectoria en vehículos comerciales y atención profesional.',
+    },
+    {
+      icon: (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>),
+      title: 'Asesoría y Financiamiento',
+      body: 'Te orientamos para encontrar la unidad adecuada y conocer alternativas de financiamiento sujetas a aprobación.',
+    },
+  ];
+
+  return (
+    <section className="what-defines section-pad">
+      <div className="wrap">
+        <div className="what-defines__header">
+          <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: 18 }}>Confianza antes de arrancar</div>
+          <h2>Respaldo que se nota <em>en cada unidad</em></h2>
+          <p className="what-defines__sub">
+            Camiones seminuevos listos para trabajar, con inspección previa, garantía en tren motriz y el respaldo de Corporación Zapata.
+          </p>
+        </div>
+        <div className="what-defines__grid">
+          {pillars.map((p, i) => (
+            <div className={`what-defines__card${p.stat ? ' what-defines__card--stat' : ''}`} key={i}>
+              {p.stat ? (
+                <div className="what-defines__statblock">
+                  <span className="what-defines__num">{p.stat}</span>
+                  <span className="what-defines__unit">{p.unit}</span>
+                </div>
+              ) : (
+                <div className="what-defines__icon">{p.icon}</div>
+              )}
+              <h4>{p.title}</h4>
+              <p>{p.body}</p>
+            </div>
+          ))}
+        </div>
+        <div className="what-defines__footer">
+          <p className="what-defines__note">Condiciones aplicables según unidad. Consulta términos con tu asesor.</p>
+          <a href="Selectrucks%20Zapata%20-%20Inventario.html" className="btn btn--ghost">
+            Ver unidades disponibles <Icon.Arrow />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── ZapataSupport — Respaldo Corporación Zapata ─────────────────────────────
+function ZapataSupport() {
+  return (
+    <section className="zapata-support section-pad">
+      <div className="wrap">
+        <div className="zapata-support__inner">
+          <div className="zapata-support__text">
+            <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: 18 }}>El respaldo detrás de Selectrucks</div>
+            <h2>70 años respaldando al <em>transporte en México</em></h2>
+            <p>Desde 1956, Corporación Zapata ha sido parte del desarrollo del transporte y la movilidad en México. Con décadas de experiencia y presencia nacional, Selectrucks nace como la plataforma de camiones seminuevos que combina disponibilidad, confianza y respaldo institucional.</p>
+            <p>Detrás de cada unidad hay una empresa con trayectoria, estructura comercial y visión de largo plazo para acompañar a transportistas y empresas en una compra más segura.</p>
+            <a href="Selectrucks%20Zapata%20-%20Nosotros.html" className="btn btn--ghost" style={{ marginTop: 32 }}>
+              Conoce nuestra historia <Icon.Arrow />
+            </a>
+          </div>
+          <div className="zapata-support__visual">
+            <div className="zapata-support__img-frame">
+              <img
+                src="assets/Edificio Zapata.jpeg"
+                alt="Sede corporativa de Corporación Zapata"
+                className="zapata-support__img"
+              />
+              <div className="zapata-support__img-overlay" aria-hidden="true" />
+              <div className="zapata-support__caption">
+                <span className="zapata-support__caption-label">Corporación Zapata</span>
+                <span className="zapata-support__caption-sub">Desde 1956 · Sede corporativa</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── StatsBanner — 4 datos animados ──────────────────────────────────────────
+function StatsBanner() {
+  const stats = [
+    { target: 70, suffix: ' años', label: 'Trayectoria Corporación Zapata' },
+    { target: 65, suffix: ' pts', label: 'Puntos de inspección por unidad' },
+    { target: 90, suffix: ' días', label: 'Garantía Tren Motriz incluida' },
+    { target: 9,  suffix: '',      label: 'Sucursales en México' },
+  ];
+  return (
+    <section className="stats-banner">
+      <div className="container">
+        <div className="stats-banner__grid">
+          {stats.map((s, i) => (
+            <div className="stats-banner__item" key={i}>
+              <div className="stats-banner__num">
+                <AnimatedCounter target={s.target} suffix={s.suffix} />
+              </div>
+              <div className="stats-banner__label">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── HomeFeaturedCard — card compacta para home ───────────────────────────────
+function HomeFeaturedCard({ unit, onQuote }) {
+  const handleDetail = (e) => { e.preventDefault(); onQuote(unit); };
+  return (
+    <article
+      className="hfc"
+      data-event="unit_view"
+      data-unit-id={unit.id}
+      data-unit-model={`${unit.brand} ${unit.model}`}
+      data-branch={unit.branch}
+    >
+      <div className="hfc__img-wrap">
+        {unit.image ? (
+          <img
+            src={unit.image}
+            alt={`${unit.brand} ${unit.model} ${unit.year}`}
+            className="hfc__img"
+            loading="lazy"
+          />
+        ) : (
+          <div className="hfc__img-placeholder">
+            <Icon.Truck />
+            <span>{unit.brand} {unit.model}</span>
+          </div>
+        )}
+        <div className="hfc__badges">
+          <span className="hfc__badge hfc__badge--branch">
+            <Icon.Pin />{unit.branch}
+          </span>
+          {unit.status === 'Nuevo ingreso' && <span className="hfc__badge hfc__badge--new">Nuevo</span>}
+          {unit.status === 'Oferta' && <span className="hfc__badge hfc__badge--offer">Oferta</span>}
+          {unit.warranty && (
+            <span className="hfc__badge hfc__badge--warranty" title="Garantía tren motriz incluida">
+              <Icon.Shield />
+            </span>
+          )}
+        </div>
+      </div>
+      <div className="hfc__body">
+        <div className="hfc__title">
+          <span className="hfc__brand">{unit.brand} {unit.model}</span>
+          <span className="hfc__year">{unit.year}</span>
+        </div>
+        <div className="hfc__specs">
+          <span>{unit.km} km</span>
+          <span>{unit.engine}</span>
+          <span>{unit.type}</span>
+        </div>
+        <div className="hfc__price-row">
+          <div className="hfc__price">
+            <span className="hfc__price-label">Contado · IVA incluido</span>
+            <strong>{fmtMXN(unit.price)}</strong>
+            <small>desde {fmtMXN(unit.monthly)} / mes</small>
+          </div>
+          <a
+            className="hfc__cta"
+            href="#"
+            onClick={handleDetail}
+            data-event="unit_detail_click"
+            data-source="home_featured_units"
+          >
+            Ver detalles <Icon.Arrow />
+          </a>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+// ─── FeaturedUnits — Unidades más buscadas ───────────────────────────────────
+function FeaturedUnits({ onQuote }) {
+  const featured = UNITS.filter(u => u.featured).slice(0, 3);
+  return (
+    <section className="featured-units section-pad">
+      <div className="wrap">
+        <div className="featured-units__header">
+          <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: 18 }}>Inventario destacado</div>
+          <h2>Unidades más <em>buscadas</em></h2>
+          <p className="featured-units__sub">Unidades listas para trabajar, con disponibilidad y respaldo Selectrucks Zapata.</p>
+        </div>
+        <div className="featured-units__grid">
+          {featured.map(u => <HomeFeaturedCard key={u.id} unit={u} onQuote={onQuote} />)}
+        </div>
+        <div className="featured-units__foot">
+          <a
+            href="Selectrucks%20Zapata%20-%20Inventario.html"
+            className="btn btn--ghost"
+            data-event="inventory_click"
+            data-source="home_featured_units"
+          >
+            Ver inventario completo <Icon.Arrow />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── WhatsAppCTA — botón flotante persistente ────────────────────────────────
+// Reemplazar WHATSAPP_NUMBER por el número oficial del chatbot Juan Martínez
+const WHATSAPP_NUMBER = '521XXXXXXXXXX';
+const WHATSAPP_MSG = encodeURIComponent(
+  'Hola, estoy buscando un camión seminuevo. ¿Me pueden ayudar a encontrar una unidad disponible en Selectrucks Zapata?'
+);
+function WhatsAppCTA() {
+  return (
+    <a
+      className="whatsapp-cta"
+      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contactar por WhatsApp"
+      data-event="whatsapp_click"
+      data-source="floating_home_cta"
+      data-intent="general_inventory"
+    >
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </a>
+  );
+}
+
+window.WhatDefinesUs = WhatDefinesUs;
+window.ZapataSupport = ZapataSupport;
+window.StatsBanner = StatsBanner;
+window.FeaturedUnits = FeaturedUnits;
+window.WhatsAppCTA = WhatsAppCTA;
 window.ContactModal = ContactModal;

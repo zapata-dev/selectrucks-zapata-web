@@ -23,7 +23,7 @@ const PRICES = [
 ];
 
 const UNITS = [
-  { id: 1,  brand: 'Freightliner', model: 'Cascadia',   year: 2020, km: '420,000', engine: 'DD15 · 505hp', type: 'Tractocamión',    price: 1200000, monthly: 28490, branch: 'Querétaro',          featured: true, warranty: true, status: 'Disponible' },
+  { id: 1,  brand: 'Freightliner', model: 'Cascadia',   year: 2020, km: '420,000', engine: 'DD15 · 505hp', type: 'Tractocamión',    price: 1200000, monthly: 28490, branch: 'Querétaro',          featured: true, warranty: true, status: 'Disponible', image: 'assets/truck-cascadia-square.png' },
   { id: 2,  brand: 'Kenworth',     model: 'T680',       year: 2021, km: '380,000', engine: 'PACCAR MX-13', type: 'Tractocamión',    price: 1450000, monthly: 34200, branch: 'Monterrey',          featured: true, warranty: true, status: 'Disponible' },
   { id: 3,  brand: 'International',model: 'LT625',      year: 2019, km: '510,000', engine: 'A26 · 475hp',  type: 'Tractocamión',    price: 980000,  monthly: 23100, branch: 'Guadalajara',        featured: false,warranty: true, status: 'Disponible' },
   { id: 4,  brand: 'Volvo',        model: 'VNL 860',    year: 2022, km: '195,000', engine: 'D13 · 500hp',  type: 'Tractocamión',    price: 1680000, monthly: 39600, branch: 'Tlalnepantla',       featured: true, warranty: true, status: 'Nuevo ingreso' },

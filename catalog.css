@@ -584,3 +584,111 @@
   .results__toolbar { flex-direction: column; align-items: stretch; }
   .results__sort-btn { min-width: 0; width: 100%; }
 }
+
+/* ─── Brand filter logos ────────────────────────────────────── */
+.filter-brand-logo {
+  width: 36px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--white);
+  padding: 2px 4px;
+}
+.filter-brand-logo__img {
+  max-width: 32px;
+  max-height: 18px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* ─── Inventory finance banner ──────────────────────────────── */
+.inv-fin-banner {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 28px;
+  align-items: center;
+  background: var(--graphite);
+  border-left: 4px solid var(--red);
+  padding: 22px 28px;
+  margin-bottom: 20px;
+}
+.inv-fin-banner__content {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.inv-fin-banner__accent {
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 900;
+  font-size: 52px;
+  color: var(--red);
+  line-height: 1;
+  opacity: 0.3;
+  flex-shrink: 0;
+  user-select: none;
+}
+.inv-fin-banner__eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 4px;
+}
+.inv-fin-banner__title {
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.inv-fin-banner__sub {
+  font-size: 13px;
+  color: var(--fog);
+  line-height: 1.5;
+}
+.inv-fin-banner__benefits {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  border-left: 1px solid rgba(255,255,255,0.08);
+  padding-left: 28px;
+}
+.inv-fin-banner__benefits li {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  color: var(--bone);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  white-space: nowrap;
+}
+.inv-fin-banner__benefits li span {
+  color: var(--red);
+  font-weight: 700;
+  font-size: 13px;
+}
+.inv-fin-banner__cta-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.inv-fin-banner__cta { white-space: nowrap; }
+.inv-fin-banner__note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ash);
+  letter-spacing: 0.05em;
+  text-align: center;
+  max-width: 180px;
+  line-height: 1.4;
+}

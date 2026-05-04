@@ -30,11 +30,17 @@ function FilterGroup({ title, children, defaultOpen = true }) {
   );
 }
 
-function CheckOpt({ checked, onChange, label, count }) {
+function CheckOpt({ checked, onChange, label, count, logo }) {
   return (
     <label className="fopt">
       <input type="checkbox" checked={checked} onChange={onChange} />
       <span className="fopt__box"></span>
+      {logo && (
+        <span className="filter-brand-logo">
+          <img src={logo} alt="" className="filter-brand-logo__img"
+            onError={(e) => { e.target.closest('.filter-brand-logo').style.display = 'none'; }} />
+        </span>
+      )}
       <span className="fopt__label">{label}</span>
       <span className="fopt__count">{count}</span>
     </label>
@@ -90,11 +96,15 @@ function FiltersPanel({ filters, setFilters, onClose, mobileOpen, onApply, resul
       </div>
 
       <FilterGroup title="Marca">
-        {BRANDS.map(b => (
-          <CheckOpt key={b} label={b} count={brandCounts[b]}
-            checked={(filters.brand || []).includes(b)}
-            onChange={() => toggle('brand', b)} />
-        ))}
+        {BRANDS.map(b => {
+          const slug = b.toLowerCase().replace(/[\s]+/g, '-').replace(/[^a-z0-9-]/g, '');
+          return (
+            <CheckOpt key={b} label={b} count={brandCounts[b]}
+              checked={(filters.brand || []).includes(b)}
+              onChange={() => toggle('brand', b)}
+              logo={`assets/logos/${slug}.png`} />
+          );
+        })}
       </FilterGroup>
 
       <FilterGroup title="Tipo de unidad">
@@ -288,6 +298,32 @@ function Catalog({ onContact }) {
                       <button className={view === 'grid' ? 'is-active' : ''} onClick={() => setView('grid')} aria-label="Cuadrícula"><GridIcon /></button>
                       <button className={view === 'list' ? 'is-active' : ''} onClick={() => setView('list')} aria-label="Lista"><ListIcon /></button>
                     </div>
+                  </div>
+                </div>
+
+                <div className="inv-fin-banner">
+                  <div className="inv-fin-banner__content">
+                    <div className="inv-fin-banner__accent" aria-hidden="true">$</div>
+                    <div>
+                      <p className="inv-fin-banner__eyebrow">Financiamiento disponible</p>
+                      <h3 className="inv-fin-banner__title">¿Necesitas financiamiento?</h3>
+                      <p className="inv-fin-banner__sub">Evaluamos opciones de pago adaptadas a tu operación. Sin compromiso.</p>
+                    </div>
+                  </div>
+                  <ul className="inv-fin-banner__benefits">
+                    <li><span>✓</span> Asesoría personalizada</li>
+                    <li><span>✓</span> Opciones flexibles de pago</li>
+                    <li><span>✓</span> Acompañamiento en el proceso</li>
+                  </ul>
+                  <div className="inv-fin-banner__cta-col">
+                    <a href="Selectrucks%20Zapata%20-%20Financiamiento.html"
+                       className="btn btn--red inv-fin-banner__cta"
+                       data-event="finance_cta_click"
+                       data-source="inventory_banner"
+                       data-intent="financing">
+                      Hablar con un asesor
+                    </a>
+                    <p className="inv-fin-banner__note">Con respaldo de Daimler Financial Services</p>
                   </div>
                 </div>
 

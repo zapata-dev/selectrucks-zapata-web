@@ -67,17 +67,18 @@ function Navbar({ onContact, onBranch }) {
             <img src="assets/logo-selectrucks.png" alt="SelecTrucks | Zapata" />
           </a>
           <nav className="nav__links hide-mobile">
-            <a href="#inventario">Inventario</a>
-            <a href="#financiamiento">Financiamiento</a>
-            <a href="#sucursales" onClick={(e)=>{ e.preventDefault(); document.getElementById('sucursales').scrollIntoView({behavior:'smooth'}); }}>Sucursales</a>
-            <a href="#contacto" onClick={(e)=>{ e.preventDefault(); onContact(); }}>Contacto</a>
+            <a href="index.html">Inicio</a>
+            <a href="Selectrucks%20Zapata%20-%20Inventario.html">Inventario</a>
+            <a href="Selectrucks%20Zapata%20-%20Financiamiento.html">Financiamiento</a>
+            <a href="Selectrucks%20Zapata%20-%20Nosotros.html">Nosotros</a>
+            <a href="Selectrucks%20Zapata%20-%20Contacto.html">Contacto</a>
           </nav>
           <div className="nav__cta">
             <div className="nav__tel hide-mobile">
               <Icon.Phone />
               <strong>800 ZAPATA 1</strong>
             </div>
-            <a className="btn btn--red" href="#inventario" onClick={(e)=>{ e.preventDefault(); document.getElementById('inventario').scrollIntoView({behavior:'smooth'}); }}>
+            <a className="btn btn--red" href="Selectrucks%20Zapata%20-%20Inventario.html">
               Ver unidades
             </a>
             <button className="nav__burger show-mobile" onClick={() => setOpen(!open)} aria-label="Menú">
@@ -87,89 +88,247 @@ function Navbar({ onContact, onBranch }) {
         </div>
       </header>
       <div className={`mobile-menu ${open ? 'is-open' : ''}`}>
-        <a href="#inventario" onClick={() => setOpen(false)}>Inventario</a>
-        <a href="#financiamiento" onClick={() => setOpen(false)}>Financiamiento</a>
-        <a href="#sucursales" onClick={() => { setOpen(false); document.getElementById('sucursales').scrollIntoView({behavior:'smooth'}); }}>Sucursales</a>
-        <a href="#contacto" onClick={(e) => { e.preventDefault(); setOpen(false); onContact(); }}>Contacto</a>
+        <a href="index.html" onClick={() => setOpen(false)}>Inicio</a>
+        <a href="Selectrucks%20Zapata%20-%20Inventario.html" onClick={() => setOpen(false)}>Inventario</a>
+        <a href="Selectrucks%20Zapata%20-%20Financiamiento.html" onClick={() => setOpen(false)}>Financiamiento</a>
+        <a href="Selectrucks%20Zapata%20-%20Nosotros.html" onClick={() => setOpen(false)}>Nosotros</a>
+        <a href="Selectrucks%20Zapata%20-%20Contacto.html" onClick={() => setOpen(false)}>Contacto</a>
       </div>
     </>
   );
 }
 
 // ─────────────────────────────────────────────────────────── Hero
+// Scroll-driven truck assembly animation (Nate Herk / Apple technique)
+// Frames extracted from: selectrucks-zapata web design/Despiece camion rojo.mp4
+// To update FRAME_COUNT: run extraction script, then count files in frames-camion-rojo/
+const HERO_FRAME_COUNT = 76;
+const HERO_FRAMES_PATH = 'frames-camion-rojo/';
+
 function Hero({ onContact }) {
+  const sectionRef  = React.useRef(null);
+  const canvasRef   = React.useRef(null);
+  const imagesRef   = React.useRef([]);
+  const rafRef      = React.useRef(null);
+  const lastFrame   = React.useRef(-1);
+
+  const [loaded,   setLoaded]   = React.useState(false);
+  const [loadPct,  setLoadPct]  = React.useState(0);
+  const [progress, setProgress] = React.useState(0);
+
+  // ── Preload all frames
+  React.useEffect(() => {
+    const imgs = [];
+    let done = 0;
+    for (let i = 1; i <= HERO_FRAME_COUNT; i++) {
+      const img = new Image();
+      const padded = String(i).padStart(4, '0');
+      img.src = HERO_FRAMES_PATH + 'frame_' + padded + '.webp';
+      img.onload = () => {
+        done++;
+        setLoadPct(Math.round((done / HERO_FRAME_COUNT) * 100));
+        if (done === HERO_FRAME_COUNT) setLoaded(true);
+      };
+      img.onerror = () => {
+        done++;
+        if (done === HERO_FRAME_COUNT) setLoaded(true);
+      };
+      imgs.push(img);
+    }
+    imagesRef.current = imgs;
+    return () => imagesRef.current = [];
+  }, []);
+
+  // ── Draw a specific frame on canvas — cover mode (sin barras negras)
+  const drawFrame = React.useCallback((index) => {
+    if (index === lastFrame.current) return;
+    lastFrame.current = index;
+    const canvas = canvasRef.current;
+    const img = imagesRef.current[index];
+    if (!canvas || !img || !img.complete) return;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const cW = canvas.width, cH = canvas.height;
+    const iW = img.naturalWidth || 1920, iH = img.naturalHeight || 1076;
+    // Cover: escala para llenar el canvas completamente (sin barras negras)
+    const scale = Math.max(cW / iW, cH / iH);
+    const dW = iW * scale, dH = iH * scale;
+    const dx = (cW - dW) / 2, dy = (cH - dH) / 2;
+    ctx.drawImage(img, dx, dy, dW, dH);
+  }, []);
+
+  // ── Scroll handler
+  React.useEffect(() => {
+    if (!loaded) return;
+
+    const onScroll = () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+        const sectionTop  = section.getBoundingClientRect().top + window.scrollY;
+        const scrollable  = section.offsetHeight - window.innerHeight;
+        const prog        = Math.max(0, Math.min(1, (window.scrollY - sectionTop) / scrollable));
+        setProgress(prog);
+        const frameIndex = Math.min(Math.floor(prog * HERO_FRAME_COUNT), HERO_FRAME_COUNT - 1);
+        drawFrame(frameIndex);
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // draw initial frame
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [loaded, drawFrame]);
+
+  // ── Resize canvas to match display size
+  React.useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const resize = () => {
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      if (loaded) drawFrame(lastFrame.current);
+    };
+    resize();
+    window.addEventListener('resize', resize);
+    return () => window.removeEventListener('resize', resize);
+  }, [loaded, drawFrame]);
+
+  const scrollToInventory = (e) => {
+    e.preventDefault();
+    document.getElementById('inventario').scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // ── Animación de entrada del TEXTO sincronizada con el scroll ──
+  // El texto arranca invisible/desplazado y llega a su posición en los primeros 30% del scroll.
+  // Cada elemento tiene un desfase (stagger) para dar sensación de cascada.
+  const ease = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; // easeInOut
+
+  const eyebrowP = ease(Math.min(1, progress / 0.20));
+  const h1P      = ease(Math.min(1, Math.max(0, (progress - 0.06) / 0.22)));
+  const btnP     = ease(Math.min(1, Math.max(0, (progress - 0.12) / 0.20)));
+
+  const eyebrowStyle = {
+    opacity:   eyebrowP,
+    transform: 'translateX(' + ((1 - eyebrowP) * -36) + 'px)',
+  };
+  const h1Style = {
+    opacity:   h1P,
+    transform: 'translateY(' + ((1 - h1P) * 28) + 'px)',
+  };
+  const btnStyle = {
+    opacity:   btnP,
+    transform: 'translateY(' + ((1 - btnP) * 16) + 'px)',
+  };
+
+  // ── Marquee: desliza desde la parte superior hacia su posición final (abajo) ──
+  // El sticky section tiene overflow:hidden → actúa como clip durante el viaje.
+  // Al inicio (progress=0) el marquee está ~87vh más arriba que su posición natural (bottom:0).
+  // Al terminar (progress=1) translateY=0 → reposa en la parte inferior.
+  const marqueeY = (1 - progress) * -87;
+
+  // Scroll hint desaparece en el primer movimiento
+  const hintOpacity = progress < 0.06 && loaded ? 1 - progress / 0.06 : 0;
+
   return (
-    <section className="hero">
-      <div className="hero__bg-grid"></div>
-      <div className="hero__red-block"></div>
-      <div className="wrap hero__grid">
-        <div>
-          <div className="hero__eyebrow">
-            <span className="dot"></span>
-            <span className="eyebrow">306 Unidades en piso · Actualizado hoy</span>
-          </div>
-          <h1>
-            Tu próximo<br/>
-            camión, listo<br/>
-            para <span className="hl">trabajar</span><br/>
-            hoy.
-          </h1>
-          <p className="hero__sub">
-            Más de <strong>300 unidades verificadas</strong> en 9 sucursales de México.
-            Financiamiento aprobado en <strong>48 horas</strong>, documentación limpia y garantía incluida.
-          </p>
-          <div className="hero__ctas">
-            <a className="btn btn--red btn--lg" href="#inventario" onClick={(e)=>{ e.preventDefault(); document.getElementById('inventario').scrollIntoView({behavior:'smooth'}); }}>
+    <section ref={sectionRef} className="hero-scroll">
+
+      {/* Barra de progreso */}
+      <div
+        className="hero-scroll__progress-bar"
+        style={{ transform: 'scaleX(' + progress + ')' }}
+        aria-hidden="true"
+      />
+
+      <div className="hero-scroll__sticky">
+        <div className="hero__bg-grid" aria-hidden="true" />
+
+        {/* ── Dos columnas: texto izquierda | camión derecha ── */}
+        <div className="hero-scroll__layout">
+
+          {/* IZQUIERDA: texto animado sincronizado con el scroll */}
+          <div className="hero-scroll__left">
+            <div className="hero-scroll__eyebrow" style={eyebrowStyle}>
+              <span className="dot" />
+              <span>Más de 300 unidades disponibles</span>
+            </div>
+            <h1 style={h1Style}>
+              Tu próximo camión,<br />
+              listo para <span className="hl">trabajar</span> hoy.
+            </h1>
+            <a
+              className="btn btn--premium"
+              href="#inventario"
+              onClick={scrollToInventory}
+              style={btnStyle}
+            >
               Ver inventario <Icon.Arrow />
             </a>
-            <button className="btn btn--ghost btn--lg" onClick={onContact}>
-              Hablar con asesor
-            </button>
           </div>
-          <div className="hero__trust">
-            <div className="hero__trust-item"><Icon.Check /><span>Inspección<br/>técnica 150 pts</span></div>
-            <div className="hero__trust-item"><Icon.Check /><span>Documentación<br/>completa</span></div>
-            <div className="hero__trust-item"><Icon.Check /><span>Garantía<br/>incluida</span></div>
-            <div className="hero__trust-item"><Icon.Check /><span>Financiamiento<br/>flexible</span></div>
-          </div>
-        </div>
-        <div className="hero__visual">
-          <div className="hero__trail" aria-hidden="true"></div>
-          <div className="hero__photo" data-gsap="truck-photo">
-            <img src="assets/truck-cascadia-square.png?v=2" alt="Freightliner Cascadia 2020" />
-            <div className="hero__photo-ribbon">Unidad destacada</div>
-            <div className="hero__photo-badge">
-              <span>Engancha desde</span>
-              $290,055
-            </div>
-          </div>
-          <div className="hero__stats">
-            <div>
-              <strong style={{fontFamily:'JetBrains Mono,monospace'}}><AnimatedCounter target={306} /></strong>
-              <span>En piso</span>
-            </div>
-            <div>
-              <strong style={{fontFamily:'JetBrains Mono,monospace'}}><AnimatedCounter target={48} suffix="h" /></strong>
-              <span>Aprobación</span>
-            </div>
-            <div>
-              <strong style={{fontFamily:'JetBrains Mono,monospace'}}><AnimatedCounter target={70} /></strong>
-              <span>Años Zapata</span>
-            </div>
+
+          {/* DERECHA: canvas con el camión (cover, sin barras negras) */}
+          <div className="hero-scroll__right">
+            <canvas
+              ref={canvasRef}
+              className="hero-canvas"
+              aria-label="Animación de ensamblaje del camión rojo"
+            />
+            {!loaded && (
+              <div className="hero-scroll__loader" aria-live="polite">
+                <span>Cargando · {loadPct}%</span>
+                <div
+                  className="hero-scroll__loader-bar"
+                  role="progressbar"
+                  aria-valuenow={loadPct}
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                />
+              </div>
+            )}
+            {loaded && (
+              <div
+                className="hero-scroll__hint"
+                style={{ opacity: hintOpacity }}
+                aria-hidden="true"
+              >
+                <div className="hero-scroll__hint-arrow" />
+                <span>Scroll</span>
+              </div>
+            )}
           </div>
         </div>
-      </div>
-      <div className="hero__marquee" aria-hidden="true">
-        <div className="hero__marquee-track">
-          <span>
-            <em>FREIGHTLINER</em><b>///</b><em>KENWORTH</em><b>///</b><em>INTERNATIONAL</em><b>///</b>
-            <em>VOLVO</em><b>///</b><em>PETERBILT</em><b>///</b><em>MACK</em><b>///</b>
-            <em>MERCEDES-BENZ</em><b>///</b><em>SCANIA</em><b>///</b>
-            <em>FREIGHTLINER</em><b>///</b><em>KENWORTH</em><b>///</b><em>INTERNATIONAL</em><b>///</b>
-            <em>VOLVO</em><b>///</b><em>PETERBILT</em><b>///</b><em>MACK</em><b>///</b>
-            <em>MERCEDES-BENZ</em><b>///</b><em>SCANIA</em><b>///</b>
-          </span>
+
+        {/* MARQUEE — absoluto, desliza desde arriba hasta su reposo al fondo */}
+        <div
+          className="hero__marquee"
+          aria-hidden="true"
+          style={{ transform: 'translateY(' + marqueeY + 'vh)' }}
+        >
+          <div className="hero__marquee-track">
+            <span>
+              <img src="assets/logos/freightliner.png" alt="Freightliner" /><b>///</b>
+              <img src="assets/logos/kenworth.png" alt="Kenworth" /><b>///</b>
+              <img src="assets/logos/international.png" alt="International" /><b>///</b>
+              <img src="assets/logos/volvo.png" alt="Volvo" /><b>///</b>
+              <img src="assets/logos/peterbilt.png" alt="Peterbilt" /><b>///</b>
+              <img src="assets/logos/mack.png" alt="Mack" /><b>///</b>
+              <img src="assets/logos/mercedes-benz.png" alt="Mercedes-Benz" /><b>///</b>
+              <img src="assets/logos/scania.png" alt="Scania" /><b>///</b>
+              <img src="assets/logos/freightliner.png" alt="Freightliner" /><b>///</b>
+              <img src="assets/logos/kenworth.png" alt="Kenworth" /><b>///</b>
+              <img src="assets/logos/international.png" alt="International" /><b>///</b>
+              <img src="assets/logos/volvo.png" alt="Volvo" /><b>///</b>
+              <img src="assets/logos/peterbilt.png" alt="Peterbilt" /><b>///</b>
+              <img src="assets/logos/mack.png" alt="Mack" /><b>///</b>
+              <img src="assets/logos/mercedes-benz.png" alt="Mercedes-Benz" /><b>///</b>
+              <img src="assets/logos/scania.png" alt="Scania" /><b>///</b>
+            </span>
+          </div>
         </div>
+
       </div>
     </section>
   );
