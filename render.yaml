@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: selectrucks-web
+    env: static
+    staticPublishPath: .
+    headers:
+      - path: /*.jsx
+        name: Content-Type
+        value: text/javascript
+      - path: /*.js
+        name: Content-Type
+        value: text/javascript
