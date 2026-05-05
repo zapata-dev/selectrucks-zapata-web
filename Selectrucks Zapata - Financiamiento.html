@@ -12,10 +12,11 @@
 <link rel="stylesheet" href="sections.css" />
 <style>
 .page-hero {
-  padding-top: 136px; padding-bottom: 72px;
+  padding-top: 0; padding-bottom: 0;
   background: var(--black);
   position: relative; overflow: hidden;
   border-bottom: 4px solid var(--red);
+  min-height: 540px;
 }
 .page-hero::before {
   content: '';
@@ -24,12 +25,71 @@
     linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
   background-size: 60px 60px;
+  z-index: 1;
+}
+.page-hero .wrap { position: relative; z-index: 2; padding: 0; max-width: 100%; }
+.page-hero__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 540px;
+  align-items: stretch;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.page-hero__content {
+  padding: 136px 48px 72px 32px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.page-hero__image-col {
+  position: relative;
+  overflow: hidden;
+}
+.page-hero__image-col img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+.page-hero__image-col::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, var(--black) 0%, transparent 30%);
+  z-index: 1;
+  pointer-events: none;
+}
+.page-hero__semi-badge {
+  position: absolute;
+  top: 48px; right: 40px;
+  z-index: 2;
+  text-align: left;
+  background: rgba(0,0,0,0.55);
+  padding: 20px 24px;
+  backdrop-filter: blur(4px);
+}
+.page-hero__semi-badge .semi-title {
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 900; font-size: 22px;
+  line-height: 1; color: var(--white);
+  text-transform: uppercase; letter-spacing: 0.02em;
+  margin-bottom: 6px;
+}
+.page-hero__semi-badge .semi-line {
+  width: 40px; height: 3px; background: var(--red); margin-bottom: 10px;
+}
+.page-hero__semi-badge .semi-sub {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px; color: var(--fog);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  line-height: 1.4; margin-bottom: 14px;
+}
+.page-hero__semi-badge .semi-logo img {
+  height: 22px; opacity: 0.9;
 }
 .page-hero__eyebrow { display: flex; gap: 12px; align-items: center; color: var(--red); margin-bottom: 20px; }
 .page-hero__eyebrow .dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; box-shadow: 0 0 0 4px rgba(206,0,0,0.25); animation: pulse 2s infinite; }
-.page-hero h1 { font-size: clamp(48px, 7vw, 96px); line-height: 0.88; margin-bottom: 24px; }
+.page-hero h1 { font-size: clamp(48px, 5.5vw, 88px); line-height: 0.88; margin-bottom: 24px; }
 .page-hero h1 em { font-style: italic; color: var(--lime); }
-.page-hero p { font-size: 17px; color: var(--fog); max-width: 560px; line-height: 1.6; }
+.page-hero p { font-size: 17px; color: var(--fog); max-width: 520px; line-height: 1.6; }
 .page-hero__badges { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
 .page-hero__badge {
   display: flex; gap: 10px; align-items: center;
@@ -37,6 +97,14 @@
   font-family: 'League Spartan', sans-serif; font-weight: 700;
   font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--bone); border-left: 3px solid var(--red);
+}
+@media (max-width: 900px) {
+  .page-hero__inner { grid-template-columns: 1fr; }
+  .page-hero__content { padding: 120px 20px 48px; }
+  .page-hero__image-col { min-height: 320px; }
+  .page-hero__image-col::before { background: linear-gradient(to bottom, var(--black) 0%, transparent 30%); }
+  .page-hero__semi-badge { top: 20px; right: 20px; padding: 14px 18px; }
+  .page-hero__semi-badge .semi-title { font-size: 17px; }
 }
 
 /* Plans section */
@@ -279,16 +347,32 @@
 
 <!-- HERO -->
 <section class="page-hero">
-  <div class="wrap">
-    <div class="page-hero__eyebrow"><span class="dot"></span><span class="eyebrow">Financiamiento · Crédito con respaldo institucional</span></div>
-    <h1>Financia tu<br/>próximo camión<br/><em>hoy mismo</em></h1>
-    <p>Trabajamos con las principales financieras del país. Enganche desde 20%, plazos hasta 60 meses. Sin burocracia, sin sorpresas.</p>
-    <div class="page-hero__badges">
-      <div class="page-hero__badge">✓ Enganche desde 20%</div>
-      <div class="page-hero__badge">✓ Hasta 60 meses</div>
-      <div class="page-hero__badge">✓ Respuesta ágil</div>
-      <div class="page-hero__badge">✓ Sin aval en muchos casos</div>
+  <div class="wrap page-hero__inner">
+
+    <!-- Columna izquierda: texto -->
+    <div class="page-hero__content">
+      <div class="page-hero__eyebrow"><span class="dot"></span><span class="eyebrow">Financiamiento · Crédito con respaldo institucional</span></div>
+      <h1>Financia tu<br/>próximo camión<br/><em>hoy mismo</em></h1>
+      <p>Trabajamos con las principales financieras del país. Enganche desde 20%, plazos hasta 60 meses. Sin burocracia, sin sorpresas.</p>
+      <div class="page-hero__badges">
+        <div class="page-hero__badge">✓ Enganche desde 20%</div>
+        <div class="page-hero__badge">✓ Hasta 60 meses</div>
+        <div class="page-hero__badge">✓ Respuesta ágil</div>
+        <div class="page-hero__badge">✓ Sin aval en muchos casos</div>
+      </div>
     </div>
+
+    <!-- Columna derecha: imagen enlace financiero -->
+    <div class="page-hero__image-col">
+      <img src="assets/enlace-financiero.jpg" alt="Enlace financiero Selectrucks Zapata" />
+      <div class="page-hero__semi-badge">
+        <div class="semi-title">Semi Nuevos<br/>Certificados</div>
+        <div class="semi-line"></div>
+        <div class="semi-sub">Con el respaldo<br/>que tu negocio<br/>merece</div>
+        <div class="semi-logo"><img src="assets/logo-selectrucks.png" alt="SelecTrucks" /></div>
+      </div>
+    </div>
+
   </div>
 </section>
 
