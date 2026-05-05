@@ -40,6 +40,26 @@
   padding: 136px 48px 72px 32px;
   display: flex; flex-direction: column; justify-content: center;
 }
+/* Ken Burns: zoom lento con ligero desplazamiento */
+@keyframes hero-kenburns {
+  0%   { transform: scale(1)    translateX(0)    translateY(0); }
+  100% { transform: scale(1.07) translateX(-1.5%) translateY(-1%); }
+}
+
+/* Barrido de luz tipo glassmorphism */
+@keyframes hero-shimmer {
+  0%   { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateX(220%)  skewX(-18deg); opacity: 0; }
+}
+
+/* Pulso sutil del overlay inferior */
+@keyframes hero-glow-pulse {
+  0%, 100% { opacity: 0.55; }
+  50%       { opacity: 0.75; }
+}
+
 .page-hero__image-col {
   position: relative;
   overflow: hidden;
@@ -49,18 +69,56 @@
   object-fit: cover;
   object-position: center top;
   display: block;
+  animation: hero-kenburns 12s ease-in-out infinite alternate;
+  will-change: transform;
 }
+
+/* Degradado lateral izquierdo (funde con el negro del texto) */
 .page-hero__image-col::before {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(to right, var(--black) 0%, transparent 30%);
-  z-index: 1;
+  background: linear-gradient(
+    to right,
+    var(--black) 0%,
+    rgba(17,17,17,0.75) 18%,
+    rgba(17,17,17,0.2) 38%,
+    transparent 55%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Barrido glassmorphism que cruza la imagen cada ~9 s */
+.page-hero__image-col::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; width: 35%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255,255,255,0.07) 50%,
+    transparent 80%
+  );
+  animation: hero-shimmer 9s ease-in-out infinite;
+  animation-delay: 2s;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Degradado inferior oscuro + pulso */
+.page-hero__image-col .img-bottom-fade {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 45%;
+  background: linear-gradient(to top, rgba(17,17,17,0.65) 0%, transparent 100%);
+  animation: hero-glow-pulse 4s ease-in-out infinite;
+  z-index: 2;
   pointer-events: none;
 }
 .page-hero__semi-badge {
   position: absolute;
   top: 48px; right: 40px;
-  z-index: 2;
+  z-index: 4;
   text-align: left;
   background: rgba(0,0,0,0.55);
   padding: 20px 24px;
@@ -365,6 +423,7 @@
     <!-- Columna derecha: imagen enlace financiero -->
     <div class="page-hero__image-col">
       <img src="assets/enlace-financiero.jpg" alt="Enlace financiero Selectrucks Zapata" />
+      <div class="img-bottom-fade"></div>
       <div class="page-hero__semi-badge">
         <div class="semi-title">Semi Nuevos<br/>Certificados</div>
         <div class="semi-line"></div>
