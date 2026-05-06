@@ -145,7 +145,7 @@ function Branches() {
         <div className="branches__head">
           <div>
             <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: 16 }}>— Red nacional</div>
-            <h2>9 sucursales <em>en todo México</em></h2>
+            <h2>10 sucursales <em>en todo México</em></h2>
           </div>
           <p style={{ color: 'var(--fog)', maxWidth: 420, fontSize: 15 }}>
             Visita la sucursal más cercana para inspeccionar tu unidad en persona o coordina una videollamada con un asesor.
@@ -187,7 +187,7 @@ function Branches() {
             </p>
             <div className="contact">
               <a href={`tel:${sel.tel.replace(/\s/g,'')}`}><Icon.Phone /> {sel.tel}</a>
-              <a href="#"><Icon.Wa /> WhatsApp</a>
+              <a href="https://wa.me/525598160234?text=Hola%2C%20quiero%20informaci%C3%B3n%20de%20unidades%20disponibles." target="_blank" rel="noopener noreferrer"><Icon.Wa /> WhatsApp</a>
             </div>
           </aside>
         </div>
@@ -337,9 +337,9 @@ function Footer() {
           <div className="footer__col">
             <h5>Contacto</h5>
             <ul className="footer__contact">
-              <li><Icon.Phone /><div><strong>800 ZAPATA 1</strong>L-V 9:00 - 18:00</div></li>
+              <li><Icon.Wa /><div><strong><a href="https://wa.me/525598160234?text=Hola%2C%20quiero%20informaci%C3%B3n%20de%20unidades%20disponibles." target="_blank" rel="noopener noreferrer">Asesor por WhatsApp 24/7</a></strong>L-V 9:00 - 18:00</div></li>
               <li><Icon.Mail /><div><strong>hola@selectruckszapata.com</strong>Respuesta en 4 hrs</div></li>
-              <li><Icon.Wa /><div><strong>+52 55 5555 0100</strong>WhatsApp · 24/7</div></li>
+              <li><Icon.Wa /><div><strong><a href="https://wa.me/525598160234?text=Hola%2C%20quiero%20informaci%C3%B3n%20de%20unidades%20disponibles." target="_blank" rel="noopener noreferrer">+52 55 9816 0234</a></strong>WhatsApp · 24/7</div></li>
             </ul>
           </div>
         </div>
@@ -418,3 +418,5 @@ window.Process = Process;
 window.CTAStrip = CTAStrip;
 window.Footer = Footer;
 window.ContactModal = ContactModal;
+
+

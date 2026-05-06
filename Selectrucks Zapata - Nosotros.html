@@ -1,366 +1,1028 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Nosotros — Selectrucks Zapata</title>
-<meta name="description" content="Selectrucks Zapata — el marketplace de camiones seminuevos verificados de Corporación Zapata. 70 años de trayectoria, 9 sucursales, 65+ puntos de inspección y garantía Tren Motriz 90 días." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css" />
-<link rel="stylesheet" href="sections.css" />
-<style>
-.page-hero {
-  padding-top: 136px; padding-bottom: 80px;
-  background: var(--black);
-  position: relative; overflow: hidden;
-  border-bottom: 4px solid var(--red);
-}
-.page-hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-.page-hero__eyebrow { display: flex; gap: 12px; align-items: center; color: var(--red); margin-bottom: 20px; }
-.page-hero__eyebrow .dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; box-shadow: 0 0 0 4px rgba(206,0,0,0.25); animation: pulse 2s infinite; }
-.page-hero h1 { font-size: clamp(48px, 7vw, 96px); line-height: 0.88; margin-bottom: 24px; }
-.page-hero h1 em { font-style: italic; color: var(--lime); }
-.page-hero p { font-size: 18px; color: var(--fog); max-width: 580px; line-height: 1.6; }
-.page-hero__tag {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(206,0,0,0.12); border: 1px solid rgba(206,0,0,0.3);
-  padding: 6px 14px; border-radius: 2px; margin-top: 28px;
-  font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
-  color: var(--red);
-}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nosotros — Selectrucks Zapata</title>
+    <meta
+      name="description"
+      content="Selectrucks Zapata — el marketplace de camiones seminuevos verificados de Corporación Zapata. 70 años de trayectoria, 10 sucursales, 65+ puntos de inspección y garantía Tren Motriz 90 días."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="sections.css" />
+    <style>
+      .page-hero {
+        padding-top: 0;
+        padding-bottom: 0;
+        background: var(--black);
+        position: relative;
+        overflow: hidden;
+        border-bottom: 4px solid var(--red);
+        min-height: 540px;
+      }
+      .page-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        z-index: 1;
+      }
+      .page-hero .wrap {
+        position: relative;
+        z-index: 2;
+        padding: 0;
+      }
+      .page-hero__inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 540px;
+        align-items: stretch;
+        max-width: var(--site-max);
+        padding-right: calc(var(--gutter-x) + var(--logo-rail-nudge));
+        margin: 0 auto;
+      }
+      .page-hero__content {
+        padding: 136px 48px 72px calc(var(--gutter-x) + var(--logo-rail-nudge));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      @keyframes hero-kenburns {
+        0% {
+          transform: scale(1) translateX(0) translateY(0);
+        }
+        100% {
+          transform: scale(1.07) translateX(-1.5%) translateY(-1%);
+        }
+      }
+      @keyframes hero-shimmer {
+        0% {
+          transform: translateX(-120%) skewX(-18deg);
+          opacity: 0;
+        }
+        15% {
+          opacity: 1;
+        }
+        85% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(220%) skewX(-18deg);
+          opacity: 0;
+        }
+      }
+      @keyframes hero-glow-pulse {
+        0%,
+        100% {
+          opacity: 0.55;
+        }
+        50% {
+          opacity: 0.75;
+        }
+      }
+      .page-hero__image-col {
+        position: relative;
+        overflow: hidden;
+      }
+      .page-hero__image-col img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: right top;
+        display: block;
+        animation: hero-kenburns 12s ease-in-out infinite alternate;
+        will-change: transform;
+      }
+      .page-hero__image-col::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to right,
+          var(--black) 0%,
+          rgba(17, 17, 17, 0.75) 18%,
+          rgba(17, 17, 17, 0.2) 38%,
+          transparent 55%
+        );
+        z-index: 2;
+        pointer-events: none;
+      }
+      .page-hero__image-col::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 35%;
+        background: linear-gradient(
+          105deg,
+          transparent 20%,
+          rgba(255, 255, 255, 0.07) 50%,
+          transparent 80%
+        );
+        animation: hero-shimmer 9s ease-in-out infinite;
+        animation-delay: 2s;
+        z-index: 3;
+        pointer-events: none;
+      }
+      .page-hero__image-col .img-bottom-fade {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 45%;
+        background: linear-gradient(
+          to top,
+          rgba(17, 17, 17, 0.65) 0%,
+          transparent 100%
+        );
+        animation: hero-glow-pulse 4s ease-in-out infinite;
+        z-index: 2;
+        pointer-events: none;
+      }
+      .page-hero__eyebrow {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        color: var(--red);
+        margin-bottom: 20px;
+      }
+      .page-hero__eyebrow .dot {
+        width: 8px;
+        height: 8px;
+        background: var(--red);
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px rgba(206, 0, 0, 0.25);
+        animation: pulse 2s infinite;
+      }
+      .page-hero h1 {
+        font-size: clamp(48px, 5.5vw, 88px);
+        line-height: 0.88;
+        margin-bottom: 24px;
+      }
+      .page-hero h1 em {
+        font-style: italic;
+        color: var(--lime);
+      }
+      .page-hero p {
+        font-size: 17px;
+        color: var(--fog);
+        max-width: 520px;
+        line-height: 1.6;
+      }
+      .page-hero__badges {
+        display: flex;
+        gap: 12px;
+        margin-top: 36px;
+        flex-wrap: wrap;
+      }
+      .page-hero__badge {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.06);
+        padding: 12px 20px;
+        font-family: "League Spartan", sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--bone);
+        border-left: 3px solid var(--red);
+      }
+      @media (max-width: 900px) {
+        .page-hero__inner {
+          grid-template-columns: 1fr;
+          padding-right: 0;
+        }
+        .page-hero__content {
+          padding: 120px var(--gutter-x) 48px;
+        }
+        .page-hero__image-col {
+          min-height: 320px;
+        }
+        .page-hero__image-col::before {
+          background: linear-gradient(
+            to bottom,
+            var(--black) 0%,
+            transparent 30%
+          );
+        }
+      }
 
-/* Trust numbers bar */
-.nos-numbers { background: var(--graphite); border-bottom: 1px solid rgba(255,255,255,0.06); }
-.nos-numbers__grid { display: grid; grid-template-columns: repeat(4, 1fr); }
-@media (max-width: 700px) { .nos-numbers__grid { grid-template-columns: repeat(2, 1fr); } }
-.nos-number {
-  padding: 40px 32px;
-  border-right: 1px solid rgba(255,255,255,0.06);
-  text-align: center;
-}
-.nos-number:last-child { border-right: none; }
-.nos-number__val {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(36px, 5vw, 56px);
-  font-weight: 600; color: var(--red);
-  line-height: 1; margin-bottom: 8px;
-}
-.nos-number__label {
-  font-family: 'League Spartan', sans-serif;
-  font-weight: 700; font-size: 12px;
-  text-transform: uppercase; letter-spacing: 0.12em;
-  color: var(--fog);
-}
+      /* Trust numbers bar */
+      .nos-numbers {
+        background: var(--graphite);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .nos-numbers__grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+      }
+      @media (max-width: 700px) {
+        .nos-numbers__grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .nos-number {
+        padding: 40px 32px;
+        border-right: 1px solid rgba(255, 255, 255, 0.06);
+        text-align: center;
+      }
+      .nos-number:last-child {
+        border-right: none;
+      }
+      .nos-number__val {
+        font-family: "JetBrains Mono", monospace;
+        font-size: clamp(36px, 5vw, 56px);
+        font-weight: 600;
+        color: var(--red);
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+      .nos-number__label {
+        font-family: "League Spartan", sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--fog);
+      }
 
-/* Misión / Visión */
-.mision-section { padding: 80px 0; background: var(--ink); }
-.mision-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 2px; background: var(--graphite);
-}
-@media (max-width: 700px) { .mision-grid { grid-template-columns: 1fr; } }
-.mision-card {
-  background: var(--ink); padding: 56px 48px;
-  border-top: 4px solid transparent;
-  transition: border-color .2s;
-}
-.mision-card:hover { border-top-color: var(--red); }
-.mision-card .eyebrow { display: block; color: var(--red); margin-bottom: 20px; }
-.mision-card h3 {
-  font-family: 'League Spartan', sans-serif;
-  font-size: clamp(28px, 3vw, 40px); font-weight: 800;
-  line-height: 0.9; margin-bottom: 24px;
-}
-.mision-card h3 em { font-style: normal; color: var(--red); }
-.mision-card p { font-size: 15px; color: var(--fog); line-height: 1.75; margin: 0; max-width: 460px; }
+      /* Misión / Visión */
+      .mision-section {
+        padding: 80px 0;
+        background: var(--ink);
+      }
+      .mision-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2px;
+        background: var(--graphite);
+      }
+      @media (max-width: 700px) {
+        .mision-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .mision-card {
+        background: var(--ink);
+        padding: 56px 48px;
+        border-top: 4px solid transparent;
+        transition: border-color 0.2s;
+      }
+      .mision-card:hover {
+        border-top-color: var(--red);
+      }
+      .mision-card .eyebrow {
+        display: block;
+        color: var(--red);
+        margin-bottom: 20px;
+      }
+      .mision-card h3 {
+        font-family: "League Spartan", sans-serif;
+        font-size: clamp(28px, 3vw, 40px);
+        font-weight: 800;
+        line-height: 0.9;
+        margin-bottom: 24px;
+      }
+      .mision-card h3 em {
+        font-style: normal;
+        color: var(--red);
+      }
+      .mision-card p {
+        font-size: 15px;
+        color: var(--fog);
+        line-height: 1.75;
+        margin: 0;
+        max-width: 460px;
+      }
 
-/* Historia timeline */
-.historia-section { padding: 80px 0; background: var(--graphite); }
-.historia-section h2 { font-size: clamp(32px, 4vw, 56px); line-height: 0.9; margin-bottom: 64px; }
-.historia-section h2 em { font-style: normal; color: var(--red); }
-.timeline {
-  position: relative;
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-}
-@media (max-width: 800px) { .timeline { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 480px) { .timeline { grid-template-columns: 1fr; } }
-.timeline::before {
-  content: '';
-  position: absolute; top: 28px; left: 0; right: 0;
-  height: 2px; background: rgba(255,255,255,0.08);
-}
-@media (max-width: 800px) { .timeline::before { display: none; } }
-.timeline__item { padding: 0 24px 0 0; position: relative; }
-.timeline__dot {
-  width: 56px; height: 56px;
-  background: var(--red); border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 600; font-size: 13px;
-  color: var(--white); margin-bottom: 24px;
-  position: relative; z-index: 1; flex-shrink: 0;
-}
-.timeline__year { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: var(--ash); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
-.timeline__title { font-family: 'League Spartan', sans-serif; font-weight: 800; font-size: 18px; text-transform: uppercase; line-height: 1.05; margin-bottom: 8px; }
-.timeline__desc { font-size: 13px; color: var(--fog); line-height: 1.6; }
+      /* Historia timeline */
+      .historia-section {
+        padding: 80px 0;
+        background: var(--graphite);
+      }
+      .historia-section h2 {
+        font-size: clamp(32px, 4vw, 56px);
+        line-height: 0.9;
+        margin-bottom: 64px;
+      }
+      .historia-section h2 em {
+        font-style: normal;
+        color: var(--red);
+      }
+      .timeline {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+      }
+      @media (max-width: 800px) {
+        .timeline {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 480px) {
+        .timeline {
+          grid-template-columns: 1fr;
+        }
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        top: 28px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+      @media (max-width: 800px) {
+        .timeline::before {
+          display: none;
+        }
+      }
+      .timeline__item {
+        padding: 0 24px 0 0;
+        position: relative;
+      }
+      .timeline__dot {
+        width: 56px;
+        height: 56px;
+        background: var(--red);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 600;
+        font-size: 13px;
+        color: var(--white);
+        margin-bottom: 24px;
+        position: relative;
+        z-index: 1;
+        flex-shrink: 0;
+      }
+      .timeline__year {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ash);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 8px;
+      }
+      .timeline__title {
+        font-family: "League Spartan", sans-serif;
+        font-weight: 800;
+        font-size: 18px;
+        text-transform: uppercase;
+        line-height: 1.05;
+        margin-bottom: 8px;
+      }
+      .timeline__desc {
+        font-size: 13px;
+        color: var(--fog);
+        line-height: 1.6;
+      }
 
-/* Quiénes somos */
-.quienes-section { padding: 80px 0; background: var(--ink); }
-.quienes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-@media (max-width: 800px) { .quienes-grid { grid-template-columns: 1fr; gap: 48px; } }
-.quienes-text h2 { font-size: clamp(32px, 4vw, 52px); line-height: 0.9; margin-bottom: 24px; }
-.quienes-text h2 em { font-style: normal; color: var(--red); }
-.quienes-text p { font-size: 15px; color: var(--fog); line-height: 1.8; margin-bottom: 20px; }
-.quienes-text p:last-of-type { margin-bottom: 0; }
-.quienes-visual {
-  background: var(--graphite); aspect-ratio: 4/3;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 16px; color: var(--fog);
-  border-top: 4px solid var(--red);
-}
-.quienes-visual svg { color: var(--red); opacity: 0.5; }
-.quienes-visual span { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; }
+      /* Quiénes somos */
+      .quienes-section {
+        padding: 80px 0;
+        background: var(--ink);
+      }
+      .quienes-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+      @media (max-width: 800px) {
+        .quienes-grid {
+          grid-template-columns: 1fr;
+          gap: 48px;
+        }
+      }
+      .quienes-text h2 {
+        font-size: clamp(32px, 4vw, 52px);
+        line-height: 0.9;
+        margin-bottom: 24px;
+      }
+      .quienes-text h2 em {
+        font-style: normal;
+        color: var(--red);
+      }
+      .quienes-text p {
+        font-size: 15px;
+        color: var(--fog);
+        line-height: 1.8;
+        margin-bottom: 20px;
+      }
+      .quienes-text p:last-of-type {
+        margin-bottom: 0;
+      }
+      .quienes-visual {
+        background: var(--graphite);
+        aspect-ratio: 4/3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        color: var(--fog);
+        border-top: 4px solid var(--red);
+      }
+      .quienes-visual svg {
+        color: var(--red);
+        opacity: 0.5;
+      }
+      .quienes-visual span {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
 
-/* Diferenciador Selectrucks vs Go On */
-.brand-diff {
-  padding: 72px 0; background: var(--graphite);
-  border-top: 1px solid rgba(255,255,255,0.06);
-}
-.brand-diff h2 { font-size: clamp(28px, 3.5vw, 48px); line-height: 0.9; margin-bottom: 48px; }
-.brand-diff h2 em { font-style: normal; color: var(--red); }
-.diff-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 2px; background: rgba(0,0,0,0.3);
-}
-@media (max-width: 700px) { .diff-grid { grid-template-columns: 1fr; } }
-.diff-card { background: var(--graphite); padding: 40px 36px; }
-.diff-card__label {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--ash); margin-bottom: 16px; display: block;
-}
-.diff-card__brand {
-  font-family: 'League Spartan', sans-serif;
-  font-weight: 900; font-size: 26px; text-transform: uppercase;
-  color: var(--white); margin-bottom: 12px;
-}
-.diff-card__brand span { color: var(--red); }
-.diff-card p { font-size: 14px; color: var(--fog); line-height: 1.7; margin: 0 0 20px; }
-.diff-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
-.diff-list li {
-  font-size: 13px; color: var(--fog); padding-left: 18px; position: relative;
-}
-.diff-list li::before { content: '◆'; position: absolute; left: 0; color: var(--red); font-size: 8px; top: 3px; }
+      /* Diferenciador Selectrucks vs Go On */
+      .brand-diff {
+        padding: 72px 0;
+        background: var(--graphite);
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .brand-diff h2 {
+        font-size: clamp(28px, 3.5vw, 48px);
+        line-height: 0.9;
+        margin-bottom: 48px;
+      }
+      .brand-diff h2 em {
+        font-style: normal;
+        color: var(--red);
+      }
+      .diff-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2px;
+        background: rgba(0, 0, 0, 0.3);
+      }
+      @media (max-width: 700px) {
+        .diff-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .diff-card {
+        background: var(--graphite);
+        padding: 40px 36px;
+      }
+      .diff-card__label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ash);
+        margin-bottom: 16px;
+        display: block;
+      }
+      .diff-card__brand {
+        font-family: "League Spartan", sans-serif;
+        font-weight: 900;
+        font-size: 26px;
+        text-transform: uppercase;
+        color: var(--white);
+        margin-bottom: 12px;
+      }
+      .diff-card__brand span {
+        color: var(--red);
+      }
+      .diff-card p {
+        font-size: 14px;
+        color: var(--fog);
+        line-height: 1.7;
+        margin: 0 0 20px;
+      }
+      .diff-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .diff-list li {
+        font-size: 13px;
+        color: var(--fog);
+        padding-left: 18px;
+        position: relative;
+      }
+      .diff-list li::before {
+        content: "◆";
+        position: absolute;
+        left: 0;
+        color: var(--red);
+        font-size: 8px;
+        top: 3px;
+      }
 
-/* Valores */
-.valores-section { padding: 80px 0; background: var(--ink); }
-.valores-section h2 { font-size: clamp(32px, 4vw, 56px); line-height: 0.9; margin-bottom: 56px; }
-.valores-section h2 em { font-style: normal; color: var(--red); }
-.valores-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: rgba(0,0,0,0.3); }
-@media (max-width: 900px) { .valores-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 500px) { .valores-grid { grid-template-columns: 1fr; } }
-.valor-card {
-  background: var(--ink); padding: 40px 32px;
-  border-left: 3px solid transparent;
-  transition: background .2s, border-color .2s;
-}
-.valor-card:hover { background: #202020; border-left-color: var(--red); }
-.valor-card__icon {
-  width: 48px; height: 48px; background: rgba(206,0,0,0.1); border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--red); margin-bottom: 24px;
-}
-.valor-card h3 { font-family: 'League Spartan', sans-serif; font-weight: 800; font-size: 20px; text-transform: uppercase; letter-spacing: -0.01em; margin-bottom: 12px; }
-.valor-card p { font-size: 14px; color: var(--fog); line-height: 1.6; margin: 0; }
+      /* Valores */
+      .valores-section {
+        padding: 80px 0;
+        background: var(--ink);
+      }
+      .valores-section h2 {
+        font-size: clamp(32px, 4vw, 56px);
+        line-height: 0.9;
+        margin-bottom: 56px;
+      }
+      .valores-section h2 em {
+        font-style: normal;
+        color: var(--red);
+      }
+      .valores-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2px;
+        background: rgba(0, 0, 0, 0.3);
+      }
+      @media (max-width: 900px) {
+        .valores-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 500px) {
+        .valores-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .valor-card {
+        background: var(--ink);
+        padding: 40px 32px;
+        border-left: 3px solid transparent;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+      .valor-card:hover {
+        background: #202020;
+        border-left-color: var(--red);
+      }
+      .valor-card__icon {
+        width: 48px;
+        height: 48px;
+        background: rgba(206, 0, 0, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--red);
+        margin-bottom: 24px;
+      }
+      .valor-card h3 {
+        font-family: "League Spartan", sans-serif;
+        font-weight: 800;
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+        margin-bottom: 12px;
+      }
+      .valor-card p {
+        font-size: 14px;
+        color: var(--fog);
+        line-height: 1.6;
+        margin: 0;
+      }
 
-/* CTA final */
-.nos-cta { padding: 96px 0; background: var(--black); text-align: center; border-top: 4px solid var(--red); }
-.nos-cta h2 { font-size: clamp(36px, 5vw, 72px); line-height: 0.88; margin-bottom: 24px; }
-.nos-cta h2 em { font-style: italic; color: var(--lime); }
-.nos-cta p { font-size: 17px; color: var(--fog); max-width: 520px; margin: 0 auto 40px; line-height: 1.6; }
-.nos-cta__actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-</style>
-</head>
-<body>
-
-<header class="nav" id="navbar">
-  <div class="wrap nav__inner">
-    <a href="Selectrucks Zapata - Home.html" class="nav__logo">
-      <img src="assets/logo-selectrucks.png" alt="SelecTrucks | Zapata" />
-    </a>
-    <nav class="nav__links hide-mobile">
-      <a href="Selectrucks%20Zapata%20-%20Home.html">Inicio</a>
-      <a href="Selectrucks%20Zapata%20-%20Inventario.html">Inventario</a>
-      <a href="Selectrucks%20Zapata%20-%20Financiamiento.html">Financiamiento</a>
-      <a href="Selectrucks%20Zapata%20-%20Nosotros.html" style="color:var(--white)">Nosotros</a>
-      <a href="Selectrucks%20Zapata%20-%20Contacto.html">Contacto</a>
-    </nav>
-    <div class="nav__cta">
-      <div class="nav__tel hide-mobile">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        <strong>800 ZAPATA 1</strong>
-      </div>
-      <a class="btn btn--red" href="Selectrucks Zapata - Inventario.html">Ver unidades</a>
-    </div>
-  </div>
-</header>
-
-<!-- HERO -->
-<section class="page-hero">
-  <div class="wrap">
-    <div class="page-hero__eyebrow"><span class="dot"></span><span class="eyebrow">Nosotros · Corporación Zapata</span></div>
-    <h1>70 años<br/>moviendo <em>México</em></h1>
-    <p>Somos el marketplace de camiones seminuevos verificados del Grupo Zapata. Especializados en transporte comercial pesado para todos los segmentos del mercado: desde el dueño-operador hasta la gran flota.</p>
-    <div class="page-hero__tag">
-      ◆ SELECTRUCKS · CAMIONES COMERCIALES · TODO MERCADO
-    </div>
-  </div>
-</section>
-
-<!-- MISIÓN Y VISIÓN -->
-<section class="mision-section">
-  <div class="wrap">
-    <div class="eyebrow" style="color:var(--red);margin-bottom:16px">— Propósito</div>
-    <div class="mision-grid">
-      <div class="mision-card">
-        <span class="eyebrow">— Misión</span>
-        <h3>Acceso al mejor<br/><em>transporte nacional</em></h3>
-        <p>Facilitar el acceso a camiones seminuevos de calidad a través de un proceso confiable, transparente y directo, respaldado por los 70 años de excelencia de Corporación Zapata. Sin importar el tamaño de tu operación.</p>
-      </div>
-      <div class="mision-card">
-        <span class="eyebrow">— Visión</span>
-        <h3>Liderar el mercado<br/><em>de seminuevos pesados</em></h3>
-        <p>Convertir a Selectrucks Zapata en el principal punto de referencia para la compra de camiones seminuevos en México, reconocidos por la calidad de nuestras unidades, la transparencia del proceso y la satisfacción de cada cliente.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HISTORIA -->
-<section class="historia-section">
-  <div class="wrap">
-    <div class="eyebrow" style="color:var(--red);margin-bottom:16px">— Nuestra historia</div>
-    <h2>Siete décadas<br/>de <em>trayectoria</em></h2>
-    <div class="timeline">
-      <div class="timeline__item">
-        <div class="timeline__dot">01</div>
-        <div class="timeline__year">1956</div>
-        <div class="timeline__title">Fundación Zapata</div>
-        <div class="timeline__desc">Corporación Zapata da sus primeros pasos en el sector automotriz mexicano, sentando las bases del grupo que hoy lidera el mercado de vehículos comerciales.</div>
-      </div>
-      <div class="timeline__item">
-        <div class="timeline__dot">02</div>
-        <div class="timeline__year">1993</div>
-        <div class="timeline__title">Primera sucursal seminuevos</div>
-        <div class="timeline__desc">Apertura de la primera unidad de negocios especializada en camiones seminuevos en Tlalnepantla, Estado de México, con inventario verificado propio.</div>
-      </div>
-      <div class="timeline__item">
-        <div class="timeline__dot">03</div>
-        <div class="timeline__year">2010</div>
-        <div class="timeline__title">Red nacional</div>
-        <div class="timeline__desc">Apertura de sucursales estratégicas en Monterrey, Guadalajara, León y Querétaro, consolidando la presencia en los principales corredores logísticos del país.</div>
-      </div>
-      <div class="timeline__item">
-        <div class="timeline__dot">04</div>
-        <div class="timeline__year">2024</div>
-        <div class="timeline__title">SelecTrucks Digital</div>
-        <div class="timeline__desc">Lanzamiento de la plataforma digital Selectrucks Zapata — 9 sucursales, más de 300 unidades en línea, checklist de 65 puntos y garantía Tren Motriz 90 días.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- QUIÉNES SOMOS -->
-<section class="quienes-section">
-  <div class="wrap">
-    <div class="quienes-grid">
-      <div class="quienes-text">
-        <div class="eyebrow" style="color:var(--red);margin-bottom:16px">— Quiénes somos</div>
-        <h2>El <em>respaldo</em> de Corporación Zapata</h2>
-        <p>Selectrucks Zapata es la plataforma de camiones seminuevos de Corporación Zapata S.A. de C.V., el grupo automotriz con mayor trayectoria en transporte comercial pesado en México. Setenta años de operación nos dan la experiencia para garantizar cada unidad.</p>
-        <p>Nuestro proceso de verificación cubre 65 puntos en 9 secciones: motor, transmisión, sistema de frenos, ejes, sistema neumático, postratamiento de emisiones, cabina e instrumentos y sistema de luces. Si la unidad no pasa, no entra al piso.</p>
-        <p>Todas las unidades incluyen <strong>garantía Tren Motriz de 90 días</strong> — cubrimos motor, transmisión, eje cardán y ejes traseros. Para todos los segmentos: dueño-operador, pequeña empresa y grandes flotas.</p>
-      </div>
-      <div class="quienes-visual torre-placeholder" style="position:relative;overflow:hidden;min-height:320px;">
-        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px;">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.7;"><rect x="3" y="3" width="18" height="18"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/><line x1="15" y1="9" x2="15" y2="21"/></svg>
-          <span style="font-family:'League Spartan',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ash);text-align:center;">Torre Norte · Corporación Zapata<br/><span style="color:var(--steel);font-weight:400;">(imagen próximamente)</span></span>
+      /* CTA final */
+      .nos-cta {
+        padding: 96px 0;
+        background: var(--black);
+        text-align: center;
+        border-top: 4px solid var(--red);
+      }
+      .nos-cta h2 {
+        font-size: clamp(36px, 5vw, 72px);
+        line-height: 0.88;
+        margin-bottom: 24px;
+      }
+      .nos-cta h2 em {
+        font-style: italic;
+        color: var(--lime);
+      }
+      .nos-cta p {
+        font-size: 17px;
+        color: var(--fog);
+        max-width: 520px;
+        margin: 0 auto 40px;
+        line-height: 1.6;
+      }
+      .nos-cta__actions {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav" id="navbar">
+      <div class="wrap nav__inner">
+        <a href="Selectrucks Zapata - Home.html" class="nav__logo">
+          <img src="assets/logo-selectrucks.png" alt="SelecTrucks | Zapata" />
+        </a>
+        <nav class="nav__links hide-mobile">
+          <a href="Selectrucks%20Zapata%20-%20Home.html">Inicio</a>
+          <a href="Selectrucks%20Zapata%20-%20Inventario.html">Inventario</a>
+          <a href="Selectrucks%20Zapata%20-%20Financiamiento.html"
+            >Financiamiento</a
+          >
+          <a
+            href="Selectrucks%20Zapata%20-%20Nosotros.html"
+            style="color: var(--white)"
+            >Nosotros</a
+          >
+          <a href="Selectrucks%20Zapata%20-%20Contacto.html">Contacto</a>
+        </nav>
+        <div class="nav__cta">
+          <div class="nav__tel hide-mobile">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+              />
+            </svg>
+            <strong>Asesor por WhatsApp 24/7</strong>
+          </div>
+          <a class="btn btn--red" href="Selectrucks Zapata - Inventario.html"
+            >Ver unidades</a
+          >
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </header>
 
-<!-- CTA FINAL -->
-<section class="nos-cta">
-  <div class="wrap">
-    <div class="eyebrow" style="color:var(--red);margin-bottom:20px;display:flex;align-items:center;gap:12px;justify-content:center;"><span style="width:8px;height:8px;background:var(--red);border-radius:50%;box-shadow:0 0 0 4px rgba(206,0,0,0.25);animation:pulse 2s infinite;display:inline-block;"></span>— Únete a quienes ya confían en nosotros</div>
-    <h2>Tu próximo camión<br/>te está <em>esperando</em></h2>
-    <p>Más de 300 unidades verificadas en 9 sucursales. Garantía Tren Motriz 90 días. Financiamiento con respaldo institucional. Para todo tipo de operación.</p>
-    <div class="nos-cta__actions">
-      <a class="btn btn--red" href="Selectrucks Zapata - Inventario.html">Ver inventario completo</a>
-      <a class="btn btn--outline" href="Selectrucks Zapata - Contacto.html">Contactar asesor</a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer__grid">
-      <div class="footer__logo">
-        <img src="assets/logo-selectrucks.png" alt="SelecTrucks Zapata" />
-        <p>Marketplace de camiones seminuevos verificados de Corporación Zapata. Más de 306 unidades en 9 sucursales.</p>
-        <div class="footer__social">
-          <a href="#" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5-.1-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3 0-.2-.2-.3-.5-.4zM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.4A10 10 0 1 0 12 2z"/></svg></a>
-          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-          <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.87v-6.99H7.9V12h2.5V9.8c0-2.47 1.47-3.83 3.72-3.83 1.08 0 2.21.19 2.21.19v2.43h-1.24c-1.23 0-1.61.76-1.61 1.54V12h2.73l-.44 2.89h-2.29v6.99A10 10 0 0 0 22 12z"/></svg></a>
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="wrap page-hero__inner">
+        <div class="page-hero__content">
+          <div class="page-hero__eyebrow">
+            <span class="dot"></span
+            ><span class="eyebrow"
+              >Nosotros &middot; Corporaci&oacute;n Zapata</span
+            >
+          </div>
+          <h1>70 a&ntilde;os<br />moviendo <em>M&eacute;xico</em></h1>
+          <p>
+            Somos el marketplace de camiones seminuevos verificados del Grupo
+            Zapata. Especializados en transporte comercial pesado para todos los
+            segmentos del mercado: desde el due&ntilde;o-operador hasta la gran
+            flota.
+          </p>
+          <div class="page-hero__badges">
+            <div class="page-hero__badge">
+              &#10003; 70 a&ntilde;os de trayectoria
+            </div>
+            <div class="page-hero__badge">
+              &#10003; 10 sucursales en M&eacute;xico
+            </div>
+            <div class="page-hero__badge">
+              &#10003; inspecci&oacute;n de 65+ puntos
+            </div>
+            <div class="page-hero__badge">
+              &#10003; garant&iacute;a tren motriz 90 d&iacute;as
+            </div>
+          </div>
+        </div>
+        <div class="page-hero__image-col">
+          <img
+            src="assets/lote-de-camiones.png"
+            alt="Camiones Selectrucks Zapata"
+          />
+          <div class="img-bottom-fade"></div>
         </div>
       </div>
-      <div class="footer__col">
-        <h5>Inventario</h5>
-        <ul><li><a href="Selectrucks Zapata - Inventario.html">Ver todo</a></li><li><a href="#">Tractocamiones</a></li><li><a href="#">Volteos</a></li></ul>
-      </div>
-      <div class="footer__col">
-        <h5>Empresa</h5>
-        <ul>
-          <li><a href="Selectrucks Zapata - Nosotros.html" style="color:var(--white)">Nosotros</a></li>
-          <li><a href="Selectrucks Zapata - Sucursales.html">Sucursales</a></li>
-          <li><a href="Selectrucks Zapata - Financiamiento.html">Financiamiento</a></li>
-          <li><a href="Selectrucks Zapata - Contacto.html">Contacto</a></li>
-        </ul>
-      </div>
-      <div class="footer__col footer__contact">
-        <h5>Contacto</h5>
-        <ul>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span><strong>800 ZAPATA 1</strong></span></li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16"/><polyline points="22,6 12,13 2,6"/></svg><span>ventas@selectrucks.mx</span></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer__bottom">
-      <span>© 2026 Corporación Zapata S.A. de C.V. — Todos los derechos reservados</span>
-      <div class="footer__bottom-links"><a href="#">Aviso de Privacidad</a><a href="#">Términos y Condiciones</a></div>
-    </div>
-  </div>
-</footer>
+    </section>
 
-<script>
-const nav = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  nav.style.background = window.scrollY > 40 ? 'rgba(10,10,10,0.96)' : 'rgba(17,17,17,0.92)';
-});
-</script>
-</body>
+    <!-- MISIÓN Y VISIÓN -->
+    <section class="mision-section">
+      <div class="wrap">
+        <div class="eyebrow" style="color: var(--red); margin-bottom: 16px">
+          — Propósito
+        </div>
+        <div class="mision-grid">
+          <div class="mision-card">
+            <span class="eyebrow">— Misión</span>
+            <h3>Acceso al mejor<br /><em>transporte nacional</em></h3>
+            <p>
+              Facilitar el acceso a camiones seminuevos de calidad a través de
+              un proceso confiable, transparente y directo, respaldado por los
+              70 años de excelencia de Corporación Zapata. Sin importar el
+              tamaño de tu operación.
+            </p>
+          </div>
+          <div class="mision-card">
+            <span class="eyebrow">— Visión</span>
+            <h3>Liderar el mercado<br /><em>de seminuevos pesados</em></h3>
+            <p>
+              Convertir a Selectrucks Zapata en el principal punto de referencia
+              para la compra de camiones seminuevos en México, reconocidos por
+              la calidad de nuestras unidades, la transparencia del proceso y la
+              satisfacción de cada cliente.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HISTORIA -->
+    <section class="historia-section">
+      <div class="wrap">
+        <div class="eyebrow" style="color: var(--red); margin-bottom: 16px">
+          — Nuestra historia
+        </div>
+        <h2>Siete décadas<br />de <em>trayectoria</em></h2>
+        <div class="timeline">
+          <div class="timeline__item">
+            <div class="timeline__dot">01</div>
+            <div class="timeline__year">1956</div>
+            <div class="timeline__title">Fundación Zapata</div>
+            <div class="timeline__desc">
+              Corporación Zapata da sus primeros pasos en el sector automotriz
+              mexicano, sentando las bases del grupo que hoy lidera el mercado
+              de vehículos comerciales.
+            </div>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__dot">02</div>
+            <div class="timeline__year">1993</div>
+            <div class="timeline__title">Primera sucursal seminuevos</div>
+            <div class="timeline__desc">
+              Apertura de la primera unidad de negocios especializada en
+              camiones seminuevos en Tlalnepantla, Estado de México, con
+              inventario verificado propio.
+            </div>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__dot">03</div>
+            <div class="timeline__year">2010</div>
+            <div class="timeline__title">Red nacional</div>
+            <div class="timeline__desc">
+              Apertura de sucursales estratégicas en Monterrey, Guadalajara,
+              León y Querétaro, consolidando la presencia en los principales
+              corredores logísticos del país.
+            </div>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__dot">04</div>
+            <div class="timeline__year">2024</div>
+            <div class="timeline__title">SelecTrucks Digital</div>
+            <div class="timeline__desc">
+              Lanzamiento de la plataforma digital Selectrucks Zapata — 9
+              sucursales, más de 300 unidades en línea, checklist de 65 puntos y
+              garantía Tren Motriz 90 días.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUIÉNES SOMOS -->
+    <section class="quienes-section">
+      <div class="wrap">
+        <div class="quienes-grid">
+          <div class="quienes-text">
+            <div class="eyebrow" style="color: var(--red); margin-bottom: 16px">
+              — Quiénes somos
+            </div>
+            <h2>El <em>respaldo</em> de Corporación Zapata</h2>
+            <p>
+              Selectrucks Zapata es la plataforma de camiones seminuevos de
+              Corporación Zapata S.A. de C.V., el grupo automotriz con mayor
+              trayectoria en transporte comercial pesado en México. Setenta años
+              de operación nos dan la experiencia para garantizar cada unidad.
+            </p>
+            <p>
+              Nuestro proceso de verificación cubre 65 puntos en 9 secciones:
+              motor, transmisión, sistema de frenos, ejes, sistema neumático,
+              postratamiento de emisiones, cabina e instrumentos y sistema de
+              luces. Si la unidad no pasa, no entra al piso.
+            </p>
+            <p>
+              Todas las unidades incluyen
+              <strong>garantía Tren Motriz de 90 días</strong> — cubrimos motor,
+              transmisión, eje cardán y ejes traseros. Para todos los segmentos:
+              dueño-operador, pequeña empresa y grandes flotas.
+            </p>
+          </div>
+          <div
+            class="quienes-visual torre-placeholder"
+            style="position: relative; overflow: hidden; min-height: 320px"
+          >
+            <img
+              src="assets/nosotros-fondo.png"
+              alt="Enlace financiero Selectrucks Zapata"
+              style="
+                width: 100%;
+                height: 100%;
+                min-height: 320px;
+                object-fit: cover;
+                object-position: center;
+                display: block;
+              "
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="nos-cta">
+      <div class="wrap">
+        <div
+          class="eyebrow"
+          style="
+            color: var(--red);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: center;
+          "
+        >
+          <span
+            style="
+              width: 8px;
+              height: 8px;
+              background: var(--red);
+              border-radius: 50%;
+              box-shadow: 0 0 0 4px rgba(206, 0, 0, 0.25);
+              animation: pulse 2s infinite;
+              display: inline-block;
+            "
+          ></span
+          >— Únete a quienes ya confían en nosotros
+        </div>
+        <h2>Tu próximo camión<br />te está <em>esperando</em></h2>
+        <p>
+          Más de 300 unidades verificadas en 10 sucursales. Garantía Tren Motriz
+          90 días. Financiamiento con respaldo institucional. Para todo tipo de
+          operación.
+        </p>
+        <div class="nos-cta__actions">
+          <a class="btn btn--red" href="Selectrucks Zapata - Inventario.html"
+            >Ver inventario completo</a
+          >
+          <a class="btn btn--outline" href="Selectrucks Zapata - Contacto.html"
+            >Contactar asesor</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="wrap">
+        <div class="footer__grid">
+          <div class="footer__logo">
+            <img src="assets/logo-selectrucks.png" alt="SelecTrucks Zapata" />
+            <p>
+              Marketplace de camiones seminuevos verificados de Corporación
+              Zapata. Más de 306 unidades en 10 sucursales.
+            </p>
+            <div class="footer__social">
+              <a href="#" aria-label="WhatsApp"
+                ><svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5-.1-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3 0-.2-.2-.3-.5-.4zM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.4A10 10 0 1 0 12 2z"
+                  /></svg
+              ></a>
+              <a href="#" aria-label="Instagram"
+                ><svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="3" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg
+              ></a>
+              <a href="#" aria-label="Facebook"
+                ><svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M22 12a10 10 0 1 0-11.6 9.87v-6.99H7.9V12h2.5V9.8c0-2.47 1.47-3.83 3.72-3.83 1.08 0 2.21.19 2.21.19v2.43h-1.24c-1.23 0-1.61.76-1.61 1.54V12h2.73l-.44 2.89h-2.29v6.99A10 10 0 0 0 22 12z"
+                  /></svg
+              ></a>
+            </div>
+          </div>
+          <div class="footer__col">
+            <h5>Inventario</h5>
+            <ul>
+              <li>
+                <a href="Selectrucks Zapata - Inventario.html">Ver todo</a>
+              </li>
+              <li><a href="#">Tractocamiones</a></li>
+              <li><a href="#">Volteos</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h5>Empresa</h5>
+            <ul>
+              <li>
+                <a
+                  href="Selectrucks Zapata - Nosotros.html"
+                  style="color: var(--white)"
+                  >Nosotros</a
+                >
+              </li>
+              <li>
+                <a href="Selectrucks Zapata - Sucursales.html">Sucursales</a>
+              </li>
+              <li>
+                <a href="Selectrucks Zapata - Financiamiento.html"
+                  >Financiamiento</a
+                >
+              </li>
+              <li><a href="Selectrucks Zapata - Contacto.html">Contacto</a></li>
+            </ul>
+          </div>
+          <div class="footer__col footer__contact">
+            <h5>Contacto</h5>
+            <ul>
+              <li>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                  /></svg
+                ><span><strong>Asesor por WhatsApp 24/7</strong></span>
+              </li>
+              <li>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="2" y="4" width="20" height="16" />
+                  <polyline points="22,6 12,13 2,6" /></svg
+                ><span>ventas@selectrucks.mx</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <span
+            >© 2026 Corporación Zapata S.A. de C.V. — Todos los derechos
+            reservados</span
+          >
+          <div class="footer__bottom-links">
+            <a href="#">Aviso de Privacidad</a
+            ><a href="#">Términos y Condiciones</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const nav = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        nav.style.background =
+          window.scrollY > 40 ? "rgba(10,10,10,0.96)" : "rgba(17,17,17,0.92)";
+      });
+    </script>
+  </body>
 </html>
+
+
+

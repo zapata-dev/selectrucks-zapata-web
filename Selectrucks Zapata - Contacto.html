@@ -1,561 +1,1376 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Contacto — Selectrucks Zapata</title>
-<meta name="description" content="Contacta a Selectrucks Zapata. Asesores especializados en camiones seminuevos listos para atenderte por teléfono, WhatsApp o en sucursal." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css" />
-<link rel="stylesheet" href="sections.css" />
-<style>
-.page-hero {
-  padding-top: 136px; padding-bottom: 72px;
-  background: var(--black);
-  position: relative; overflow: hidden;
-  border-bottom: 4px solid var(--red);
-}
-.page-hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-.page-hero__eyebrow { display: flex; gap: 12px; align-items: center; color: var(--red); margin-bottom: 20px; }
-.page-hero__eyebrow .dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; box-shadow: 0 0 0 4px rgba(206,0,0,0.25); animation: pulse 2s infinite; }
-.page-hero h1 { font-size: clamp(48px, 7vw, 88px); line-height: 0.88; margin-bottom: 20px; }
-.page-hero h1 em { font-style: italic; color: var(--lime); }
-.page-hero p { font-size: 17px; color: var(--fog); max-width: 520px; line-height: 1.6; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contacto — Selectrucks Zapata</title>
+    <meta
+      name="description"
+      content="Contacta a Selectrucks Zapata. Asesores especializados en camiones seminuevos listos para atenderte por teléfono, WhatsApp o en sucursal."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="sections.css" />
+    <style>
+      .page-hero {
+        padding-top: 0;
+        padding-bottom: 0;
+        background: var(--black);
+        position: relative;
+        overflow: hidden;
+        border-bottom: 4px solid var(--red);
+        min-height: 540px;
+      }
+      .page-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        z-index: 1;
+      }
+      .page-hero .wrap {
+        position: relative;
+        z-index: 2;
+        padding: 0;
+      }
+      .page-hero__inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 540px;
+        align-items: stretch;
+        max-width: var(--site-max);
+        padding-right: calc(var(--gutter-x) + var(--logo-rail-nudge));
+        margin: 0 auto;
+      }
+      .page-hero__content {
+        padding: 136px 48px 72px calc(var(--gutter-x) + var(--logo-rail-nudge));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      @keyframes hero-kenburns {
+        0% {
+          transform: scale(1) translateX(0) translateY(0);
+        }
+        100% {
+          transform: scale(1.07) translateX(-1.5%) translateY(-1%);
+        }
+      }
+      @keyframes hero-shimmer {
+        0% {
+          transform: translateX(-120%) skewX(-18deg);
+          opacity: 0;
+        }
+        15% {
+          opacity: 1;
+        }
+        85% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(220%) skewX(-18deg);
+          opacity: 0;
+        }
+      }
+      @keyframes hero-glow-pulse {
+        0%,
+        100% {
+          opacity: 0.55;
+        }
+        50% {
+          opacity: 0.75;
+        }
+      }
+      .page-hero__image-col {
+        position: relative;
+        overflow: hidden;
+      }
+      .page-hero__image-col img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: right top;
+        display: block;
+        animation: hero-kenburns 12s ease-in-out infinite alternate;
+        will-change: transform;
+      }
+      .page-hero__image-col::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to right,
+          var(--black) 0%,
+          rgba(17, 17, 17, 0.75) 18%,
+          rgba(17, 17, 17, 0.2) 38%,
+          transparent 55%
+        );
+        z-index: 2;
+        pointer-events: none;
+      }
+      .page-hero__image-col::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 35%;
+        background: linear-gradient(
+          105deg,
+          transparent 20%,
+          rgba(255, 255, 255, 0.07) 50%,
+          transparent 80%
+        );
+        animation: hero-shimmer 9s ease-in-out infinite;
+        animation-delay: 2s;
+        z-index: 3;
+        pointer-events: none;
+      }
+      .page-hero__image-col .img-bottom-fade {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 45%;
+        background: linear-gradient(
+          to top,
+          rgba(17, 17, 17, 0.65) 0%,
+          transparent 100%
+        );
+        animation: hero-glow-pulse 4s ease-in-out infinite;
+        z-index: 2;
+        pointer-events: none;
+      }
+      .page-hero__eyebrow {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        color: var(--red);
+        margin-bottom: 20px;
+      }
+      .page-hero__eyebrow .dot {
+        width: 8px;
+        height: 8px;
+        background: var(--red);
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px rgba(206, 0, 0, 0.25);
+        animation: pulse 2s infinite;
+      }
+      .page-hero h1 {
+        font-size: clamp(48px, 5.5vw, 88px);
+        line-height: 0.88;
+        margin-bottom: 24px;
+      }
+      .page-hero h1 em {
+        font-style: italic;
+        color: var(--lime);
+      }
+      .page-hero p {
+        font-size: 17px;
+        color: var(--fog);
+        max-width: 520px;
+        line-height: 1.6;
+      }
+      .page-hero__badges {
+        display: flex;
+        gap: 12px;
+        margin-top: 36px;
+        flex-wrap: wrap;
+      }
+      .page-hero__badge {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.06);
+        padding: 12px 20px;
+        font-family: "League Spartan", sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--bone);
+        border-left: 3px solid var(--red);
+      }
+      @media (max-width: 900px) {
+        .page-hero__inner {
+          grid-template-columns: 1fr;
+          padding-right: 0;
+        }
+        .page-hero__content {
+          padding: 120px var(--gutter-x) 48px;
+        }
+        .page-hero__image-col {
+          min-height: 320px;
+        }
+        .page-hero__image-col::before {
+          background: linear-gradient(
+            to bottom,
+            var(--black) 0%,
+            transparent 30%
+          );
+        }
+      }
 
-/* Contact layout */
-.contact-section { padding: 80px 0; background: var(--ink); }
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 480px;
-  gap: 80px;
-  align-items: start;
-}
-@media (max-width: 960px) { .contact-grid { grid-template-columns: 1fr; gap: 56px; } }
+      /* Contact layout */
+      .contact-section {
+        padding: 80px 0;
+        background: var(--ink);
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 480px;
+        gap: 80px;
+        align-items: start;
+      }
+      @media (max-width: 960px) {
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 56px;
+        }
+      }
 
-/* Contact info */
-.contact-info h2 { font-size: clamp(32px, 4vw, 52px); line-height: 0.9; margin-bottom: 40px; }
-.contact-info h2 em { font-style: normal; color: var(--red); }
+      /* Contact info */
+      .contact-info h2 {
+        font-size: clamp(32px, 4vw, 52px);
+        line-height: 0.9;
+        margin-bottom: 40px;
+      }
+      .contact-info h2 em {
+        font-style: normal;
+        color: var(--red);
+      }
 
-.contact-channels { display: flex; flex-direction: column; gap: 2px; margin-bottom: 48px; }
-.channel-card {
-  display: flex; gap: 20px; align-items: flex-start;
-  background: var(--graphite); padding: 24px 28px;
-  transition: background .15s;
-  border-left: 3px solid transparent;
-}
-.channel-card:hover { background: #2f2f2f; border-left-color: var(--red); }
-.channel-card__icon {
-  width: 44px; height: 44px; flex-shrink: 0;
-  background: rgba(206,0,0,0.12); border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--red);
-}
-.channel-card__body h4 {
-  font-family: 'League Spartan', sans-serif;
-  font-weight: 800; font-size: 16px;
-  text-transform: uppercase; letter-spacing: 0.06em;
-  margin-bottom: 4px;
-}
-.channel-card__body p { font-size: 14px; color: var(--fog); margin: 0; line-height: 1.5; }
-.channel-card__body a {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 18px; font-weight: 600;
-  color: var(--white); display: block; margin-top: 6px;
-  transition: color .15s;
-}
-.channel-card__body a:hover { color: var(--red); }
+      .contact-channels {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        margin-bottom: 48px;
+      }
+      .channel-card {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+        background: var(--graphite);
+        padding: 24px 28px;
+        transition: background 0.15s;
+        border-left: 3px solid transparent;
+      }
+      .channel-card:hover {
+        background: #2f2f2f;
+        border-left-color: var(--red);
+      }
+      .channel-card__icon {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+        background: rgba(206, 0, 0, 0.12);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--red);
+      }
+      .channel-card__body h4 {
+        font-family: "League Spartan", sans-serif;
+        font-weight: 800;
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 4px;
+      }
+      .channel-card__body p {
+        font-size: 14px;
+        color: var(--fog);
+        margin: 0;
+        line-height: 1.5;
+      }
+      .channel-card__body a {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--white);
+        display: block;
+        margin-top: 6px;
+        transition: color 0.15s;
+      }
+      .channel-card__body a:hover {
+        color: var(--red);
+      }
 
-.contact-hours {
-  background: var(--graphite); padding: 28px 32px;
-  border-top: 3px solid var(--red);
-}
-.contact-hours h4 {
-  font-family: 'League Spartan', sans-serif;
-  font-weight: 800; font-size: 15px;
-  text-transform: uppercase; letter-spacing: 0.1em;
-  color: var(--fog); margin-bottom: 16px;
-}
-.hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 32px; }
-.hours-row { display: flex; flex-direction: column; gap: 2px; }
-.hours-row .day { font-size: 12px; color: var(--ash); text-transform: uppercase; letter-spacing: 0.08em; }
-.hours-row .time { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600; color: var(--white); }
+      .contact-hours {
+        background: var(--graphite);
+        padding: 28px 32px;
+        border-top: 3px solid var(--red);
+      }
+      .contact-hours h4 {
+        font-family: "League Spartan", sans-serif;
+        font-weight: 800;
+        font-size: 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--fog);
+        margin-bottom: 16px;
+      }
+      .hours-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px 32px;
+      }
+      .hours-row {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .hours-row .day {
+        font-size: 12px;
+        color: var(--ash);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      .hours-row .time {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--white);
+      }
 
-/* Contact form */
-.contact-form-wrap {
-  background: var(--graphite);
-  padding: 40px 36px;
-  border-top: 4px solid var(--red);
-}
-.contact-form-wrap h3 {
-  font-size: 26px; margin-bottom: 28px; line-height: 1.1;
-}
-.contact-form-wrap h3 em { font-style: normal; color: var(--red); }
+      /* Contact form */
+      .contact-form-wrap {
+        background: var(--graphite);
+        padding: 40px 36px;
+        border-top: 4px solid var(--red);
+      }
+      .contact-form-wrap h3 {
+        font-size: 26px;
+        margin-bottom: 28px;
+        line-height: 1.1;
+      }
+      .contact-form-wrap h3 em {
+        font-style: normal;
+        color: var(--red);
+      }
 
-.cf-field { margin-bottom: 20px; }
-.cf-field label {
-  display: block; font-size: 11px;
-  text-transform: uppercase; letter-spacing: 0.12em;
-  color: var(--ash); margin-bottom: 8px;
-  font-family: 'League Spartan', sans-serif; font-weight: 700;
-}
-.cf-field input,
-.cf-field select,
-.cf-field textarea {
-  width: 100%; background: var(--ink);
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 14px 16px; color: var(--white);
-  font-family: 'Poppins', sans-serif; font-size: 14px;
-  transition: border-color .15s; box-sizing: border-box;
-}
-.cf-field input:focus,
-.cf-field select:focus,
-.cf-field textarea:focus {
-  outline: none; border-color: var(--red);
-}
-.cf-field select { appearance: none; cursor: pointer; }
-.cf-field textarea { resize: vertical; min-height: 100px; }
-.cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-@media (max-width: 520px) { .cf-row { grid-template-columns: 1fr; } }
+      .cf-field {
+        margin-bottom: 20px;
+      }
+      .cf-field label {
+        display: block;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--ash);
+        margin-bottom: 8px;
+        font-family: "League Spartan", sans-serif;
+        font-weight: 700;
+      }
+      .cf-field input,
+      .cf-field select,
+      .cf-field textarea {
+        width: 100%;
+        background: var(--ink);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 14px 16px;
+        color: var(--white);
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        transition: border-color 0.15s;
+        box-sizing: border-box;
+      }
+      .cf-field input:focus,
+      .cf-field select:focus,
+      .cf-field textarea:focus {
+        outline: none;
+        border-color: var(--red);
+      }
+      .cf-field select {
+        appearance: none;
+        cursor: pointer;
+      }
+      .cf-field textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+      .cf-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      @media (max-width: 520px) {
+        .cf-row {
+          grid-template-columns: 1fr;
+        }
+      }
 
-.cf-submit {
-  width: 100%; padding: 16px;
-  background: var(--red); color: var(--white);
-  font-family: 'League Spartan', sans-serif;
-  font-weight: 800; font-size: 15px;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  border: none; cursor: pointer;
-  transition: background .15s; margin-top: 8px;
-}
-.cf-submit:hover { background: #a80000; }
-.cf-disclaimer {
-  font-size: 11px; color: var(--ash); margin-top: 12px;
-  line-height: 1.6; text-align: center;
-}
-.cf-success {
-  display: none; text-align: center; padding: 32px 0;
-}
-.cf-success.visible { display: block; }
-.cf-success .check {
-  font-size: 56px; color: var(--red); margin-bottom: 16px;
-  display: block;
-}
-.cf-success h3 { font-size: 24px; margin-bottom: 10px; }
-.cf-success p { color: var(--fog); font-size: 14px; }
+      .cf-submit {
+        width: 100%;
+        padding: 16px;
+        background: var(--red);
+        color: var(--white);
+        font-family: "League Spartan", sans-serif;
+        font-weight: 800;
+        font-size: 15px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border: none;
+        cursor: pointer;
+        transition: background 0.15s;
+        margin-top: 8px;
+      }
+      .cf-submit:hover {
+        background: #a80000;
+      }
+      .cf-disclaimer {
+        font-size: 11px;
+        color: var(--ash);
+        margin-top: 12px;
+        line-height: 1.6;
+        text-align: center;
+      }
+      .cf-success {
+        display: none;
+        text-align: center;
+        padding: 32px 0;
+      }
+      .cf-success.visible {
+        display: block;
+      }
+      .cf-success .check {
+        font-size: 56px;
+        color: var(--red);
+        margin-bottom: 16px;
+        display: block;
+      }
+      .cf-success h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      .cf-success p {
+        color: var(--fog);
+        font-size: 14px;
+      }
 
-/* Map section */
-.map-section { padding: 0 0 80px; background: var(--ink); }
-.map-section h2 { font-size: clamp(32px, 4vw, 52px); line-height: 0.9; margin-bottom: 40px; }
-.map-section h2 em { font-style: normal; color: var(--red); }
-.map-placeholder {
-  width: 100%; height: 320px;
-  background: var(--graphite);
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; gap: 16px;
-  border-top: 3px solid var(--red);
-  color: var(--fog);
-}
-.map-placeholder svg { color: var(--red); opacity: 0.6; }
-.map-placeholder p { font-size: 14px; color: var(--ash); }
-.map-branches {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
-  background: var(--graphite); margin-top: 2px;
-}
-@media (max-width: 768px) { .map-branches { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px) { .map-branches { grid-template-columns: 1fr; } }
-.map-branch {
-  background: var(--ink); padding: 20px 24px;
-  font-size: 13px;
-}
-.map-branch strong {
-  display: block;
-  font-family: 'League Spartan', sans-serif;
-  font-weight: 800; font-size: 14px;
-  text-transform: uppercase; letter-spacing: 0.06em;
-  color: var(--white); margin-bottom: 4px;
-}
-.map-branch span { color: var(--ash); font-size: 12px; }
-.map-branch a {
-  display: inline-block; margin-top: 8px;
-  font-size: 11px; text-transform: uppercase;
-  letter-spacing: 0.1em; font-family: 'League Spartan', sans-serif;
-  font-weight: 700; color: var(--red);
-  transition: opacity .15s;
-}
-.map-branch a:hover { opacity: 0.7; }
-</style>
-</head>
-<body>
-
-<header class="nav" id="navbar">
-  <div class="wrap nav__inner">
-    <a href="Selectrucks Zapata - Home.html" class="nav__logo">
-      <img src="assets/logo-selectrucks.png" alt="SelecTrucks | Zapata" />
-    </a>
-    <nav class="nav__links hide-mobile">
-      <a href="Selectrucks%20Zapata%20-%20Home.html">Inicio</a>
-      <a href="Selectrucks%20Zapata%20-%20Inventario.html">Inventario</a>
-      <a href="Selectrucks%20Zapata%20-%20Financiamiento.html">Financiamiento</a>
-      <a href="Selectrucks%20Zapata%20-%20Nosotros.html">Nosotros</a>
-      <a href="Selectrucks%20Zapata%20-%20Contacto.html" style="color:var(--white)">Contacto</a>
-    </nav>
-    <div class="nav__cta">
-      <div class="nav__tel hide-mobile">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        <strong>800 ZAPATA 1</strong>
-      </div>
-      <a class="btn btn--red" href="Selectrucks Zapata - Inventario.html">Ver unidades</a>
-    </div>
-  </div>
-</header>
-
-<!-- HERO -->
-<section class="page-hero">
-  <div class="wrap">
-    <div class="page-hero__eyebrow"><span class="dot"></span><span class="eyebrow">Contacto · Respondemos en menos de 2 horas</span></div>
-    <h1>Estamos aquí<br/>para <em>ayudarte</em></h1>
-    <p>Asesores especializados en camiones seminuevos listos para atenderte. Elige el canal que prefieras: teléfono, WhatsApp, email o visítanos en sucursal.</p>
-  </div>
-</section>
-
-<!-- CARRUSEL DE SUCURSALES -->
-<section style="padding:64px 0;background:var(--graphite);border-bottom:1px solid rgba(255,255,255,0.06);">
-  <div class="wrap">
-    <div class="eyebrow" style="color:var(--red);margin-bottom:16px">— 9 sucursales</div>
-    <h2 style="font-size:clamp(28px,4vw,48px);line-height:0.9;margin-bottom:32px;">Encuéntranos en todo <em style="font-style:normal;color:var(--red);">México</em></h2>
-  </div>
-  <div class="branch-carousel" id="branch-carousel" style="padding:0 32px;">
-      <div class="branch-card-carousel">
-        <div class="branch-card-carousel__state">Edo. de México</div>
-        <div class="branch-card-carousel__name">Tlalnepantla</div>
-        <div class="branch-card-carousel__badge">Matriz</div>
-        <div class="branch-card-carousel__tel">55 5321 3030</div>
-        <div class="branch-card-carousel__hours">L-V 9:00–18:00 · S 9:00–14:00</div>
-        <div class="branch-card-carousel__actions">
-          <a href="https://wa.me/525553213030" target="_blank" class="branch-card-carousel__wa">WhatsApp</a>
-          <a href="https://maps.google.com?q=Tlalnepantla+Estado+de+Mexico+Zapata+Camiones" target="_blank" class="branch-card-carousel__map">Cómo llegar →</a>
+      /* Map section */
+      .map-section {
+        padding: 0 0 80px;
+        background: var(--ink);
+      }
+      .map-section h2 {
+        font-size: clamp(32px, 4vw, 52px);
+        line-height: 0.9;
+        margin-bottom: 40px;
+      }
+      .map-section h2 em {
+        font-style: normal;
+        color: var(--red);
+      }
+      .map-placeholder {
+        width: 100%;
+        height: 320px;
+        background: var(--graphite);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+        border-top: 3px solid var(--red);
+        color: var(--fog);
+      }
+      .map-placeholder svg {
+        color: var(--red);
+        opacity: 0.6;
+      }
+      .map-placeholder p {
+        font-size: 14px;
+        color: var(--ash);
+      }
+      .map-branches {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+        background: var(--graphite);
+        margin-top: 2px;
+      }
+      @media (max-width: 768px) {
+        .map-branches {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 480px) {
+        .map-branches {
+          grid-template-columns: 1fr;
+        }
+      }
+      .map-branch {
+        background: var(--ink);
+        padding: 20px 24px;
+        font-size: 13px;
+      }
+      .map-branch strong {
+        display: block;
+        font-family: "League Spartan", sans-serif;
+        font-weight: 800;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--white);
+        margin-bottom: 4px;
+      }
+      .map-branch span {
+        color: var(--ash);
+        font-size: 12px;
+      }
+      .map-branch a {
+        display: inline-block;
+        margin-top: 8px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-family: "League Spartan", sans-serif;
+        font-weight: 700;
+        color: var(--red);
+        transition: opacity 0.15s;
+      }
+      .map-branch a:hover {
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav" id="navbar">
+      <div class="wrap nav__inner">
+        <a href="Selectrucks Zapata - Home.html" class="nav__logo">
+          <img src="assets/logo-selectrucks.png" alt="SelecTrucks | Zapata" />
+        </a>
+        <nav class="nav__links hide-mobile">
+          <a href="Selectrucks%20Zapata%20-%20Home.html">Inicio</a>
+          <a href="Selectrucks%20Zapata%20-%20Inventario.html">Inventario</a>
+          <a href="Selectrucks%20Zapata%20-%20Financiamiento.html"
+            >Financiamiento</a
+          >
+          <a href="Selectrucks%20Zapata%20-%20Nosotros.html">Nosotros</a>
+          <a
+            href="Selectrucks%20Zapata%20-%20Contacto.html"
+            style="color: var(--white)"
+            >Contacto</a
+          >
+        </nav>
+        <div class="nav__cta">
+          <div class="nav__tel hide-mobile">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+              />
+            </svg>
+            <strong>Asesor por WhatsApp 24/7</strong>
+          </div>
+          <a class="btn btn--red" href="Selectrucks Zapata - Inventario.html"
+            >Ver unidades</a
+          >
         </div>
       </div>
-      <div class="branch-card-carousel">
-        <div class="branch-card-carousel__state">Edo. de México</div>
-        <div class="branch-card-carousel__name">Aeropuerto</div>
-        <div class="branch-card-carousel__tel">59 5954 9933</div>
-        <div class="branch-card-carousel__hours">L-V 9:00–18:00 · S 9:00–14:00</div>
-        <div class="branch-card-carousel__actions">
-          <a href="https://wa.me/525959549933" target="_blank" class="branch-card-carousel__wa">WhatsApp</a>
-          <a href="https://maps.google.com?q=CDMX+Aeropuerto+Zapata+Camiones" target="_blank" class="branch-card-carousel__map">Cómo llegar →</a>
-        </div>
-      </div>
-      <div class="branch-card-carousel">
-        <div class="branch-card-carousel__state">Tamaulipas</div>
-        <div class="branch-card-carousel__name">Tampico</div>
-        <div class="branch-card-carousel__tel">833 301 4653</div>
-        <div class="branch-card-carousel__hours">L-V 9:00–18:00 · S 9:00–13:00</div>
-        <div class="branch-card-carousel__actions">
-          <a href="https://wa.me/528333014653" target="_blank" class="branch-card-carousel__wa">WhatsApp</a>
-          <a href="https://maps.google.com?q=Tampico+Tamaulipas+Zapata+Camiones" target="_blank" class="branch-card-carousel__map">Cómo llegar →</a>
-        </div>
-      </div>
-      <div class="branch-card-carousel">
-        <div class="branch-card-carousel__state">Jalisco</div>
-        <div class="branch-card-carousel__name">Guadalajara</div>
-        <div class="branch-card-carousel__tel">33 3180 8541</div>
-        <div class="branch-card-carousel__hours">L-V 9:00–18:00 · S 9:00–14:00</div>
-        <div class="branch-card-carousel__actions">
-          <a href="https://wa.me/523331808541" target="_blank" class="branch-card-carousel__wa">WhatsApp</a>
-          <a href="https://maps.google.com?q=Guadalajara+Jalisco+Zapata+Camiones" target="_blank" class="branch-card-carousel__map">Cómo llegar →</a>
-        </div>
-      </div>
-      <div class="branch-card-carousel">
-        <div class="branch-card-carousel__state">Jalisco</div>
-        <div class="branch-card-carousel__name">GDL Occidente</div>
-        <div class="branch-card-carousel__tel">33 3837 6500</div>
-        <div class="branch-card-carousel__hours">L-V 9:00–18:00 · S 9:00–14:00</div>
-        <div class="branch-card-carousel__actions">
-          <a href="https://wa.me/523338376500" target="_blank" class="branch-card-carousel__wa">WhatsApp</a>
-          <a href="https://maps.google.com?q=Guadalajara+Occidente+Jalisco+Zapata+Camiones" target="_blank" class="branch-card-carousel__map">Cómo llegar →</a>
-        </div>
-      </div>
-      <div class="branch-card-carousel">
-        <div class="branch-card-carousel__state">Guanajuato</div>
-        <div class="branch-card-carousel__name">León</div>
-        <div class="branch-card-carousel__tel">47 710 0016</div>
-        <div class="branch-card-carousel__hours">L-V 9:00–18:00 · S 9:00–14:00</div>
-        <div class="branch-card-carousel__actions">
-          <a href="https://wa.me/524771100016" target="_blank" class="branch-card-carousel__wa">WhatsApp</a>
-          <a href="https://maps.google.com?q=Leon+Guanajuato+Zapata+Camiones" target="_blank" class="branch-card-carousel__map">Cómo llegar →</a>
-        </div>
-      </div>
-      <div class="branch-card-carousel">
-        <div class="branch-card-carousel__state">Nuevo León</div>
-        <div class="branch-card-carousel__name">Monterrey</div>
-        <div class="branch-card-carousel__badge">Flagship</div>
-        <div class="branch-card-carousel__tel">81 8305 4500</div>
-        <div class="branch-card-carousel__hours">L-V 9:00–18:00 · S 9:00–14:00</div>
-        <div class="branch-card-carousel__actions">
-          <a href="https://wa.me/528183054500" target="_blank" class="branch-card-carousel__wa">WhatsApp</a>
-          <a href="https://maps.google.com?q=Monterrey+Nuevo+Leon+Zapata+Camiones" target="_blank" class="branch-card-carousel__map">Cómo llegar →</a>
-        </div>
-      </div>
-      <div class="branch-card-carousel">
-        <div class="branch-card-carousel__state">Querétaro</div>
-        <div class="branch-card-carousel__name">Querétaro</div>
-        <div class="branch-card-carousel__tel">44 2209 6900</div>
-        <div class="branch-card-carousel__hours">L-V 9:00–18:00 · S 9:00–14:00</div>
-        <div class="branch-card-carousel__actions">
-          <a href="https://wa.me/524422096900" target="_blank" class="branch-card-carousel__wa">WhatsApp</a>
-          <a href="https://maps.google.com?q=Queretaro+Zapata+Camiones" target="_blank" class="branch-card-carousel__map">Cómo llegar →</a>
-        </div>
-      </div>
-      <div class="branch-card-carousel">
-        <div class="branch-card-carousel__state">Guanajuato</div>
-        <div class="branch-card-carousel__name">Celaya</div>
-        <div class="branch-card-carousel__tel">461 689 1108</div>
-        <div class="branch-card-carousel__hours">L-V 9:00–18:00 · S 9:00–13:00</div>
-        <div class="branch-card-carousel__actions">
-          <a href="https://wa.me/524616891108" target="_blank" class="branch-card-carousel__wa">WhatsApp</a>
-          <a href="https://maps.google.com?q=Celaya+Guanajuato+Zapata+Camiones" target="_blank" class="branch-card-carousel__map">Cómo llegar →</a>
-        </div>
-      </div>
-  </div>
-</section>
+    </header>
 
-<!-- CONTACT -->
-<section class="contact-section">
-  <div class="wrap">
-    <div class="contact-grid">
-
-      <!-- Info column -->
-      <div class="contact-info">
-        <div class="eyebrow" style="color:var(--red);margin-bottom:16px">— Canales de atención</div>
-        <h2>Contáctanos por el<br/>canal que <em>prefieras</em></h2>
-
-        <div class="contact-channels">
-          <div class="channel-card">
-            <div class="channel-card__icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="wrap page-hero__inner">
+        <div class="page-hero__content">
+          <div class="page-hero__eyebrow">
+            <span class="dot"></span
+            ><span class="eyebrow"
+              >Contacto &middot; Respondemos en menos de 2 horas</span
+            >
+          </div>
+          <h1>Estamos aqu&iacute;<br />para <em>ayudarte</em></h1>
+          <p>
+            Asesores especializados en camiones seminuevos listos para
+            atenderte. Elige el canal que prefieras: tel&eacute;fono, WhatsApp,
+            email o vis&iacute;tanos en sucursal.
+          </p>
+          <div class="page-hero__badges">
+            <div class="page-hero__badge">
+              &#10003; Respuesta en menos de 2 horas
             </div>
-            <div class="channel-card__body">
-              <h4>Teléfono</h4>
-              <p>Lunes a sábado 8:00–18:00 · Atención inmediata</p>
-              <a href="tel:8009272821">800 ZAPATA 1</a>
+            <div class="page-hero__badge">
+              &#10003; Atenci&oacute;n por WhatsApp y tel&eacute;fono
+            </div>
+            <div class="page-hero__badge">
+              &#10003; 10 sucursales en M&eacute;xico
+            </div>
+          </div>
+        </div>
+        <div class="page-hero__image-col">
+          <img
+            src="assets/contacto-background.jpeg"
+            alt="Asesor Selectrucks Zapata"
+          />
+          <div class="img-bottom-fade"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARRUSEL DE SUCURSALES -->
+    <section
+      style="
+        padding: 64px 0;
+        background: var(--graphite);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      "
+    >
+      <div class="wrap">
+        <div class="eyebrow" style="color: var(--red); margin-bottom: 16px">
+          — 10 sucursales
+        </div>
+        <h2
+          style="
+            font-size: clamp(28px, 4vw, 48px);
+            line-height: 0.9;
+            margin-bottom: 32px;
+          "
+        >
+          Encuéntranos en todo
+          <em style="font-style: normal; color: var(--red)">México</em>
+        </h2>
+      </div>
+      <div class="branch-carousel" id="branch-carousel" style="padding: 0 var(--gutter-x)">
+        <div class="branch-card-carousel">
+          <div class="branch-card-carousel__state">Edo. de México</div>
+          <div class="branch-card-carousel__name">Tlalnepantla</div>
+          <div class="branch-card-carousel__badge">Matriz</div>
+          <div class="branch-card-carousel__tel">55 5321 3030</div>
+          <div class="branch-card-carousel__hours">
+            L-V 9:00—18:00 · S 9:00—14:00
+          </div>
+          <div class="branch-card-carousel__actions">
+            <a
+              href="https://wa.me/525598160234"
+              target="_blank"
+              class="branch-card-carousel__wa"
+              >WhatsApp</a
+            >
+            <a
+              href="https://maps.google.com?q=Tlalnepantla+Estado+de+Mexico+Zapata+Camiones"
+              target="_blank"
+              class="branch-card-carousel__map"
+              >Cómo llegar →</a
+            >
+          </div>
+        </div>
+        <div class="branch-card-carousel">
+          <div class="branch-card-carousel__state">Edo. de México</div>
+          <div class="branch-card-carousel__name">Aeropuerto</div>
+          <div class="branch-card-carousel__tel">59 5954 9933</div>
+          <div class="branch-card-carousel__hours">
+            L-V 9:00—18:00 · S 9:00—14:00
+          </div>
+          <div class="branch-card-carousel__actions">
+            <a
+              href="https://wa.me/525598160234"
+              target="_blank"
+              class="branch-card-carousel__wa"
+              >WhatsApp</a
+            >
+            <a
+              href="https://maps.google.com?q=CDMX+Aeropuerto+Zapata+Camiones"
+              target="_blank"
+              class="branch-card-carousel__map"
+              >Cómo llegar →</a
+            >
+          </div>
+        </div>
+        <div class="branch-card-carousel">
+          <div class="branch-card-carousel__state">Tamaulipas</div>
+          <div class="branch-card-carousel__name">Tampico</div>
+          <div class="branch-card-carousel__tel">833 301 4653</div>
+          <div class="branch-card-carousel__hours">
+            L-V 9:00—18:00 · S 9:00—13:00
+          </div>
+          <div class="branch-card-carousel__actions">
+            <a
+              href="https://wa.me/525598160234"
+              target="_blank"
+              class="branch-card-carousel__wa"
+              >WhatsApp</a
+            >
+            <a
+              href="https://maps.google.com?q=Tampico+Tamaulipas+Zapata+Camiones"
+              target="_blank"
+              class="branch-card-carousel__map"
+              >Cómo llegar →</a
+            >
+          </div>
+        </div>
+        <div class="branch-card-carousel">
+          <div class="branch-card-carousel__state">Jalisco</div>
+          <div class="branch-card-carousel__name">Guadalajara</div>
+          <div class="branch-card-carousel__tel">33 3180 8541</div>
+          <div class="branch-card-carousel__hours">
+            L-V 9:00—18:00 · S 9:00—14:00
+          </div>
+          <div class="branch-card-carousel__actions">
+            <a
+              href="https://wa.me/525598160234"
+              target="_blank"
+              class="branch-card-carousel__wa"
+              >WhatsApp</a
+            >
+            <a
+              href="https://maps.google.com?q=Guadalajara+Jalisco+Zapata+Camiones"
+              target="_blank"
+              class="branch-card-carousel__map"
+              >Cómo llegar →</a
+            >
+          </div>
+        </div>
+        <div class="branch-card-carousel">
+          <div class="branch-card-carousel__state">Jalisco</div>
+          <div class="branch-card-carousel__name">GDL Occidente</div>
+          <div class="branch-card-carousel__tel">33 3837 6500</div>
+          <div class="branch-card-carousel__hours">
+            L-V 9:00—18:00 · S 9:00—14:00
+          </div>
+          <div class="branch-card-carousel__actions">
+            <a
+              href="https://wa.me/525598160234"
+              target="_blank"
+              class="branch-card-carousel__wa"
+              >WhatsApp</a
+            >
+            <a
+              href="https://maps.google.com?q=Guadalajara+Occidente+Jalisco+Zapata+Camiones"
+              target="_blank"
+              class="branch-card-carousel__map"
+              >Cómo llegar →</a
+            >
+          </div>
+        </div>
+        <div class="branch-card-carousel">
+          <div class="branch-card-carousel__state">Guanajuato</div>
+          <div class="branch-card-carousel__name">León</div>
+          <div class="branch-card-carousel__tel">47 710 0016</div>
+          <div class="branch-card-carousel__hours">
+            L-V 9:00—18:00 · S 9:00—14:00
+          </div>
+          <div class="branch-card-carousel__actions">
+            <a
+              href="https://wa.me/525598160234"
+              target="_blank"
+              class="branch-card-carousel__wa"
+              >WhatsApp</a
+            >
+            <a
+              href="https://maps.google.com?q=Leon+Guanajuato+Zapata+Camiones"
+              target="_blank"
+              class="branch-card-carousel__map"
+              >Cómo llegar →</a
+            >
+          </div>
+        </div>
+        <div class="branch-card-carousel">
+          <div class="branch-card-carousel__state">Nuevo León</div>
+          <div class="branch-card-carousel__name">Monterrey</div>
+          <div class="branch-card-carousel__badge">Flagship</div>
+          <div class="branch-card-carousel__tel">81 8305 4500</div>
+          <div class="branch-card-carousel__hours">
+            L-V 9:00—18:00 · S 9:00—14:00
+          </div>
+          <div class="branch-card-carousel__actions">
+            <a
+              href="https://wa.me/525598160234"
+              target="_blank"
+              class="branch-card-carousel__wa"
+              >WhatsApp</a
+            >
+            <a
+              href="https://maps.google.com?q=Monterrey+Nuevo+Leon+Zapata+Camiones"
+              target="_blank"
+              class="branch-card-carousel__map"
+              >Cómo llegar →</a
+            >
+          </div>
+        </div>
+        <div class="branch-card-carousel">
+          <div class="branch-card-carousel__state">Querétaro</div>
+          <div class="branch-card-carousel__name">Querétaro</div>
+          <div class="branch-card-carousel__tel">44 2209 6900</div>
+          <div class="branch-card-carousel__hours">
+            L-V 9:00—18:00 · S 9:00—14:00
+          </div>
+          <div class="branch-card-carousel__actions">
+            <a
+              href="https://wa.me/525598160234"
+              target="_blank"
+              class="branch-card-carousel__wa"
+              >WhatsApp</a
+            >
+            <a
+              href="https://maps.google.com?q=Queretaro+Zapata+Camiones"
+              target="_blank"
+              class="branch-card-carousel__map"
+              >Cómo llegar →</a
+            >
+          </div>
+        </div>
+        <div class="branch-card-carousel">
+          <div class="branch-card-carousel__state">Guanajuato</div>
+          <div class="branch-card-carousel__name">Celaya</div>
+          <div class="branch-card-carousel__tel">461 689 1108</div>
+          <div class="branch-card-carousel__hours">
+            L-V 9:00—18:00 · S 9:00—13:00
+          </div>
+          <div class="branch-card-carousel__actions">
+            <a
+              href="https://wa.me/525598160234"
+              target="_blank"
+              class="branch-card-carousel__wa"
+              >WhatsApp</a
+            >
+            <a
+              href="https://maps.google.com?q=Celaya+Guanajuato+Zapata+Camiones"
+              target="_blank"
+              class="branch-card-carousel__map"
+              >Cómo llegar →</a
+            >
+          </div>
+        </div>
+        <div class="branch-card-carousel">
+          <div class="branch-card-carousel__state">Edo. de México · Cuautitlán Izcalli</div>
+          <div class="branch-card-carousel__name">Cuautitlán</div>
+          <div class="branch-card-carousel__tel">55 5872 6011</div>
+          <div class="branch-card-carousel__hours">
+            L-V 9:00—18:00 · S 9:00—14:00 · D Cerrado
+          </div>
+          <div class="branch-card-carousel__actions">
+            <a
+              href="https://wa.me/525598160234"
+              target="_blank"
+              class="branch-card-carousel__wa"
+              >WhatsApp</a
+            >
+            <a
+              href="https://maps.google.com/?q=Autopista+M%C3%A9xico-Quer%C3%A9taro+6001-Km.+40.5,+La+Luz,+54716+Cuautitl%C3%A1n+Izcalli,+M%C3%A9x."
+              target="_blank"
+              class="branch-card-carousel__map"
+              >Cómo llegar →</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-section">
+      <div class="wrap">
+        <div class="contact-grid">
+          <!-- Info column -->
+          <div class="contact-info">
+            <div class="eyebrow" style="color: var(--red); margin-bottom: 16px">
+              — Canales de atención
+            </div>
+            <h2>Contáctanos por el<br />canal que <em>prefieras</em></h2>
+
+            <div class="contact-channels">
+              <div class="channel-card">
+                <div class="channel-card__icon">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                    />
+                  </svg>
+                </div>
+                <div class="channel-card__body">
+                  <h4>Teléfono</h4>
+                  <p>Lunes a sábado 8:00—18:00 · Atención inmediata</p>
+                  <a href="https://wa.me/525598160234?text=Hola%2C%20quiero%20asesoria%20por%20WhatsApp%20sobre%20unidades%20disponibles." target="_blank" rel="noopener noreferrer">Asesor por WhatsApp 24/7</a>
+                </div>
+              </div>
+
+              <div class="channel-card">
+                <div
+                  class="channel-card__icon"
+                  style="background: rgba(37, 211, 102, 0.12); color: #25d366"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5-.1-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3 0-.2-.2-.3-.5-.4zM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.4A10 10 0 1 0 12 2z"
+                    />
+                  </svg>
+                </div>
+                <div class="channel-card__body">
+                  <h4>WhatsApp</h4>
+                  <p>
+                    Respuesta rápida · Envía fotos de tu unidad de interés
+                  </p>
+                  <a
+                    href="https://wa.me/525598160234"
+                    target="_blank"
+                    style="color: #25d366"
+                    >+52 (55) 9816-0234</a
+                  >
+                </div>
+              </div>
+
+              <div class="channel-card">
+                <div class="channel-card__icon">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect x="2" y="4" width="20" height="16" />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                </div>
+                <div class="channel-card__body">
+                  <h4>Email</h4>
+                  <p>Para cotizaciones detalladas y documentación</p>
+                  <a href="mailto:ventas@selectrucks.mx"
+                    >ventas@selectrucks.mx</a
+                  >
+                </div>
+              </div>
+
+              <div class="channel-card">
+                <div class="channel-card__icon">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                </div>
+                <div class="channel-card__body">
+                  <h4>Visítanos</h4>
+                  <p>
+                    10 sucursales en México · Ven a ver las unidades en persona
+                  </p>
+                  <a href="Selectrucks Zapata - Sucursales.html"
+                    >Ver todas las sucursales →</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-hours">
+              <h4>Horario de atención</h4>
+              <div class="hours-grid">
+                <div class="hours-row">
+                  <span class="day">Lunes — Viernes</span>
+                  <span class="time">8:00 — 18:00</span>
+                </div>
+                <div class="hours-row">
+                  <span class="day">Sábado</span>
+                  <span class="time">9:00 — 15:00</span>
+                </div>
+                <div class="hours-row">
+                  <span class="day">Domingo</span>
+                  <span class="time">Cerrado</span>
+                </div>
+                <div class="hours-row">
+                  <span class="day">WhatsApp</span>
+                  <span class="time">7:00 — 20:00</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="channel-card">
-            <div class="channel-card__icon" style="background:rgba(37,211,102,0.12);color:#25D366;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5-.1-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3 0-.2-.2-.3-.5-.4zM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.4A10 10 0 1 0 12 2z"/></svg>
-            </div>
-            <div class="channel-card__body">
-              <h4>WhatsApp</h4>
-              <p>Respuesta rápida · Envía fotos de tu unidad de interés</p>
-              <a href="https://wa.me/5215555550101" target="_blank" style="color:#25D366;">+52 (55) 5555-0101</a>
-            </div>
-          </div>
-
-          <div class="channel-card">
-            <div class="channel-card__icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16"/><polyline points="22,6 12,13 2,6"/></svg>
-            </div>
-            <div class="channel-card__body">
-              <h4>Email</h4>
-              <p>Para cotizaciones detalladas y documentación</p>
-              <a href="mailto:ventas@selectrucks.mx">ventas@selectrucks.mx</a>
-            </div>
-          </div>
-
-          <div class="channel-card">
-            <div class="channel-card__icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            </div>
-            <div class="channel-card__body">
-              <h4>Visítanos</h4>
-              <p>9 sucursales en México · Ven a ver las unidades en persona</p>
-              <a href="Selectrucks Zapata - Sucursales.html">Ver todas las sucursales →</a>
+          <!-- Form column -->
+          <div class="contact-form-wrap">
+            <h3>Escríbenos y te<br />contactamos <em>hoy</em></h3>
+            <form id="contact-form" onsubmit="submitContact(event)">
+              <div class="cf-row">
+                <div class="cf-field">
+                  <label>Nombre *</label>
+                  <input type="text" placeholder="Tu nombre" required />
+                </div>
+                <div class="cf-field">
+                  <label>Apellidos *</label>
+                  <input type="text" placeholder="Apellidos" required />
+                </div>
+              </div>
+              <div class="cf-row">
+                <div class="cf-field">
+                  <label>Teléfono *</label>
+                  <input type="tel" placeholder="(55) 1234-5678" required />
+                </div>
+                <div class="cf-field">
+                  <label>Email *</label>
+                  <input
+                    type="email"
+                    placeholder="correo@empresa.com"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="cf-field">
+                <label>Sucursal más cercana</label>
+                <select>
+                  <option value="">Seleccionar...</option>
+                  <option>Tlalnepantla</option>
+                  <option>CDMX Aeropuerto</option>
+                  <option>Monterrey</option>
+                  <option>Guadalajara</option>
+                  <option>GDL Occidente</option>
+                  <option>León</option>
+                  <option>Querétaro</option>
+                  <option>Tampico</option>
+                  <option>Celaya</option>
+                </select>
+              </div>
+              <div class="cf-field">
+                <label>¿En qué podemos ayudarte?</label>
+                <select>
+                  <option value="">Seleccionar motivo...</option>
+                  <option>Cotización de unidad</option>
+                  <option>Información de financiamiento</option>
+                  <option>Agendar visita a sucursal</option>
+                  <option>Venta de mi camión</option>
+                  <option>Servicio post-venta</option>
+                  <option>Otro</option>
+                </select>
+              </div>
+              <div class="cf-field">
+                <label>Mensaje</label>
+                <textarea
+                  placeholder="Cuéntanos en qué te podemos ayudar..."
+                ></textarea>
+              </div>
+              <button type="submit" class="cf-submit">
+                Enviar mensaje →
+              </button>
+              <p class="cf-disclaimer">
+                Al enviar acepta nuestro Aviso de Privacidad. Sus datos se usan
+                únicamente para contactarle sobre su consulta.
+              </p>
+            </form>
+            <div class="cf-success" id="cf-success">
+              <span class="check">✓</span>
+              <h3>¡Mensaje enviado!</h3>
+              <p>
+                Un asesor se pondrá en contacto contigo en menos de 2 horas en
+                horario de atención.
+              </p>
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="contact-hours">
-          <h4>Horario de atención</h4>
-          <div class="hours-grid">
-            <div class="hours-row">
-              <span class="day">Lunes – Viernes</span>
-              <span class="time">8:00 – 18:00</span>
+    <!-- ¿NO NOS ENCUENTRAS? -->
+    <section
+      style="
+        background: var(--graphite);
+        padding: 56px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      "
+    >
+      <div
+        class="wrap"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 32px;
+          flex-wrap: wrap;
+        "
+      >
+        <div>
+          <div
+            style="
+              font-family: &quot;JetBrains Mono&quot;, monospace;
+              font-size: 11px;
+              letter-spacing: 0.14em;
+              text-transform: uppercase;
+              color: var(--ash);
+              margin-bottom: 12px;
+            "
+          >
+            ¿No nos encuentras?
+          </div>
+          <h2
+            style="
+              font-size: clamp(24px, 3vw, 40px);
+              line-height: 0.95;
+              margin: 0 0 12px;
+            "
+          >
+            Llámanos directo<br />al
+            <em style="font-style: normal; color: var(--red)">Asesor por WhatsApp 24/7</em>
+          </h2>
+          <p style="font-size: 14px; color: var(--fog); margin: 0">
+            Un asesor te orientará sobre la sucursal más cercana y te
+            conectará con el equipo correcto.
+          </p>
+        </div>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap">
+          <a
+            href="https://wa.me/525598160234?text=Hola%2C%20quiero%20asesoria%20por%20WhatsApp%20sobre%20unidades%20disponibles." target="_blank" rel="noopener noreferrer"
+            class="btn btn--outline"
+            style="white-space: nowrap"
+            >📞 Asesor por WhatsApp 24/7</a
+          >
+          <a
+            href="https://wa.me/525598160234"
+            target="_blank"
+            class="btn btn--red"
+            style="white-space: nowrap"
+            >WhatsApp →</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- CIERRE -->
+    <section
+      style="
+        background: var(--black);
+        padding: 96px 0;
+        text-align: center;
+        border-top: 4px solid var(--red);
+      "
+    >
+      <div class="wrap">
+        <div
+          style="
+            font-family: &quot;JetBrains Mono&quot;, monospace;
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 20px;
+          "
+        >
+          ◆ Selectrucks Zapata
+        </div>
+        <h2
+          style="
+            font-size: clamp(36px, 5.5vw, 80px);
+            line-height: 0.88;
+            margin-bottom: 24px;
+          "
+        >
+          Aquí podrás encontrar<br /><em
+            style="font-style: italic; color: var(--lime)"
+            >tu camión</em
+          >
+        </h2>
+        <p
+          style="
+            font-size: 17px;
+            color: var(--fog);
+            max-width: 540px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+          "
+        >
+          Más de 300 unidades verificadas. 10 sucursales. Garantía Tren Motriz
+          90 días. Financiamiento con respaldo institucional.
+        </p>
+        <div
+          style="
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+          "
+        >
+          <a
+            href="Selectrucks%20Zapata%20-%20Inventario.html"
+            class="btn btn--red"
+            style="
+              clip-path: polygon(
+                16px 0%,
+                100% 0%,
+                calc(100% - 16px) 100%,
+                0% 100%
+              );
+              border-radius: 0;
+              padding: 18px 40px;
+              font-size: 15px;
+            "
+            >Ver inventario →</a
+          >
+          <a
+            href="Selectrucks%20Zapata%20-%20Financiamiento.html"
+            class="btn btn--outline"
+            style="padding: 18px 40px; font-size: 15px"
+            >Financiamiento</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="wrap">
+        <div class="footer__grid">
+          <div class="footer__logo">
+            <img src="assets/logo-selectrucks.png" alt="SelecTrucks Zapata" />
+            <p>
+              Marketplace de camiones seminuevos verificados de Corporación
+              Zapata. Más de 306 unidades en 10 sucursales.
+            </p>
+            <div class="footer__social">
+              <a href="#" aria-label="WhatsApp"
+                ><svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5-.1-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3 0-.2-.2-.3-.5-.4zM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.4A10 10 0 1 0 12 2z"
+                  /></svg
+              ></a>
+              <a href="#" aria-label="Instagram"
+                ><svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="3" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg
+              ></a>
+              <a href="#" aria-label="Facebook"
+                ><svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M22 12a10 10 0 1 0-11.6 9.87v-6.99H7.9V12h2.5V9.8c0-2.47 1.47-3.83 3.72-3.83 1.08 0 2.21.19 2.21.19v2.43h-1.24c-1.23 0-1.61.76-1.61 1.54V12h2.73l-.44 2.89h-2.29v6.99A10 10 0 0 0 22 12z"
+                  /></svg
+              ></a>
             </div>
-            <div class="hours-row">
-              <span class="day">Sábado</span>
-              <span class="time">9:00 – 15:00</span>
-            </div>
-            <div class="hours-row">
-              <span class="day">Domingo</span>
-              <span class="time">Cerrado</span>
-            </div>
-            <div class="hours-row">
-              <span class="day">WhatsApp</span>
-              <span class="time">7:00 – 20:00</span>
-            </div>
+          </div>
+          <div class="footer__col">
+            <h5>Inventario</h5>
+            <ul>
+              <li>
+                <a href="Selectrucks Zapata - Inventario.html">Ver todo</a>
+              </li>
+              <li><a href="#">Tractocamiones</a></li>
+              <li><a href="#">Volteos</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h5>Empresa</h5>
+            <ul>
+              <li><a href="Selectrucks Zapata - Nosotros.html">Nosotros</a></li>
+              <li>
+                <a href="Selectrucks Zapata - Sucursales.html">Sucursales</a>
+              </li>
+              <li>
+                <a href="Selectrucks Zapata - Financiamiento.html"
+                  >Financiamiento</a
+                >
+              </li>
+              <li><a href="Selectrucks Zapata - Contacto.html">Contacto</a></li>
+            </ul>
+          </div>
+          <div class="footer__col footer__contact">
+            <h5>Contacto</h5>
+            <ul>
+              <li>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                  /></svg
+                ><span><strong>Asesor por WhatsApp 24/7</strong></span>
+              </li>
+              <li>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="2" y="4" width="20" height="16" />
+                  <polyline points="22,6 12,13 2,6" /></svg
+                ><span>ventas@selectrucks.mx</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <span
+            >© 2026 Corporación Zapata S.A. de C.V. — Todos los derechos
+            reservados</span
+          >
+          <div class="footer__bottom-links">
+            <a href="#">Aviso de Privacidad</a
+            ><a href="#">Términos y Condiciones</a>
           </div>
         </div>
       </div>
+    </footer>
 
-      <!-- Form column -->
-      <div class="contact-form-wrap">
-        <h3>Escríbenos y te<br/>contactamos <em>hoy</em></h3>
-        <form id="contact-form" onsubmit="submitContact(event)">
-          <div class="cf-row">
-            <div class="cf-field">
-              <label>Nombre *</label>
-              <input type="text" placeholder="Tu nombre" required />
-            </div>
-            <div class="cf-field">
-              <label>Apellidos *</label>
-              <input type="text" placeholder="Apellidos" required />
-            </div>
-          </div>
-          <div class="cf-row">
-            <div class="cf-field">
-              <label>Teléfono *</label>
-              <input type="tel" placeholder="(55) 1234-5678" required />
-            </div>
-            <div class="cf-field">
-              <label>Email *</label>
-              <input type="email" placeholder="correo@empresa.com" required />
-            </div>
-          </div>
-          <div class="cf-field">
-            <label>Sucursal más cercana</label>
-            <select>
-              <option value="">Seleccionar...</option>
-              <option>Tlalnepantla</option>
-              <option>CDMX Aeropuerto</option>
-              <option>Monterrey</option>
-              <option>Guadalajara</option>
-              <option>GDL Occidente</option>
-              <option>León</option>
-              <option>Querétaro</option>
-              <option>Tampico</option>
-              <option>Celaya</option>
-            </select>
-          </div>
-          <div class="cf-field">
-            <label>¿En qué podemos ayudarte?</label>
-            <select>
-              <option value="">Seleccionar motivo...</option>
-              <option>Cotización de unidad</option>
-              <option>Información de financiamiento</option>
-              <option>Agendar visita a sucursal</option>
-              <option>Venta de mi camión</option>
-              <option>Servicio post-venta</option>
-              <option>Otro</option>
-            </select>
-          </div>
-          <div class="cf-field">
-            <label>Mensaje</label>
-            <textarea placeholder="Cuéntanos en qué te podemos ayudar..."></textarea>
-          </div>
-          <button type="submit" class="cf-submit">Enviar mensaje →</button>
-          <p class="cf-disclaimer">Al enviar acepta nuestro Aviso de Privacidad. Sus datos se usan únicamente para contactarle sobre su consulta.</p>
-        </form>
-        <div class="cf-success" id="cf-success">
-          <span class="check">✓</span>
-          <h3>¡Mensaje enviado!</h3>
-          <p>Un asesor se pondrá en contacto contigo en menos de 2 horas en horario de atención.</p>
-        </div>
-      </div>
+    <script>
+      const nav = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        nav.style.background =
+          window.scrollY > 40 ? "rgba(10,10,10,0.96)" : "rgba(17,17,17,0.92)";
+      });
 
-    </div>
-  </div>
-</section>
-
-<!-- ¿NO NOS ENCUENTRAS? -->
-<section style="background:var(--graphite);padding:56px 0;border-top:1px solid rgba(255,255,255,0.06);">
-  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
-    <div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ash);margin-bottom:12px;">¿No nos encuentras?</div>
-      <h2 style="font-size:clamp(24px,3vw,40px);line-height:0.95;margin:0 0 12px;">Llámanos directo<br/>al <em style="font-style:normal;color:var(--red);">800 ZAPATA 1</em></h2>
-      <p style="font-size:14px;color:var(--fog);margin:0;">Un asesor te orientará sobre la sucursal más cercana y te conectará con el equipo correcto.</p>
-    </div>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;">
-      <a href="tel:8009272821" class="btn btn--outline" style="white-space:nowrap;">📞 800 ZAPATA 1</a>
-      <a href="https://wa.me/5215555550101" target="_blank" class="btn btn--red" style="white-space:nowrap;">WhatsApp →</a>
-    </div>
-  </div>
-</section>
-
-<!-- CIERRE -->
-<section style="background:var(--black);padding:96px 0;text-align:center;border-top:4px solid var(--red);">
-  <div class="wrap">
-    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:20px;">◆ Selectrucks Zapata</div>
-    <h2 style="font-size:clamp(36px,5.5vw,80px);line-height:0.88;margin-bottom:24px;">Aquí podrás encontrar<br/><em style="font-style:italic;color:var(--lime);">tu camión</em></h2>
-    <p style="font-size:17px;color:var(--fog);max-width:540px;margin:0 auto 40px;line-height:1.6;">Más de 300 unidades verificadas. 9 sucursales. Garantía Tren Motriz 90 días. Financiamiento con respaldo institucional.</p>
-    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-      <a href="Selectrucks%20Zapata%20-%20Inventario.html" class="btn btn--red" style="clip-path:polygon(16px 0%,100% 0%,calc(100% - 16px) 100%,0% 100%);border-radius:0;padding:18px 40px;font-size:15px;">Ver inventario →</a>
-      <a href="Selectrucks%20Zapata%20-%20Financiamiento.html" class="btn btn--outline" style="padding:18px 40px;font-size:15px;">Financiamiento</a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer__grid">
-      <div class="footer__logo">
-        <img src="assets/logo-selectrucks.png" alt="SelecTrucks Zapata" />
-        <p>Marketplace de camiones seminuevos verificados de Corporación Zapata. Más de 306 unidades en 9 sucursales.</p>
-        <div class="footer__social">
-          <a href="#" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5-.1-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3 0-.2-.2-.3-.5-.4zM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.4A10 10 0 1 0 12 2z"/></svg></a>
-          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-          <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.87v-6.99H7.9V12h2.5V9.8c0-2.47 1.47-3.83 3.72-3.83 1.08 0 2.21.19 2.21.19v2.43h-1.24c-1.23 0-1.61.76-1.61 1.54V12h2.73l-.44 2.89h-2.29v6.99A10 10 0 0 0 22 12z"/></svg></a>
-        </div>
-      </div>
-      <div class="footer__col">
-        <h5>Inventario</h5>
-        <ul><li><a href="Selectrucks Zapata - Inventario.html">Ver todo</a></li><li><a href="#">Tractocamiones</a></li><li><a href="#">Volteos</a></li></ul>
-      </div>
-      <div class="footer__col">
-        <h5>Empresa</h5>
-        <ul>
-          <li><a href="Selectrucks Zapata - Nosotros.html">Nosotros</a></li>
-          <li><a href="Selectrucks Zapata - Sucursales.html">Sucursales</a></li>
-          <li><a href="Selectrucks Zapata - Financiamiento.html">Financiamiento</a></li>
-          <li><a href="Selectrucks Zapata - Contacto.html">Contacto</a></li>
-        </ul>
-      </div>
-      <div class="footer__col footer__contact">
-        <h5>Contacto</h5>
-        <ul>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.22 13 19.79 19.79 0 0 1 1.15 4.33 2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span><strong>800 ZAPATA 1</strong></span></li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16"/><polyline points="22,6 12,13 2,6"/></svg><span>ventas@selectrucks.mx</span></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer__bottom">
-      <span>© 2026 Corporación Zapata S.A. de C.V. — Todos los derechos reservados</span>
-      <div class="footer__bottom-links"><a href="#">Aviso de Privacidad</a><a href="#">Términos y Condiciones</a></div>
-    </div>
-  </div>
-</footer>
-
-<script>
-const nav = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  nav.style.background = window.scrollY > 40 ? 'rgba(10,10,10,0.96)' : 'rgba(17,17,17,0.92)';
-});
-
-function submitContact(e) {
-  e.preventDefault();
-  document.getElementById('contact-form').style.display = 'none';
-  document.getElementById('cf-success').classList.add('visible');
-}
-</script>
-</body>
+      function submitContact(e) {
+        e.preventDefault();
+        document.getElementById("contact-form").style.display = "none";
+        document.getElementById("cf-success").classList.add("visible");
+      }
+    </script>
+  </body>
 </html>
+
+
+
+
+
+

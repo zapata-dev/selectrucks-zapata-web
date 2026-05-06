@@ -159,7 +159,7 @@
   display: grid;
   grid-template-columns: 1fr 4fr;
   align-items: center;
-  padding: 80px 0 20px 56px; /* sin padding derecho — canvas sangra */
+  padding: 80px 0 20px var(--logo-rail-x); /* alinea ópticamente con inicio del logo */
   z-index: 2;
 }
 
@@ -417,7 +417,7 @@
 }
 
 @media (max-width: 1100px) {
-  .hero-scroll__layout { grid-template-columns: 1fr; padding: 90px 32px 16px; }
+  .hero-scroll__layout { grid-template-columns: 1fr; padding: 90px var(--gutter-x) 16px; }
   .hero-scroll__right { min-height: 280px; }
   .hero-scroll__left { padding-right: 0; margin-bottom: 16px; }
   .hero-scroll__left h1 { font-size: clamp(32px, 7vw, 56px); }

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Selectrucks Zapata — Camiones seminuevos verificados</title>
-<meta name="description" content="Marketplace de camiones seminuevos verificados de Corporación Zapata. Más de 300 unidades en 9 sucursales de México. Financiamiento aprobado en 48 horas." />
+<title>Selectrucks Zapata ? Camiones seminuevos verificados</title>
+<meta name="description" content="Marketplace de camiones seminuevos verificados de Corporaci?n Zapata. M?s de 300 unidades en 10 sucursales de M?xico. Financiamiento aprobado en 48 horas." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -41,10 +41,10 @@ function App() {
     <>
       <Navbar onContact={() => openContact(null)} />
       <Hero onContact={() => openContact(null)} />
+      <FeaturedUnits onQuote={openContact} />
       <WhatDefinesUs />
       <ZapataSupport />
       <StatsBanner />
-      <FeaturedUnits onQuote={openContact} />
       <Branches />
       <CTAStrip onContact={() => openContact(null)} />
       <Footer />
@@ -52,7 +52,7 @@ function App() {
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         unit={modalUnit}
-        onSubmit={() => showToast('✓ Solicitud enviada. Un asesor te contacta pronto.')}
+        onSubmit={() => showToast('? Solicitud enviada. Un asesor te contacta pronto.')}
       />
       <div className={`toast ${toast ? 'is-visible' : ''}`}>
         <Icon.Check />
@@ -73,3 +73,4 @@ mount();
 
 </body>
 </html>
+

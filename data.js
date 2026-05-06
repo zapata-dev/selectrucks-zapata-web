@@ -3,6 +3,7 @@
 const BRANCHES = [
   { id: 'tlal', name: 'Tlalnepantla',  state: 'Edo. de México', count: 48, tel: '55 5321 3030', hours: 'L-V 9:00-18:00 · S 9:00-14:00', flagship: true },
   { id: 'aero', name: 'Aeropuerto',    state: 'Edo. de México', count: 34, tel: '59 5954 9933', hours: 'L-V 9:00-18:00 · S 9:00-14:00' },
+  { id: 'cuau', name: 'Cuautitlán',    state: 'Edo. de México', count: 23, tel: '55 5872 6011', hours: 'L-V 9:00-18:00 · S 9:00-14:00 · D Cerrado' },
   { id: 'tamp', name: 'Tampico',       state: 'Tamaulipas',     count: 22, tel: '833 301 4653', hours: 'L-V 9:00-18:00 · S 9:00-13:00' },
   { id: 'gdl',  name: 'Guadalajara',   state: 'Jalisco',        count: 41, tel: '33 3180 8541', hours: 'L-V 9:00-18:00 · S 9:00-14:00' },
   { id: 'gdlo', name: 'Guadalajara Occidente', state: 'Jalisco', count: 28, tel: '33 3837 6500', hours: 'L-V 9:00-18:00 · S 9:00-14:00' },

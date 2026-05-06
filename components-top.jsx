@@ -74,10 +74,16 @@ function Navbar({ onContact, onBranch }) {
             <a href="Selectrucks%20Zapata%20-%20Contacto.html">Contacto</a>
           </nav>
           <div className="nav__cta">
-            <div className="nav__tel hide-mobile">
-              <Icon.Phone />
-              <strong>800 ZAPATA 1</strong>
-            </div>
+            <a
+              className="nav__tel hide-mobile"
+              href="https://wa.me/525598160234?text=Hola%2C%20quiero%20informaci%C3%B3n%20de%20unidades%20disponibles."
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Contactar por WhatsApp"
+            >
+              <Icon.Wa />
+              <strong>Asesor por WhatsApp 24/7</strong>
+            </a>
             <a className="btn btn--red" href="Selectrucks%20Zapata%20-%20Inventario.html">
               Ver unidades
             </a>
@@ -489,3 +495,4 @@ window.SearchBar = SearchBar;
 window.fmtMXN = fmtMXN;
 window.fmtMXNnoDec = fmtMXNnoDec;
 window.AnimatedCounter = AnimatedCounter;
+

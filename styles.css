@@ -1,5 +1,9 @@
 /* Selectrucks Zapata — design tokens & base */
 :root {
+  --site-max: 1400px;
+  --gutter-x: 32px;
+  --logo-rail-nudge: 4px;
+  --logo-rail-x: calc((100vw - min(var(--site-max), 100vw)) / 2 + var(--gutter-x) + var(--logo-rail-nudge));
   --red: #ce0000;
   --red-hot: #ff1414;
   --red-dark: #9a0000;
@@ -54,7 +58,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 img { display: block; max-width: 100%; }
 
 /* Layout */
-.wrap { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 32px; }
+.wrap { width: 100%; max-width: var(--site-max); margin: 0 auto; padding: 0 var(--gutter-x); }
 
 /* Red ribbon — signature brand device (from provided flyer) */
 .ribbon {
@@ -151,7 +155,8 @@ section { position: relative; }
 @media (max-width: 820px) {
   .hide-mobile { display: none !important; }
   .show-mobile { display: initial; }
-  .wrap { padding: 0 20px; }
+  :root { --gutter-x: 20px; --logo-rail-nudge: 2px; }
+  .wrap { padding: 0 var(--gutter-x); }
   .section-pad { padding: 64px 0; }
 }
 

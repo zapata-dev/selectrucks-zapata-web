@@ -47,10 +47,16 @@ function Navbar({ onContact, onBranch }) {
             <a href="#contacto" onClick={(e)=>{ e.preventDefault(); onContact(); }}>Contacto</a>
           </nav>
           <div className="nav__cta">
-            <div className="nav__tel hide-mobile">
-              <Icon.Phone />
-              <strong>800 ZAPATA 1</strong>
-            </div>
+            <a
+              className="nav__tel hide-mobile"
+              href="https://wa.me/525598160234?text=Hola%2C%20quiero%20informaci%C3%B3n%20de%20unidades%20disponibles."
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Contactar por WhatsApp"
+            >
+              <Icon.Wa />
+              <strong>Asesor por WhatsApp 24/7</strong>
+            </a>
             <a className="btn btn--red" href="#inventario" onClick={(e)=>{ e.preventDefault(); document.getElementById('inventario').scrollIntoView({behavior:'smooth'}); }}>
               Ver unidades
             </a>
@@ -89,7 +95,7 @@ function Hero({ onContact }) {
             hoy.
           </h1>
           <p className="hero__sub">
-            Más de <strong>300 unidades verificadas</strong> en 9 sucursales de México.
+            Más de <strong>300 unidades verificadas</strong> en 10 sucursales de México.
             Financiamiento aprobado en <strong>48 horas</strong>, documentación limpia y garantía incluida.
           </p>
           <div className="hero__ctas">
@@ -135,10 +141,10 @@ function Hero({ onContact }) {
       <div className="hero__marquee" aria-hidden="true">
         <div className="hero__marquee-track">
           <span>
-            <em>◆ Freightliner</em><em>◆ Kenworth</em><em>◆ International</em><em>◆ Volvo</em><em>◆ Peterbilt</em>
-            <em>◆ Mack</em><em>◆ Mercedes-Benz</em><em>◆ Scania</em>
-            <em>◆ Freightliner</em><em>◆ Kenworth</em><em>◆ International</em><em>◆ Volvo</em><em>◆ Peterbilt</em>
-            <em>◆ Mack</em><em>◆ Mercedes-Benz</em><em>◆ Scania</em>
+            <em>â—† Freightliner</em><em>â—† Kenworth</em><em>â—† International</em><em>â—† Volvo</em><em>â—† Peterbilt</em>
+            <em>â—† Mack</em><em>â—† Mercedes-Benz</em><em>â—† Scania</em>
+            <em>â—† Freightliner</em><em>â—† Kenworth</em><em>â—† International</em><em>â—† Volvo</em><em>â—† Peterbilt</em>
+            <em>â—† Mack</em><em>â—† Mercedes-Benz</em><em>â—† Scania</em>
           </span>
         </div>
       </div>
@@ -300,3 +306,5 @@ window.Hero = Hero;
 window.SearchBar = SearchBar;
 window.fmtMXN = fmtMXN;
 window.fmtMXNnoDec = fmtMXNnoDec;
+
+

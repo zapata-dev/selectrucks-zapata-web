@@ -1,4 +1,4 @@
-// Selectrucks Zapata — Catalog page components
+﻿// Selectrucks Zapata — Catalog page components
 
 // Expand units to 24 for realistic catalog
 const CAT_UNITS = [
@@ -268,7 +268,7 @@ function Catalog({ onContact }) {
             <div className="catalog__header-row">
               <div>
                 <h1>Inventario <em>completo</em></h1>
-                <p><strong>{CAT_UNITS.length}</strong> unidades verificadas · <strong>9</strong> sucursales · Actualizado hoy</p>
+                <p><strong>Más de 300</strong> unidades verificadas - <strong>10</strong> sucursales - Actualizado hoy</p>
               </div>
             </div>
           </div>
@@ -368,3 +368,5 @@ function Catalog({ onContact }) {
 }
 
 window.Catalog = Catalog;
+
+

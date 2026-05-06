@@ -146,7 +146,7 @@ function Trust() {
 // ─────────────────────────────────────────────────────────── Branches
 function Branches() {
   const [sel, setSel] = React.useState(BRANCHES[0]);
-  const WA_NUM = '521XXXXXXXXXX';
+  const WA_NUM = '525598160234';
   const waMsg = encodeURIComponent(
     `Hola, me interesa visitar la sucursal ${sel.name} (${sel.state}) y conocer las unidades disponibles.`
   );
@@ -156,7 +156,7 @@ function Branches() {
         <div className="branches__head">
           <div>
             <div className="eyebrow" style={{ color: 'var(--red)', marginBottom: 16 }}>— Red nacional</div>
-            <h2>9 sucursales, <em>un solo estándar</em></h2>
+            <h2>10 sucursales, <em>un solo estándar</em></h2>
           </div>
           <p className="branches__sub">
             Más de 300 unidades verificadas en 6 estados. Visita en persona o coordina una videollamada con el asesor de tu sucursal.
@@ -348,7 +348,7 @@ function Footer() {
               <a href="#" aria-label="Facebook"><Icon.Fb /></a>
               <a href="#" aria-label="Instagram"><Icon.Instagram /></a>
               <a href="#" aria-label="YouTube"><Icon.Yt /></a>
-              <a href="#" aria-label="WhatsApp"><Icon.Wa /></a>
+              <a href="https://wa.me/525598160234?text=Hola%2C%20quiero%20informaci%C3%B3n%20de%20unidades%20disponibles." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><Icon.Wa /></a>
             </div>
           </div>
           <div className="footer__col">
@@ -374,9 +374,9 @@ function Footer() {
           <div className="footer__col">
             <h5>Contacto</h5>
             <ul className="footer__contact">
-              <li><Icon.Phone /><div><strong>800 ZAPATA 1</strong>L-V 9:00 - 18:00</div></li>
+              <li><Icon.Wa /><div><strong><a href="https://wa.me/525598160234?text=Hola%2C%20quiero%20informaci%C3%B3n%20de%20unidades%20disponibles." target="_blank" rel="noopener noreferrer">Asesor por WhatsApp 24/7</a></strong>L-V 9:00 - 18:00</div></li>
               <li><Icon.Mail /><div><strong>hola@selectruckszapata.com</strong>Respuesta en 4 hrs</div></li>
-              <li><Icon.Wa /><div><strong>+52 55 5555 0100</strong>WhatsApp · 24/7</div></li>
+              <li><Icon.Wa /><div><strong><a href="https://wa.me/525598160234?text=Hola%2C%20quiero%20informaci%C3%B3n%20de%20unidades%20disponibles." target="_blank" rel="noopener noreferrer">+52 55 9816 0234</a></strong>WhatsApp · 24/7</div></li>
             </ul>
           </div>
         </div>
@@ -560,11 +560,11 @@ function StatsBanner() {
     { target: 70, suffix: ' años', label: 'Trayectoria Corporación Zapata' },
     { target: 65, suffix: ' pts', label: 'Puntos de inspección por unidad' },
     { target: 90, suffix: ' días', label: 'Garantía Tren Motriz incluida' },
-    { target: 9,  suffix: '',      label: 'Sucursales en México' },
+    { target: BRANCHES.length,  suffix: '', label: 'Sucursales en México' },
   ];
   return (
     <section className="stats-banner">
-      <div className="container">
+      <div className="wrap">
         <div className="stats-banner__grid">
           {stats.map((s, i) => (
             <div className="stats-banner__item" key={i}>
@@ -680,7 +680,7 @@ function FeaturedUnits({ onQuote }) {
 
 // ─── WhatsAppCTA — botón flotante persistente ────────────────────────────────
 // Reemplazar WHATSAPP_NUMBER por el número oficial del chatbot Juan Martínez
-const WHATSAPP_NUMBER = '521XXXXXXXXXX';
+const WHATSAPP_NUMBER = '525598160234';
 const WHATSAPP_MSG = encodeURIComponent(
   'Hola, estoy buscando un camión seminuevo. ¿Me pueden ayudar a encontrar una unidad disponible en Selectrucks Zapata?'
 );
@@ -709,3 +709,5 @@ window.StatsBanner = StatsBanner;
 window.FeaturedUnits = FeaturedUnits;
 window.WhatsAppCTA = WhatsAppCTA;
 window.ContactModal = ContactModal;
+
+
