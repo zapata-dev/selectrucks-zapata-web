@@ -6,9 +6,9 @@
 #      bash scripts/actualizar_entrega.sh --solo-verificar     (arma y revisa, sin tocar ningún repositorio)
 #
 # Qué entra:
-#   - sitio/: las páginas, estilos, scripts, datos, assets/ y frames-camion-rojo/ del repositorio,
+#   - sitio/: las páginas, estilos, scripts, datos y assets/ del repositorio,
 #   - entrega/README.md como README.md.
-# Qué NO entra (EXCLUIR, abajo): el README interno, render.yaml, extraer-frames.ps1, las versiones «standalone»
+# Qué NO entra (EXCLUIR, abajo): el README interno, render.yaml, las versiones «standalone»
 # (copias de 5 MB con todo incrustado, y sus fuentes) y las carpetas de trabajo (.github/, scripts/, entrega/,
 # docs/, tests/ y cualquier cosa que empiece con «_»).
 #
@@ -31,7 +31,7 @@ fi
 EXCLUIR=(
   ".github" "scripts" "entrega" "docs" "tests" "_*"
   ".gitattributes" ".gitignore" "README.md" "AGENTS.md" "CLAUDE.md"
-  "render.yaml" "extraer-frames.ps1"
+  "render.yaml"
   "* (standalone).html" "standalone-*src.html" "*.standalone.jsx"
 )
 

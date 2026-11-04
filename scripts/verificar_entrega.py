@@ -3,13 +3,12 @@
 
 Uso: python3 scripts/verificar_entrega.py <carpeta-del-sitio>
 
-Revisa cuatro cosas y termina con código 1 si alguna falla:
+Revisa tres cosas y termina con código 1 si alguna falla:
   1. Referencias locales: cada archivo que piden las páginas (src, href, url(...) y rutas entre comillas
      como 'assets/logo.png') existe dentro de la entrega.
   2. Dominios externos: solo los de DOMINIOS_PERMITIDOS. Agregar uno nuevo (un script, una analítica) es una
      decisión que se revisa, no algo que se cuele solo.
   3. Acentos: nada de texto mal codificado («MÃ©xico», «â€“», «Corporaci?n» o el carácter de reemplazo �).
-  4. Animación del Home: HERO_FRAME_COUNT coincide con las imágenes de frames-camion-rojo/.
 """
 from __future__ import annotations
 
@@ -106,14 +105,6 @@ def revisar(raiz: Path) -> list[str]:
                 muestra = ", ".join(sorted(set(hallazgos))[:4])
                 problemas.append(f"{rel}:{n}: acentos mal codificados ({muestra})")
 
-    principal = raiz / "components-top.jsx"
-    if principal.exists():
-        m = re.search(r"HERO_FRAME_COUNT\s*=\s*(\d+)", principal.read_text(encoding="utf-8", errors="replace"))
-        cuadros = len(list((raiz / "frames-camion-rojo").glob("frame_*.webp")))
-        if m and int(m.group(1)) != cuadros:
-            problemas.append(
-                f"components-top.jsx: HERO_FRAME_COUNT = {m.group(1)}, pero frames-camion-rojo/ tiene {cuadros} imágenes"
-            )
     return problemas
 
 
