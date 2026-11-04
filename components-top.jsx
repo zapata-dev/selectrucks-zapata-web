@@ -1,4 +1,4 @@
-// Selectrucks Zapata — section components (part 1: Nav, Hero, Search)
+// Selectrucks Zapata — section components (part 1: Nav, Promociones, Search)
 
 const fmtMXN = (n) => '$' + n.toLocaleString('es-MX');
 const fmtMXNnoDec = (n) => '$' + Math.round(n).toLocaleString('es-MX');
@@ -39,7 +39,7 @@ const Icon = {
   Mail:   () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16"/><polyline points="22,6 12,13 2,6"/></svg>,
   Pin:    () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>,
   Menu:   () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>,
-  Close:  () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="6"/></svg>,
+  Close:  () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>,
   Truck:  () => <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="1" y="6" width="13" height="10"/><path d="M14 9h4l3 3v4h-7z"/><circle cx="5.5" cy="18" r="2"/><circle cx="17.5" cy="18" r="2"/></svg>,
   Search: () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>,
   Shield: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
@@ -104,237 +104,350 @@ function Navbar({ onContact, onBranch }) {
   );
 }
 
-// ─────────────────────────────────────────────────────────── Hero
-// Scroll-driven truck assembly animation (Nate Herk / Apple technique)
-// Frames extracted from: selectrucks-zapata web design/Despiece camion rojo.mp4
-// To update FRAME_COUNT: run extraction script, then count files in frames-camion-rojo/
-const HERO_FRAME_COUNT = 76;
-const HERO_FRAMES_PATH = 'frames-camion-rojo/';
+// ─────────────────────────────────────────────────────────── Promociones
+// Carrusel de promociones y eventos. Para publicar un anuncio, edita PROMOS.
+// type: 'promo' (rojo) · 'evento' (lima) · 'anuncio' (blanco) · tab: nombre de su pestaña
+// Un anuncio con `gallery` muestra sus artes completos (con miniaturas si son varios) y se pueden ampliar.
+const PROMO_ESPECIAL = [
+  { name: 'Cascadia 2017',         branch: 'Guadalajara',  file: '01-cascadia-2017-guadalajara.webp' },
+  { name: 'Cascadia 2017',         branch: 'Tlalnepantla', file: '02-cascadia-2017-tlalnepantla.webp' },
+  { name: 'Cascadia 2012',         branch: 'Guadalajara',  file: '03-cascadia-2012-guadalajara.webp' },
+  { name: 'Cascadia 2021',         branch: 'Guadalajara',  file: '04-cascadia-2021-guadalajara.webp' },
+  { name: 'LT Hi Rise Euro 2022',  branch: 'Guadalajara',  file: '05-lt-hi-rise-euro-2022-guadalajara.webp' },
+  { name: 'VNL64T 2019',           branch: 'Guadalajara',  file: '06-vnl64t-2019-guadalajara.webp' },
+  { name: 'Cascadia 2018',         branch: 'Guadalajara',  file: '07-cascadia-2018-guadalajara.webp' },
+  { name: 'Cascadia 2020',         branch: 'Querétaro',    file: '08-cascadia-2020-queretaro.webp' },
+  { name: 'Caja refrigerada 2015', branch: 'León',         file: '09-caja-refrigerada-2015-leon.webp' },
+  { name: 'Caja refrigerada 2019', branch: 'León',         file: '10-caja-refrigerada-2019-leon.webp' },
+  { name: 'Cascadia 2018',         branch: 'Tlalnepantla', file: '11-cascadia-2018-tlalnepantla.webp' },
+].map((a) => ({ ...a, image: 'assets/promo-especial/' + a.file }));
 
-function Hero({ onContact }) {
-  const sectionRef  = React.useRef(null);
-  const canvasRef   = React.useRef(null);
-  const imagesRef   = React.useRef([]);
-  const rafRef      = React.useRef(null);
-  const lastFrame   = React.useRef(-1);
+const EVENTOS = [
+  {
+    name: 'Gran Feria de Seminuevos',
+    branch: 'León',
+    file: 'gran-feria-seminuevos-leon.webp',
+    image: 'assets/eventos/gran-feria-seminuevos-leon.webp',
+    alt: 'Gran Feria de Seminuevos, 25 y 26 de noviembre en Zapata Camiones León. Desde 0% de enganche y tasa desde 9% anual.',
+  },
+];
 
-  const [loaded,   setLoaded]   = React.useState(false);
-  const [loadPct,  setLoadPct]  = React.useState(0);
-  const [progress, setProgress] = React.useState(0);
+const PROMOS = [
+  {
+    type: 'promo',
+    tab: 'Promoción especial',
+    tabSub: 'Precio especial',
+    label: 'Promoción especial',
+    gallery: PROMO_ESPECIAL,
+    countLabel: 'unidades en precio especial',
+    desc: `Tractocamiones y cajas refrigeradas en ${new Set(PROMO_ESPECIAL.map((a) => a.branch)).size} sucursales.`,
+    text: 'Hasta agotar existencias',
+    cta: 'Me interesa esta unidad',
+    // Contacto con la sucursal, el motivo y un mensaje de la unidad del arte actual
+    hrefFor: (a) => 'Selectrucks%20Zapata%20-%20Contacto.html?' + new URLSearchParams({
+      sucursal: a.branch,
+      motivo: 'Promoción especial',
+      mensaje: `Hola, quiero conocer más sobre la unidad ${a.name} de Zapata ${a.branch} que está en promoción especial.`,
+    }).toString() + '#formulario',
+  },
+  {
+    type: 'evento',
+    tab: 'Eventos',
+    tabSub: '25 y 26 de noviembre',
+    label: 'Evento',
+    gallery: EVENTOS,
+    title: 'Gran Feria de Seminuevos',
+    text: '25 y 26 de noviembre · Zapata Camiones León',
+    perks: ['Desde 0% de enganche', 'Tasa desde 9% anual'],
+    meta: 'Blvd. Aeropuerto 868, León, Gto.',
+    cta: 'Quiero asistir',
+    href: 'Selectrucks%20Zapata%20-%20Contacto.html?sucursal=Le%C3%B3n&motivo=Gran%20Feria%20de%20Seminuevos#formulario',
+  },
+];
+const PROMO_DELAY = 6000;
+const PROMO_ART_DELAY = 2000;
+const pad2 = (n) => String(n).padStart(2, '0');
 
-  // ── Preload all frames
+function PromoGallery({ items, current, active, onSelect, onZoom }) {
+  const thumbsRef = React.useRef(null);
   React.useEffect(() => {
-    const imgs = [];
-    let done = 0;
-    for (let i = 1; i <= HERO_FRAME_COUNT; i++) {
-      const img = new Image();
-      const padded = String(i).padStart(4, '0');
-      img.src = HERO_FRAMES_PATH + 'frame_' + padded + '.webp';
-      img.onload = () => {
-        done++;
-        setLoadPct(Math.round((done / HERO_FRAME_COUNT) * 100));
-        if (done === HERO_FRAME_COUNT) setLoaded(true);
-      };
-      img.onerror = () => {
-        done++;
-        if (done === HERO_FRAME_COUNT) setLoaded(true);
-      };
-      imgs.push(img);
-    }
-    imagesRef.current = imgs;
-    return () => imagesRef.current = [];
-  }, []);
-
-  // ── Draw a specific frame on canvas — cover mode (sin barras negras)
-  const drawFrame = React.useCallback((index) => {
-    if (index === lastFrame.current) return;
-    lastFrame.current = index;
-    const canvas = canvasRef.current;
-    const img = imagesRef.current[index];
-    if (!canvas || !img || !img.complete) return;
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const cW = canvas.width, cH = canvas.height;
-    const iW = img.naturalWidth || 1920, iH = img.naturalHeight || 1076;
-    // Cover: escala para llenar el canvas completamente (sin barras negras)
-    const scale = Math.max(cW / iW, cH / iH);
-    const dW = iW * scale, dH = iH * scale;
-    const dx = (cW - dW) / 2, dy = (cH - dH) / 2;
-    ctx.drawImage(img, dx, dy, dW, dH);
-  }, []);
-
-  // ── Scroll handler
-  React.useEffect(() => {
-    if (!loaded) return;
-
-    const onScroll = () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      rafRef.current = requestAnimationFrame(() => {
-        const section = sectionRef.current;
-        if (!section) return;
-        const sectionTop  = section.getBoundingClientRect().top + window.scrollY;
-        const scrollable  = section.offsetHeight - window.innerHeight;
-        const prog        = Math.max(0, Math.min(1, (window.scrollY - sectionTop) / scrollable));
-        setProgress(prog);
-        const frameIndex = Math.min(Math.floor(prog * HERO_FRAME_COUNT), HERO_FRAME_COUNT - 1);
-        drawFrame(frameIndex);
-      });
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // draw initial frame
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, [loaded, drawFrame]);
-
-  // ── Resize canvas to match display size
-  React.useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const resize = () => {
-      canvas.width  = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      if (loaded) drawFrame(lastFrame.current);
-    };
-    resize();
-    window.addEventListener('resize', resize);
-    return () => window.removeEventListener('resize', resize);
-  }, [loaded, drawFrame]);
-
-  const scrollToInventory = (e) => {
-    e.preventDefault();
-    document.getElementById('inventario').scrollIntoView({ behavior: 'smooth' });
-  };
-
-  // ── Animación de entrada del TEXTO sincronizada con el scroll ──
-  // El texto arranca invisible/desplazado y llega a su posición en los primeros 30% del scroll.
-  // Cada elemento tiene un desfase (stagger) para dar sensación de cascada.
-  const ease = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; // easeInOut
-
-  const eyebrowP = ease(Math.min(1, progress / 0.20));
-  const h1P      = ease(Math.min(1, Math.max(0, (progress - 0.06) / 0.22)));
-  const btnP     = ease(Math.min(1, Math.max(0, (progress - 0.12) / 0.20)));
-
-  const eyebrowStyle = {
-    opacity:   eyebrowP,
-    transform: 'translateX(' + ((1 - eyebrowP) * -36) + 'px)',
-  };
-  const h1Style = {
-    opacity:   h1P,
-    transform: 'translateY(' + ((1 - h1P) * 28) + 'px)',
-  };
-  const btnStyle = {
-    opacity:   btnP,
-    transform: 'translateY(' + ((1 - btnP) * 16) + 'px)',
-  };
-
-  // ── Marquee: desliza desde la parte superior hacia su posición final (abajo) ──
-  // El sticky section tiene overflow:hidden → actúa como clip durante el viaje.
-  // Al inicio (progress=0) el marquee está ~87vh más arriba que su posición natural (bottom:0).
-  // Al terminar (progress=1) translateY=0 → reposa en la parte inferior.
-  const marqueeY = (1 - progress) * -87;
-
-  // Scroll hint desaparece en el primer movimiento
-  const hintOpacity = progress < 0.06 && loaded ? 1 - progress / 0.06 : 0;
+    const box = thumbsRef.current;
+    const el = box && box.children[current];
+    if (!el || box.scrollWidth <= box.clientWidth) return;
+    box.scrollTo({ left: el.offsetLeft - box.clientWidth / 2 + el.offsetWidth / 2, behavior: 'smooth' });
+  }, [current]);
 
   return (
-    <section ref={sectionRef} className="hero-scroll">
+    <div className={`promo-gallery ${items.length === 1 ? 'promo-gallery--single' : ''}`}>
+      <img className="promo-gallery__bg" src={items[current].image} alt="" aria-hidden="true" />
+      <div className="promo-gallery__track" style={{ '--i': current }}>
+        {items.map((a, i) => (
+          <img
+            key={a.file}
+            className={`promo-gallery__item ${i === current ? 'is-current' : ''}`}
+            src={a.image}
+            alt={i === current ? (a.alt || `${a.name}, Zapata ${a.branch}. Precio especial.`) : ''}
+            aria-hidden={i !== current}
+            loading={active && Math.abs(i - current) <= 1 ? 'eager' : 'lazy'}
+            onClick={i === current ? onZoom : () => onSelect(i)}
+          />
+        ))}
+      </div>
+      <button className="promo-gallery__zoom" onClick={onZoom} tabIndex={active ? 0 : -1} aria-label="Ver arte en grande">
+        <Icon.Search /> <span>Ampliar</span>
+      </button>
+      {items.length > 1 && <div className="promo-gallery__thumbs" ref={thumbsRef}>
+        {items.map((a, i) => (
+          <button
+            key={a.file}
+            className={`promo-gallery__thumb ${i === current ? 'is-current' : ''}`}
+            onClick={() => onSelect(i)}
+            aria-label={`${a.name}, Zapata ${a.branch}`}
+            aria-current={i === current}
+            tabIndex={active ? 0 : -1}
+          >
+            <img src={a.image} alt="" loading="lazy" />
+          </button>
+        ))}
+      </div>}
+    </div>
+  );
+}
 
-      {/* Barra de progreso */}
+function PromoLightbox({ items, current, onClose, onStep }) {
+  const closeRef = React.useRef(null);
+  React.useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    if (closeRef.current) closeRef.current.focus();
+    return () => { document.body.style.overflow = prev; };
+  }, []);
+  React.useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight') onStep(1);
+      if (e.key === 'ArrowLeft') onStep(-1);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose, onStep]);
+
+  const a = items[current];
+  const stop = (fn) => (e) => { e.stopPropagation(); fn(); };
+  return (
+    <div className="promo-lightbox" role="dialog" aria-modal="true" aria-label="Arte en grande" onClick={onClose}>
+      <figure className="promo-lightbox__inner" onClick={(e) => e.stopPropagation()}>
+        <img src={a.image} alt={a.alt || `${a.name}, Zapata ${a.branch}. Precio especial.`} />
+        <figcaption className="promo-lightbox__bar mono">
+          <span><strong>{a.name}</strong> · Zapata {a.branch}</span>
+          {items.length > 1 && <span>{pad2(current + 1)} / {pad2(items.length)}</span>}
+        </figcaption>
+      </figure>
+      <button className="promo-lightbox__close" ref={closeRef} onClick={stop(onClose)} aria-label="Cerrar"><Icon.Close /></button>
+      {items.length > 1 && (
+        <>
+          <button className="promo-lightbox__arrow promo-lightbox__arrow--prev" onClick={stop(() => onStep(-1))} aria-label="Arte anterior">
+            <span className="promo-car__arrow-icon--prev"><Icon.Arrow /></span>
+          </button>
+          <button className="promo-lightbox__arrow promo-lightbox__arrow--next" onClick={stop(() => onStep(1))} aria-label="Arte siguiente">
+            <Icon.Arrow />
+          </button>
+        </>
+      )}
+    </div>
+  );
+}
+
+function PromoBanner() {
+  const [index, setIndex] = React.useState(0);
+  const [art, setArt] = React.useState(0);
+  const [paused, setPaused] = React.useState(false);
+  const [run, setRun] = React.useState(0);
+  const [zoom, setZoom] = React.useState(false);
+  const touchX = React.useRef(null);
+  const total = PROMOS.length;
+  const arts = PROMOS[index].gallery ? PROMOS[index].gallery.length : 0;
+  const reduced = React.useMemo(
+    () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches, []);
+
+  const goSlide = (i, fromEnd = false) => {
+    const n = (i + total) % total;
+    const g = PROMOS[n].gallery;
+    setIndex(n);
+    setArt(fromEnd && g ? g.length - 1 : 0);
+    setRun((r) => r + 1);
+  };
+  const pickArt = (i) => { setArt(i); setRun((r) => r + 1); };
+  // Dentro de una galería las flechas avanzan arte por arte; al terminar pasan a la siguiente pestaña
+  const step = (dir) => {
+    if (arts && art + dir >= 0 && art + dir < arts) { pickArt(art + dir); return; }
+    goSlide(index + dir, dir < 0);
+  };
+
+  React.useEffect(() => {
+    if (paused || reduced || zoom) return;
+    const t = setTimeout(() => step(1), arts > 1 ? PROMO_ART_DELAY : PROMO_DELAY);
+    return () => clearTimeout(t);
+  }, [index, art, paused, run, reduced, zoom]);
+
+  const resume = () => { setPaused(false); setRun((r) => r + 1); };
+  const onTouchStart = (e) => { touchX.current = e.touches[0].clientX; };
+  const onTouchEnd = (e) => {
+    if (touchX.current == null) return;
+    const dx = e.changedTouches[0].clientX - touchX.current;
+    if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+    touchX.current = null;
+  };
+  const onKeyDown = (e) => {
+    if (zoom || e.target.getAttribute('role') === 'tab') return;
+    if (e.key === 'ArrowRight') step(1);
+    if (e.key === 'ArrowLeft') step(-1);
+  };
+  const onTabKey = (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      const n = (index + (e.key === 'ArrowRight' ? 1 : -1) + total) % total;
+      goSlide(n);
+      const tabs = e.currentTarget.parentNode.children;
+      tabs[n] && tabs[n].focus();
+    }
+  };
+
+  const current = PROMOS[index];
+  return (
+    <section className="promo" id="promociones" aria-label="Promociones y eventos">
       <div
-        className="hero-scroll__progress-bar"
-        style={{ transform: 'scaleX(' + progress + ')' }}
-        aria-hidden="true"
-      />
+        className={`wrap promo__box ${paused || reduced ? 'is-paused' : ''}`}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={resume}
+        onFocus={() => setPaused(true)}
+        onBlur={resume}
+        onKeyDown={onKeyDown}
+      >
 
-      <div className="hero-scroll__sticky">
-        <div className="hero__bg-grid" aria-hidden="true" />
-
-        {/* ── Dos columnas: texto izquierda | camión derecha ── */}
-        <div className="hero-scroll__layout">
-
-          {/* IZQUIERDA: texto animado sincronizado con el scroll */}
-          <div className="hero-scroll__left">
-            <div className="hero-scroll__eyebrow" style={eyebrowStyle}>
-              <span className="dot" />
-              <span>Más de 300 unidades disponibles</span>
+        <div className={`promo-stage promo-stage--${current.type}`}>
+          <div className="promo-car" aria-roledescription="carrusel" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+            <div className="promo-car__track">
+              {PROMOS.map((p, i) => {
+                const on = i === index;
+                const pos = on ? art : 0;
+                const cur = p.gallery ? p.gallery[pos] : null;
+                return (
+                  <article
+                    key={p.tab}
+                    id={`promo-slide-${i}`}
+                    role="tabpanel"
+                    aria-labelledby={`promo-tab-${i}`}
+                    className={`promo-slide promo-slide--${p.type} ${p.gallery ? 'promo-slide--gallery' : ''} ${on ? 'is-active' : ''}`}
+                    aria-hidden={!on}
+                  >
+                    <div className="promo-slide__media">
+                      {p.gallery
+                        ? <PromoGallery items={p.gallery} current={pos} active={on} onSelect={pickArt} onZoom={() => setZoom(true)} />
+                        : <img src={p.image} alt={p.alt} loading="lazy" style={p.focus ? { objectPosition: p.focus } : undefined} />}
+                    </div>
+                    <div className="promo-slide__panel">
+                      <div className="promo-slide__body">
+                        <span className="promo-slide__tag">{p.label}</span>
+                        {p.countLabel ? (
+                          <>
+                            <h3 className="promo-slide__headline">
+                              <strong>{p.gallery.length}</strong> {p.countLabel}
+                            </h3>
+                            <p className="promo-slide__desc">{p.desc}</p>
+                            <p className="promo-slide__stock"><span className="promo-slide__pulse" aria-hidden="true" />{p.text}</p>
+                          </>
+                        ) : (
+                          <>
+                            <h3 className="promo-slide__headline">{p.title}</h3>
+                            <p className="promo-slide__desc">{p.text}</p>
+                            {p.perks && (
+                              <ul className="promo-slide__perks">
+                                {p.perks.map((k) => <li key={k}>{k}</li>)}
+                              </ul>
+                            )}
+                          </>
+                        )}
+                      </div>
+                      <div className="promo-slide__foot">
+                        {p.countLabel && cur ? (
+                          <div className="promo-slide__unit" aria-live={on ? 'polite' : undefined}>
+                            <span className="promo-slide__unit-label">Unidad {pad2(pos + 1)} de {pad2(p.gallery.length)}</span>
+                            <strong>{cur.name}</strong>
+                            <span className="promo-slide__unit-branch"><Icon.Pin /> Zapata {cur.branch}</span>
+                          </div>
+                        ) : (
+                          <span className="promo-slide__place"><Icon.Pin /> {p.meta}</span>
+                        )}
+                        <a className="btn promo-slide__cta" href={p.hrefFor && cur ? p.hrefFor(cur) : p.href} tabIndex={on ? 0 : -1}>
+                          {p.cta} <Icon.Arrow />
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
-            <h1 style={h1Style}>
-              Tu próximo camión,<br />
-              listo para <span className="hl">trabajar</span> hoy.
-            </h1>
-            <a
-              className="btn btn--premium"
-              href="#inventario"
-              onClick={scrollToInventory}
-              style={btnStyle}
-            >
-              Ver inventario <Icon.Arrow />
-            </a>
+
+            <div className="promo-car__nav">
+              <button className="promo-car__arrow" onClick={() => step(-1)} aria-label="Anterior">
+                <span className="promo-car__arrow-icon promo-car__arrow-icon--prev"><Icon.Arrow /></span>
+              </button>
+              <button className="promo-car__arrow" onClick={() => step(1)} aria-label="Siguiente">
+                <Icon.Arrow />
+              </button>
+            </div>
           </div>
 
-          {/* DERECHA: canvas con el camión (cover, sin barras negras) */}
-          <div className="hero-scroll__right">
-            <canvas
-              ref={canvasRef}
-              className="hero-canvas"
-              aria-label="Animación de ensamblaje del camión rojo"
-            />
-            {!loaded && (
-              <div className="hero-scroll__loader" aria-live="polite">
-                <span>Cargando · {loadPct}%</span>
-                <div
-                  className="hero-scroll__loader-bar"
-                  role="progressbar"
-                  aria-valuenow={loadPct}
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                />
-              </div>
-            )}
-            {loaded && (
-              <div
-                className="hero-scroll__hint"
-                style={{ opacity: hintOpacity }}
-                aria-hidden="true"
-              >
-                <div className="hero-scroll__hint-arrow" />
-                <span>Scroll</span>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* MARQUEE — absoluto, desliza desde arriba hasta su reposo al fondo */}
-        <div
-          className="hero__marquee"
-          aria-hidden="true"
-          style={{ transform: 'translateY(' + marqueeY + 'vh)' }}
-        >
-          <div className="hero__marquee-track">
-            <span>
-              <img src="assets/logos/freightliner.png" alt="Freightliner" /><b>///</b>
-              <img src="assets/logos/kenworth.png" alt="Kenworth" /><b>///</b>
-              <img src="assets/logos/international.png" alt="International" /><b>///</b>
-              <img src="assets/logos/volvo.png" alt="Volvo" /><b>///</b>
-              <img src="assets/logos/peterbilt.png" alt="Peterbilt" /><b>///</b>
-              <img src="assets/logos/mack.png" alt="Mack" /><b>///</b>
-              <img src="assets/logos/mercedes-benz.png" alt="Mercedes-Benz" /><b>///</b>
-              <img src="assets/logos/scania.png" alt="Scania" /><b>///</b>
-              <img src="assets/logos/freightliner.png" alt="Freightliner" /><b>///</b>
-              <img src="assets/logos/kenworth.png" alt="Kenworth" /><b>///</b>
-              <img src="assets/logos/international.png" alt="International" /><b>///</b>
-              <img src="assets/logos/volvo.png" alt="Volvo" /><b>///</b>
-              <img src="assets/logos/peterbilt.png" alt="Peterbilt" /><b>///</b>
-              <img src="assets/logos/mack.png" alt="Mack" /><b>///</b>
-              <img src="assets/logos/mercedes-benz.png" alt="Mercedes-Benz" /><b>///</b>
-              <img src="assets/logos/scania.png" alt="Scania" /><b>///</b>
-            </span>
+          <div className="promo-tabs" role="tablist" aria-label="Secciones de promociones">
+            {PROMOS.map((p, i) => {
+              const on = i === index;
+              const n = p.gallery ? p.gallery.length : 1;
+              return (
+                <button
+                  key={p.tab}
+                  role="tab"
+                  id={`promo-tab-${i}`}
+                  aria-selected={on}
+                  aria-controls={`promo-slide-${i}`}
+                  tabIndex={on ? 0 : -1}
+                  className={`promo-tab promo-tab--${p.type} ${on ? 'is-active' : ''}`}
+                  onClick={() => goSlide(i)}
+                  onKeyDown={onTabKey}
+                >
+                  <span className="promo-tab__mark" aria-hidden="true" />
+                  <span className="promo-tab__text">
+                    <span className="promo-tab__label">{p.tab}</span>
+                    <span className="promo-tab__sub">{p.tabSub}</span>
+                  </span>
+                  {p.countLabel && <span className="promo-tab__badge" aria-label={`${p.gallery.length} unidades`}>{p.gallery.length}</span>}
+                  <span className="promo-tab__go" aria-hidden="true"><Icon.Arrow /></span>
+                  <span className="promo-tab__bar" aria-hidden="true">
+                    {on && (
+                      <span
+                        key={`${index}-${art}-${run}`}
+                        style={{
+                          '--from': art / n,
+                          '--to': (art + 1) / n,
+                          animationDuration: (n > 1 ? PROMO_ART_DELAY : PROMO_DELAY) + 'ms',
+                        }}
+                      />
+                    )}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
+        {zoom && current.gallery && (
+          <PromoLightbox
+            items={current.gallery}
+            current={art}
+            onClose={() => setZoom(false)}
+            onStep={(dir) => pickArt((art + dir + arts) % arts)}
+          />
+        )}
       </div>
     </section>
   );
@@ -490,7 +603,6 @@ function SearchBar({ filters, setFilters, resultsCount }) {
 
 window.Icon = Icon;
 window.Navbar = Navbar;
-window.Hero = Hero;
 window.SearchBar = SearchBar;
 window.fmtMXN = fmtMXN;
 window.fmtMXNnoDec = fmtMXNnoDec;

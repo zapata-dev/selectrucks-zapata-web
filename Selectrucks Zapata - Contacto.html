@@ -14,8 +14,8 @@
       href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="sections.css" />
+    <link rel="stylesheet" href="styles.css?v=20261104m" />
+    <link rel="stylesheet" href="sections.css?v=20261104m" />
     <style>
       .page-hero {
         padding-top: 0;
@@ -343,6 +343,8 @@
       }
 
       /* Contact form */
+      #formulario { scroll-margin-top: 96px; }
+      .cf-success__detail { margin-top: 12px; color: var(--white); font-weight: 600; }
       .contact-form-wrap {
         background: var(--graphite);
         padding: 40px 36px;
@@ -1009,7 +1011,7 @@
           </div>
 
           <!-- Form column -->
-          <div class="contact-form-wrap">
+          <div class="contact-form-wrap" id="formulario">
             <h3>Escríbenos y te<br />contactamos <em>hoy</em></h3>
             <form id="contact-form" onsubmit="submitContact(event)">
               <div class="cf-row">
@@ -1038,7 +1040,7 @@
               </div>
               <div class="cf-field">
                 <label>Sucursal más cercana</label>
-                <select>
+                <select id="cf-sucursal" name="sucursal">
                   <option value="">Seleccionar...</option>
                   <option>Tlalnepantla</option>
                   <option>CDMX Aeropuerto</option>
@@ -1053,8 +1055,10 @@
               </div>
               <div class="cf-field">
                 <label>¿En qué podemos ayudarte?</label>
-                <select>
+                <select id="cf-motivo" name="motivo">
                   <option value="">Seleccionar motivo...</option>
+                  <option>Promoción especial</option>
+                  <option>Gran Feria de Seminuevos</option>
                   <option>Cotización de unidad</option>
                   <option>Información de financiamiento</option>
                   <option>Agendar visita a sucursal</option>
@@ -1066,6 +1070,8 @@
               <div class="cf-field">
                 <label>Mensaje</label>
                 <textarea
+                  id="cf-mensaje"
+                  name="mensaje"
                   placeholder="Cuéntanos en qué te podemos ayudar..."
                 ></textarea>
               </div>
@@ -1084,6 +1090,7 @@
                 Un asesor se pondrá en contacto contigo en menos de 2 horas en
                 horario de atención.
               </p>
+              <p class="cf-success__detail" id="cf-success-detail"></p>
             </div>
           </div>
         </div>
@@ -1360,9 +1367,19 @@
           window.scrollY > 40 ? "rgba(10,10,10,0.96)" : "rgba(17,17,17,0.92)";
       });
 
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("sucursal")) document.getElementById("cf-sucursal").value = params.get("sucursal");
+      if (params.get("motivo")) document.getElementById("cf-motivo").value = params.get("motivo");
+      if (params.get("mensaje")) document.getElementById("cf-mensaje").value = params.get("mensaje");
+
       function submitContact(e) {
         e.preventDefault();
-        document.getElementById("contact-form").style.display = "none";
+        const form = document.getElementById("contact-form");
+        const sucursal = form.sucursal.value;
+        const motivo = form.motivo.value;
+        document.getElementById("cf-success-detail").textContent =
+          [motivo, sucursal && "Sucursal " + sucursal].filter(Boolean).join(" · ");
+        form.style.display = "none";
         document.getElementById("cf-success").classList.add("visible");
       }
     </script>

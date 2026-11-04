@@ -25,8 +25,10 @@ servirlas por HTTP:
 ## Cómo está hecho
 
 - **React 18 y Babel** se cargan desde unpkg.com, con `integrity`. Babel convierte el JSX en el navegador.
-- **Animación del Home:** las imágenes de `sitio/frames-camion-rojo/` se recorren al hacer scroll. Si cambia el
-  número de imágenes, hay que actualizar `HERO_FRAME_COUNT` en `components-top.jsx`.
+- **Banner del Home (promociones y eventos):** es lo primero que se ve y ocupa una pantalla. Los anuncios se
+  editan en `PROMOS` de `components-top.jsx`; los artes están en `sitio/assets/promo-especial/` y
+  `sitio/assets/eventos/`. Sus botones abren Contacto con la sucursal, el motivo y el mensaje ya llenos (por la
+  dirección: `?sucursal=…&motivo=…&mensaje=…#formulario`).
 - **Datos:** sucursales, marcas, tipos e inventario están en `sitio/data.js`.
 - **Tipografías:** Google Fonts (League Spartan, Poppins y JetBrains Mono).
 

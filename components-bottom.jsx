@@ -3,10 +3,11 @@
 function UnitCard({ unit, onQuote }) {
   const [fav, setFav] = React.useState(false);
   const isFeatured = unit.id === 1; // show real photo for Cascadia
+  const photo = unit.image || (isFeatured ? 'assets/truck-cascadia-square.png?v=2' : null);
   return (
     <article className="card" onClick={() => onQuote(unit)}>
       <div className="card__photo">
-        {!isFeatured && (
+        {!photo && (
           <>
             <div className="card__photo-bg"></div>
             <div className="card__photo-label">
@@ -15,11 +16,12 @@ function UnitCard({ unit, onQuote }) {
             </div>
           </>
         )}
-        {isFeatured && <img src="assets/truck-cascadia-square.png?v=2" alt="" />}
+        {photo && <img className={unit.promo ? 'card__art' : undefined} src={photo} alt={`${unit.brand} ${unit.model} ${unit.year}`} />}
         <div className="card__badges">
           <span className="card__badge card__badge--red"><Icon.Pin /><span className="card__badge-txt">{unit.branch}</span></span>
           {unit.status === 'Oferta' && <span className="card__badge card__badge--warn">Oferta</span>}
           {unit.status === 'Nuevo ingreso' && <span className="card__badge card__badge--warn">Nuevo</span>}
+          {unit.promo && <span className="card__badge card__badge--warn">Precio especial</span>}
           {unit.warranty && <span className="card__badge card__badge--icon" title="Garantía incluida"><Icon.Shield /></span>}
         </div>
         <button className={`card__fav ${fav ? 'is-fav' : ''}`} onClick={(e) => { e.stopPropagation(); setFav(!fav); }} aria-label="Guardar">
@@ -32,15 +34,15 @@ function UnitCard({ unit, onQuote }) {
           <span className="year">{unit.year}</span>
         </h3>
         <div className="card__specs">
-          <span>{unit.km} km</span>
+          <span>{unit.km === 'Por confirmar' ? 'Km por confirmar' : unit.km + ' km'}</span>
           <span>{unit.engine}</span>
           <span>{unit.type}</span>
         </div>
         <div className="card__foot">
           <div className="card__price">
             <span className="card__price-label">Contado · incluye IVA</span>
-            <strong>{fmtMXN(unit.price)}</strong>
-            <small>o {fmtMXN(unit.monthly)} / mes · 48 meses</small>
+            <strong className={unit.price ? undefined : 'is-consult'}>{unit.price ? fmtMXN(unit.price) : 'Precio por confirmar'}</strong>
+            <small>{unit.monthly ? `o ${fmtMXN(unit.monthly)} / mes · 48 meses` : 'Consulta con tu asesor'}</small>
           </div>
           <button className="card__btn" onClick={(e) => { e.stopPropagation(); onQuote(unit); }}>
             Ver detalles <span className="arrow"><Icon.Arrow /></span>
