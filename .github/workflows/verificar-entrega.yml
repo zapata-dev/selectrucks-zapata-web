@@ -1,0 +1,35 @@
+name: Verificar entrega
+
+# En cada PR arma la entrega para Marketing y corre las mismas revisiones que la entrega real
+# (scripts/actualizar_entrega.sh --solo-verificar), sin tocar ningún repositorio. Así un enlace roto,
+# un dominio externo nuevo o un acento mal codificado se ve antes de fusionar, no después.
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verificar:
+    name: verificar
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      # gitleaks: misma versión y huella SHA-256 que usa go-on-camiones-web.
+      - name: Instalar gitleaks
+        run: |
+          v=8.30.1
+          a="gitleaks_${v}_linux_x64.tar.gz"
+          curl -sSfL -o "$RUNNER_TEMP/$a" "https://github.com/gitleaks/gitleaks/releases/download/v${v}/$a"
+          echo "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb  $RUNNER_TEMP/$a" | sha256sum -c -
+          tar -xzf "$RUNNER_TEMP/$a" -C "$RUNNER_TEMP" gitleaks
+          sudo install -m 0755 "$RUNNER_TEMP/gitleaks" /usr/local/bin/gitleaks
+
+      - name: Armar y verificar la entrega
+        run: bash scripts/actualizar_entrega.sh --solo-verificar
