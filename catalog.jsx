@@ -15,6 +15,17 @@ const CAT_UNITS = [
   { id: 22, brand: 'Freightliner', model: 'Cascadia',   year: 2021, km: '280,000', engine: 'DD15 · 505hp',        type: 'Tractocamión',    price: 1380000, monthly: 32600, branch: 'Guadalajara',   featured: true,  warranty: true, status: 'Disponible' },
   { id: 23, brand: 'International',model: 'HV Series',  year: 2020, km: '310,000', engine: 'A26 · 430hp',         type: 'Refrigerado',     price: 1150000, monthly: 27100, branch: 'Querétaro',     featured: false, warranty: true, status: 'Disponible' },
   { id: 24, brand: 'Volvo',        model: 'FH 460',     year: 2018, km: '560,000', engine: 'D13 · 460hp',         type: 'Cama baja',       price: 890000,  monthly: 20990, branch: 'Tlalnepantla',  featured: false, warranty: true, status: 'Oferta' },
+  { id: 101, brand: 'Freightliner', model: 'Cascadia', year: 2017, km: 'Por confirmar', engine: 'Por confirmar', type: 'Tractocamión', price: null, monthly: null, branch: 'Guadalajara', featured: false, warranty: true, status: 'Disponible', promo: true, image: 'assets/promo-especial/01-cascadia-2017-guadalajara.webp' },
+  { id: 102, brand: 'Freightliner', model: 'Cascadia', year: 2017, km: 'Por confirmar', engine: 'Por confirmar', type: 'Tractocamión', price: null, monthly: null, branch: 'Tlalnepantla', featured: false, warranty: true, status: 'Disponible', promo: true, image: 'assets/promo-especial/02-cascadia-2017-tlalnepantla.webp' },
+  { id: 103, brand: 'Freightliner', model: 'Cascadia', year: 2012, km: 'Por confirmar', engine: 'Por confirmar', type: 'Tractocamión', price: null, monthly: null, branch: 'Guadalajara', featured: false, warranty: true, status: 'Disponible', promo: true, image: 'assets/promo-especial/03-cascadia-2012-guadalajara.webp' },
+  { id: 104, brand: 'Freightliner', model: 'Cascadia', year: 2021, km: 'Por confirmar', engine: 'Por confirmar', type: 'Tractocamión', price: null, monthly: null, branch: 'Guadalajara', featured: false, warranty: true, status: 'Disponible', promo: true, image: 'assets/promo-especial/04-cascadia-2021-guadalajara.webp' },
+  { id: 105, brand: 'International', model: 'LT Hi Rise Euro', year: 2022, km: 'Por confirmar', engine: 'Por confirmar', type: 'Tractocamión', price: null, monthly: null, branch: 'Guadalajara', featured: false, warranty: true, status: 'Disponible', promo: true, image: 'assets/promo-especial/05-lt-hi-rise-euro-2022-guadalajara.webp' },
+  { id: 106, brand: 'Volvo', model: 'VNL64T', year: 2019, km: 'Por confirmar', engine: 'Por confirmar', type: 'Tractocamión', price: null, monthly: null, branch: 'Guadalajara', featured: false, warranty: true, status: 'Disponible', promo: true, image: 'assets/promo-especial/06-vnl64t-2019-guadalajara.webp' },
+  { id: 107, brand: 'Freightliner', model: 'Cascadia', year: 2018, km: 'Por confirmar', engine: 'Por confirmar', type: 'Tractocamión', price: null, monthly: null, branch: 'Guadalajara', featured: false, warranty: true, status: 'Disponible', promo: true, image: 'assets/promo-especial/07-cascadia-2018-guadalajara.webp' },
+  { id: 108, brand: 'Freightliner', model: 'Cascadia', year: 2020, km: 'Por confirmar', engine: 'Por confirmar', type: 'Tractocamión', price: null, monthly: null, branch: 'Querétaro', featured: false, warranty: true, status: 'Disponible', promo: true, image: 'assets/promo-especial/08-cascadia-2020-queretaro.webp' },
+  { id: 109, brand: 'Caja', model: 'refrigerada', year: 2015, km: 'Por confirmar', engine: 'Por confirmar', type: 'Refrigerado', price: null, monthly: null, branch: 'León', featured: false, warranty: true, status: 'Disponible', promo: true, image: 'assets/promo-especial/09-caja-refrigerada-2015-leon.webp' },
+  { id: 110, brand: 'Caja', model: 'refrigerada', year: 2019, km: 'Por confirmar', engine: 'Por confirmar', type: 'Refrigerado', price: null, monthly: null, branch: 'León', featured: false, warranty: true, status: 'Disponible', promo: true, image: 'assets/promo-especial/10-caja-refrigerada-2019-leon.webp' },
+  { id: 111, brand: 'Freightliner', model: 'Cascadia', year: 2018, km: 'Por confirmar', engine: 'Por confirmar', type: 'Tractocamión', price: null, monthly: null, branch: 'Tlalnepantla', featured: false, warranty: true, status: 'Disponible', promo: true, image: 'assets/promo-especial/11-cascadia-2018-tlalnepantla.webp' },
 ];
 
 function FilterGroup({ title, children, defaultOpen = true }) {
@@ -116,7 +127,7 @@ function FiltersPanel({ filters, setFilters, onClose, mobileOpen, onApply, resul
       </FilterGroup>
 
       <FilterGroup title="Año">
-        <RangeSlider min={2015} max={2024} step={1}
+        <RangeSlider min={2010} max={2024} step={1}
           value={filters.year || [2017, 2023]}
           onChange={(v) => setFilters({ ...filters, year: v })}
           formatLabel={(v) => v} />
@@ -214,9 +225,15 @@ function Pager({ page, pages, onPage }) {
 }
 
 function Catalog({ onContact }) {
-  const [filters, setFilters] = React.useState({
-    brand: [], type: [], branch: [],
-    year: [2017, 2023], price: [500000, 2000000], km: [0, 700000]
+  // ?promo=especial abre el inventario con los modelos de la Promoción especial; incluye
+  // unidades de 2012, así que el rango de año se abre para no ocultar ninguna.
+  const [filters, setFilters] = React.useState(() => {
+    const promo = new URLSearchParams(window.location.search).get('promo') === 'especial';
+    return {
+      brand: [], type: [], branch: [],
+      year: promo ? [2010, 2024] : [2017, 2023], price: [500000, 2000000], km: [0, 700000],
+      promo,
+    };
   });
   const [sort, setSort] = React.useState('relevant');
   const [view, setView] = React.useState('grid');
@@ -224,21 +241,22 @@ function Catalog({ onContact }) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const perPage = 12;
 
-  const parsedKm = (s) => parseInt(s.replace(/[,]/g, ''), 10);
+  const parsedKm = (s) => parseInt(String(s).replace(/[,]/g, ''), 10);
 
   const filtered = React.useMemo(() => {
     let list = CAT_UNITS.filter(u => {
+      if (filters.promo && !u.promo) return false;
       if (filters.brand?.length && !filters.brand.includes(u.brand)) return false;
       if (filters.type?.length && !filters.type.includes(u.type)) return false;
       if (filters.branch?.length && !filters.branch.includes(u.branch)) return false;
       if (filters.year && (u.year < filters.year[0] || u.year > filters.year[1])) return false;
-      if (filters.price && (u.price < filters.price[0] || u.price > filters.price[1])) return false;
+      if (filters.price && u.price && (u.price < filters.price[0] || u.price > filters.price[1])) return false;
       const km = parsedKm(u.km);
       if (filters.km && (km < filters.km[0] || km > filters.km[1])) return false;
       return true;
     });
-    if (sort === 'price-asc') list.sort((a,b) => a.price - b.price);
-    if (sort === 'price-desc') list.sort((a,b) => b.price - a.price);
+    if (sort === 'price-asc') list.sort((a,b) => (a.price || 0) - (b.price || 0));
+    if (sort === 'price-desc') list.sort((a,b) => (b.price || 0) - (a.price || 0));
     if (sort === 'year-desc') list.sort((a,b) => b.year - a.year);
     if (sort === 'year-asc') list.sort((a,b) => a.year - b.year);
     if (sort === 'km-asc') list.sort((a,b) => parsedKm(a.km) - parsedKm(b.km));
@@ -251,6 +269,7 @@ function Catalog({ onContact }) {
 
   // Active chips
   const chips = [];
+  if (filters.promo) chips.push({ key: 'promo', label: 'Promoción especial · ' + CAT_UNITS.filter(u => u.promo).length + ' unidades', remove: () => setFilters({ ...filters, promo: false, year: [2017, 2023] }) });
   (filters.brand || []).forEach(v => chips.push({ key: 'brand-' + v, label: v, remove: () => setFilters({ ...filters, brand: filters.brand.filter(x => x !== v) }) }));
   (filters.type || []).forEach(v => chips.push({ key: 'type-' + v, label: v, remove: () => setFilters({ ...filters, type: filters.type.filter(x => x !== v) }) }));
   (filters.branch || []).forEach(v => chips.push({ key: 'branch-' + v, label: v, remove: () => setFilters({ ...filters, branch: filters.branch.filter(x => x !== v) }) }));
