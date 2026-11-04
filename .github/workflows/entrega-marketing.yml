@@ -21,7 +21,6 @@ on:
     paths-ignore:
       - "README.md"
       - "render.yaml"
-      - "extraer-frames.ps1"
       - "standalone-*src.html"
       - "*.standalone.jsx"
       - "* (standalone).html"
