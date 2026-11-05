@@ -129,7 +129,9 @@ const EVENTOS = [
     branch: 'León',
     file: 'gran-feria-seminuevos-leon.webp',
     image: 'assets/eventos/gran-feria-seminuevos-leon.webp',
-    alt: 'Gran Feria de Seminuevos, 25 y 26 de noviembre en Zapata Camiones León. Desde 0% de enganche y tasa desde 9% anual.',
+    alt: 'Gran Feria de Seminuevos, 25 y 26 de noviembre en Agencia Zapata Camiones León. Desde 0% de enganche y tasa desde 9% anual. '
+       + 'Arrendamiento financiero con Financiera Daimler Truck, con tasa fija anual del 9% a un plazo de 12 meses. '
+       + 'Sujeto a aprobación y condiciones de la financiera.',
   },
 ];
 
@@ -161,6 +163,9 @@ const PROMOS = [
     text: '25 y 26 de noviembre · Zapata Camiones León',
     perks: ['Desde 0% de enganche', 'Tasa desde 9% anual'],
     meta: 'Blvd. Aeropuerto 868, León, Gto.',
+    // Leyenda del financiamiento, tal como viene en el arte
+    legal: 'Arrendamiento financiero con Financiera Daimler Truck, con tasa fija anual del 9% a un plazo de 12 meses. '
+         + 'Sujeto a aprobación y condiciones de la financiera. Consulta requisitos y detalles con tu asesor.',
     cta: 'Quiero asistir',
     href: 'Selectrucks%20Zapata%20-%20Contacto.html?sucursal=Le%C3%B3n&motivo=Gran%20Feria%20de%20Seminuevos#formulario',
   },
@@ -367,6 +372,7 @@ function PromoBanner() {
                                 {p.perks.map((k) => <li key={k}>{k}</li>)}
                               </ul>
                             )}
+                            {p.legal && <p className="promo-slide__legal">{p.legal}</p>}
                           </>
                         )}
                       </div>
