@@ -36,12 +36,15 @@ servirlas por HTTP:
 
 - **Diseño, textos e imágenes:** se respetan tal cual. El código les sirve de base y **pueden adaptarlo** para
   integrarlo a su sitio.
+- **Qué aplica de esta entrega:** el banner del Home y los cambios de Contacto. El Inventario no cambia: el filtro
+  de promoción (`?promo=especial`) y las fichas «por confirmar» de las unidades en promoción son solo de la maqueta.
 - **Inventario:** las unidades de `data.js` son una muestra para ver el diseño, con fotos de ejemplo, y la ficha
   de unidad existe solo para la Cascadia 2017. En el sitio publicado el inventario y las fichas salen de los datos
   reales de unidades.
 - **Formularios:** son de demostración y no envían nada. En el sitio publicado necesitan un destino definido y,
   del lado del servidor, límite de envíos o CAPTCHA, validación y aviso de privacidad.
-- **WhatsApp:** los botones abren una conversación con el número de SelecTrucks. Se confirma antes de publicar.
+- **WhatsApp:** se queda como está hoy en selectruckszapata.com. No lo reemplacen por los botones de WhatsApp de
+  esta maqueta.
 
 ## Antes de publicar
 

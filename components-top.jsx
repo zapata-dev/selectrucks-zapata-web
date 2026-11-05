@@ -108,18 +108,19 @@ function Navbar({ onContact, onBranch }) {
 // Carrusel de promociones y eventos. Para publicar un anuncio, edita PROMOS.
 // type: 'promo' (rojo) · 'evento' (lima) · 'anuncio' (blanco) · tab: nombre de su pestaña
 // Un anuncio con `gallery` muestra sus artes completos (con miniaturas si son varios) y se pueden ampliar.
+// branch: la sucursal como la dice el arte · form: su nombre en el formulario de Contacto
+// (el formulario no tiene «Guadalajara Zapopan»; ahí le corresponde «Guadalajara»)
 const PROMO_ESPECIAL = [
-  { name: 'Cascadia 2017',         branch: 'Guadalajara',  file: '01-cascadia-2017-guadalajara.webp' },
-  { name: 'Cascadia 2017',         branch: 'Tlalnepantla', file: '02-cascadia-2017-tlalnepantla.webp' },
-  { name: 'Cascadia 2012',         branch: 'Guadalajara',  file: '03-cascadia-2012-guadalajara.webp' },
-  { name: 'Cascadia 2021',         branch: 'Guadalajara',  file: '04-cascadia-2021-guadalajara.webp' },
-  { name: 'LT Hi Rise Euro 2022',  branch: 'Guadalajara',  file: '05-lt-hi-rise-euro-2022-guadalajara.webp' },
-  { name: 'VNL64T 2019',           branch: 'Guadalajara',  file: '06-vnl64t-2019-guadalajara.webp' },
-  { name: 'Cascadia 2018',         branch: 'Guadalajara',  file: '07-cascadia-2018-guadalajara.webp' },
-  { name: 'Cascadia 2020',         branch: 'Querétaro',    file: '08-cascadia-2020-queretaro.webp' },
-  { name: 'Caja refrigerada 2015', branch: 'León',         file: '09-caja-refrigerada-2015-leon.webp' },
-  { name: 'Caja refrigerada 2019', branch: 'León',         file: '10-caja-refrigerada-2019-leon.webp' },
-  { name: 'Cascadia 2018',         branch: 'Tlalnepantla', file: '11-cascadia-2018-tlalnepantla.webp' },
+  { name: 'Cascadia 2017',         branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '01-cascadia-2017-zapopan.webp' },
+  { name: 'Cascadia 2017',         branch: 'Tlalnepantla',        file: '02-cascadia-2017-tlalnepantla.webp' },
+  { name: 'Cascadia 2012',         branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '03-cascadia-2012-zapopan.webp' },
+  { name: 'Cascadia 2021',         branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '04-cascadia-2021-zapopan.webp' },
+  { name: 'LT Hi Rise Euro 2022',  branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '05-lt-hi-rise-euro-2022-zapopan.webp' },
+  { name: 'VNL64T 2019',           branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '06-vnl64t-2019-zapopan.webp' },
+  { name: 'Cascadia 2018',         branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '07-cascadia-2018-zapopan.webp' },
+  { name: 'Cascadia 2020',         branch: 'Querétaro',           file: '08-cascadia-2020-queretaro.webp' },
+  { name: 'Caja refrigerada 2019', branch: 'León',                file: '09-caja-refrigerada-2019-leon.webp' },
+  { name: 'Cascadia 2016',         branch: 'Tlalnepantla',        file: '10-cascadia-2016-tlalnepantla.webp' },
 ].map((a) => ({ ...a, image: 'assets/promo-especial/' + a.file }));
 
 const EVENTOS = [
@@ -145,7 +146,7 @@ const PROMOS = [
     cta: 'Me interesa esta unidad',
     // Contacto con la sucursal, el motivo y un mensaje de la unidad del arte actual
     hrefFor: (a) => 'Selectrucks%20Zapata%20-%20Contacto.html?' + new URLSearchParams({
-      sucursal: a.branch,
+      sucursal: a.form || a.branch,
       motivo: 'Promoción especial',
       mensaje: `Hola, quiero conocer más sobre la unidad ${a.name} de Zapata ${a.branch} que está en promoción especial.`,
     }).toString() + '#formulario',
