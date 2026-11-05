@@ -268,7 +268,7 @@ function Catalog({ onContact }) {
 
   // Active chips
   const chips = [];
-  if (filters.promo) chips.push({ key: 'promo', label: 'Promoción especial · ' + CAT_UNITS.filter(u => u.promo).length + ' unidades', remove: () => setFilters({ ...filters, promo: false, year: [2017, 2023] }) });
+  if (filters.promo) chips.push({ key: 'promo', label: 'Promoción especial · ' + CAT_UNITS.filter(u => u.promo).length + ' modelos', remove: () => setFilters({ ...filters, promo: false, year: [2017, 2023] }) });
   (filters.brand || []).forEach(v => chips.push({ key: 'brand-' + v, label: v, remove: () => setFilters({ ...filters, brand: filters.brand.filter(x => x !== v) }) }));
   (filters.type || []).forEach(v => chips.push({ key: 'type-' + v, label: v, remove: () => setFilters({ ...filters, type: filters.type.filter(x => x !== v) }) }));
   (filters.branch || []).forEach(v => chips.push({ key: 'branch-' + v, label: v, remove: () => setFilters({ ...filters, branch: filters.branch.filter(x => x !== v) }) }));

@@ -142,8 +142,10 @@ const PROMOS = [
     tabSub: 'Precio especial',
     label: 'Promoción especial',
     gallery: PROMO_ESPECIAL,
+    // Unidades disponibles: algunos modelos tienen más de una, así que no es el número de artes
+    count: 16,
     countLabel: 'unidades en precio especial',
-    desc: `Tractocamiones y cajas refrigeradas en ${new Set(PROMO_ESPECIAL.map((a) => a.branch)).size} sucursales.`,
+    desc: `${PROMO_ESPECIAL.length} modelos de tractocamiones y cajas refrigeradas en ${new Set(PROMO_ESPECIAL.map((a) => a.branch)).size} sucursales.`,
     text: 'Hasta agotar existencias',
     cta: 'Me interesa esta unidad',
     // Contacto con la sucursal, el motivo y un mensaje de la unidad del arte actual
@@ -358,7 +360,7 @@ function PromoBanner() {
                         {p.countLabel ? (
                           <>
                             <h3 className="promo-slide__headline">
-                              <strong>{p.gallery.length}</strong> {p.countLabel}
+                              <strong>{p.count || p.gallery.length}</strong> {p.countLabel}
                             </h3>
                             <p className="promo-slide__desc">{p.desc}</p>
                             <p className="promo-slide__stock"><span className="promo-slide__pulse" aria-hidden="true" />{p.text}</p>
@@ -379,7 +381,7 @@ function PromoBanner() {
                       <div className="promo-slide__foot">
                         {p.countLabel && cur ? (
                           <div className="promo-slide__unit" aria-live={on ? 'polite' : undefined}>
-                            <span className="promo-slide__unit-label">Unidad {pad2(pos + 1)} de {pad2(p.gallery.length)}</span>
+                            <span className="promo-slide__unit-label">Modelo {pad2(pos + 1)} de {pad2(p.gallery.length)}</span>
                             <strong>{cur.name}</strong>
                             <span className="promo-slide__unit-branch"><Icon.Pin /> Zapata {cur.branch}</span>
                           </div>
@@ -427,7 +429,7 @@ function PromoBanner() {
                     <span className="promo-tab__label">{p.tab}</span>
                     <span className="promo-tab__sub">{p.tabSub}</span>
                   </span>
-                  {p.countLabel && <span className="promo-tab__badge" aria-label={`${p.gallery.length} unidades`}>{p.gallery.length}</span>}
+                  {p.countLabel && <span className="promo-tab__badge" aria-label={`${p.count || p.gallery.length} unidades`}>{p.count || p.gallery.length}</span>}
                   <span className="promo-tab__go" aria-hidden="true"><Icon.Arrow /></span>
                   <span className="promo-tab__bar" aria-hidden="true">
                     {on && (
