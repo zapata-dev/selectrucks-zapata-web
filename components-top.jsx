@@ -108,18 +108,19 @@ function Navbar({ onContact, onBranch }) {
 // Carrusel de promociones y eventos. Para publicar un anuncio, edita PROMOS.
 // type: 'promo' (rojo) · 'evento' (lima) · 'anuncio' (blanco) · tab: nombre de su pestaña
 // Un anuncio con `gallery` muestra sus artes completos (con miniaturas si son varios) y se pueden ampliar.
+// branch: la sucursal como la dice el arte · form: su nombre en el formulario de Contacto
+// (el formulario no tiene «Guadalajara Zapopan»; ahí le corresponde «Guadalajara»)
 const PROMO_ESPECIAL = [
-  { name: 'Cascadia 2017',         branch: 'Guadalajara',  file: '01-cascadia-2017-guadalajara.webp' },
-  { name: 'Cascadia 2017',         branch: 'Tlalnepantla', file: '02-cascadia-2017-tlalnepantla.webp' },
-  { name: 'Cascadia 2012',         branch: 'Guadalajara',  file: '03-cascadia-2012-guadalajara.webp' },
-  { name: 'Cascadia 2021',         branch: 'Guadalajara',  file: '04-cascadia-2021-guadalajara.webp' },
-  { name: 'LT Hi Rise Euro 2022',  branch: 'Guadalajara',  file: '05-lt-hi-rise-euro-2022-guadalajara.webp' },
-  { name: 'VNL64T 2019',           branch: 'Guadalajara',  file: '06-vnl64t-2019-guadalajara.webp' },
-  { name: 'Cascadia 2018',         branch: 'Guadalajara',  file: '07-cascadia-2018-guadalajara.webp' },
-  { name: 'Cascadia 2020',         branch: 'Querétaro',    file: '08-cascadia-2020-queretaro.webp' },
-  { name: 'Caja refrigerada 2015', branch: 'León',         file: '09-caja-refrigerada-2015-leon.webp' },
-  { name: 'Caja refrigerada 2019', branch: 'León',         file: '10-caja-refrigerada-2019-leon.webp' },
-  { name: 'Cascadia 2018',         branch: 'Tlalnepantla', file: '11-cascadia-2018-tlalnepantla.webp' },
+  { name: 'Cascadia 2017',         branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '01-cascadia-2017-zapopan.webp' },
+  { name: 'Cascadia 2017',         branch: 'Tlalnepantla',        file: '02-cascadia-2017-tlalnepantla.webp' },
+  { name: 'Cascadia 2012',         branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '03-cascadia-2012-zapopan.webp' },
+  { name: 'Cascadia 2021',         branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '04-cascadia-2021-zapopan.webp' },
+  { name: 'LT Hi Rise Euro 2022',  branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '05-lt-hi-rise-euro-2022-zapopan.webp' },
+  { name: 'VNL64T 2019',           branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '06-vnl64t-2019-zapopan.webp' },
+  { name: 'Cascadia 2018',         branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '07-cascadia-2018-zapopan.webp' },
+  { name: 'Cascadia 2020',         branch: 'Querétaro',           file: '08-cascadia-2020-queretaro.webp' },
+  { name: 'Caja refrigerada 2019', branch: 'León',                file: '09-caja-refrigerada-2019-leon.webp' },
+  { name: 'Cascadia 2016',         branch: 'Tlalnepantla',        file: '10-cascadia-2016-tlalnepantla.webp' },
 ].map((a) => ({ ...a, image: 'assets/promo-especial/' + a.file }));
 
 const EVENTOS = [
@@ -128,7 +129,9 @@ const EVENTOS = [
     branch: 'León',
     file: 'gran-feria-seminuevos-leon.webp',
     image: 'assets/eventos/gran-feria-seminuevos-leon.webp',
-    alt: 'Gran Feria de Seminuevos, 25 y 26 de noviembre en Zapata Camiones León. Desde 0% de enganche y tasa desde 9% anual.',
+    alt: 'Gran Feria de Seminuevos, 25 y 26 de noviembre en Agencia Zapata Camiones León. Desde 0% de enganche y tasa desde 9% anual. '
+       + 'Arrendamiento financiero con Financiera Daimler Truck, con tasa fija anual del 9% a un plazo de 12 meses. '
+       + 'Sujeto a aprobación y condiciones de la financiera.',
   },
 ];
 
@@ -139,13 +142,15 @@ const PROMOS = [
     tabSub: 'Precio especial',
     label: 'Promoción especial',
     gallery: PROMO_ESPECIAL,
+    // Unidades disponibles: algunos modelos tienen más de una, así que no es el número de artes
+    count: 16,
     countLabel: 'unidades en precio especial',
-    desc: `Tractocamiones y cajas refrigeradas en ${new Set(PROMO_ESPECIAL.map((a) => a.branch)).size} sucursales.`,
+    desc: `${PROMO_ESPECIAL.length} modelos de tractocamiones y cajas refrigeradas en ${new Set(PROMO_ESPECIAL.map((a) => a.branch)).size} sucursales.`,
     text: 'Hasta agotar existencias',
     cta: 'Me interesa esta unidad',
     // Contacto con la sucursal, el motivo y un mensaje de la unidad del arte actual
     hrefFor: (a) => 'Selectrucks%20Zapata%20-%20Contacto.html?' + new URLSearchParams({
-      sucursal: a.branch,
+      sucursal: a.form || a.branch,
       motivo: 'Promoción especial',
       mensaje: `Hola, quiero conocer más sobre la unidad ${a.name} de Zapata ${a.branch} que está en promoción especial.`,
     }).toString() + '#formulario',
@@ -160,6 +165,9 @@ const PROMOS = [
     text: '25 y 26 de noviembre · Zapata Camiones León',
     perks: ['Desde 0% de enganche', 'Tasa desde 9% anual'],
     meta: 'Blvd. Aeropuerto 868, León, Gto.',
+    // Leyenda del financiamiento, tal como viene en el arte
+    legal: 'Arrendamiento financiero con Financiera Daimler Truck, con tasa fija anual del 9% a un plazo de 12 meses. '
+         + 'Sujeto a aprobación y condiciones de la financiera. Consulta requisitos y detalles con tu asesor.',
     cta: 'Quiero asistir',
     href: 'Selectrucks%20Zapata%20-%20Contacto.html?sucursal=Le%C3%B3n&motivo=Gran%20Feria%20de%20Seminuevos#formulario',
   },
@@ -352,7 +360,7 @@ function PromoBanner() {
                         {p.countLabel ? (
                           <>
                             <h3 className="promo-slide__headline">
-                              <strong>{p.gallery.length}</strong> {p.countLabel}
+                              <strong>{p.count || p.gallery.length}</strong> {p.countLabel}
                             </h3>
                             <p className="promo-slide__desc">{p.desc}</p>
                             <p className="promo-slide__stock"><span className="promo-slide__pulse" aria-hidden="true" />{p.text}</p>
@@ -366,13 +374,14 @@ function PromoBanner() {
                                 {p.perks.map((k) => <li key={k}>{k}</li>)}
                               </ul>
                             )}
+                            {p.legal && <p className="promo-slide__legal">{p.legal}</p>}
                           </>
                         )}
                       </div>
                       <div className="promo-slide__foot">
                         {p.countLabel && cur ? (
                           <div className="promo-slide__unit" aria-live={on ? 'polite' : undefined}>
-                            <span className="promo-slide__unit-label">Unidad {pad2(pos + 1)} de {pad2(p.gallery.length)}</span>
+                            <span className="promo-slide__unit-label">Modelo {pad2(pos + 1)} de {pad2(p.gallery.length)}</span>
                             <strong>{cur.name}</strong>
                             <span className="promo-slide__unit-branch"><Icon.Pin /> Zapata {cur.branch}</span>
                           </div>
@@ -420,7 +429,7 @@ function PromoBanner() {
                     <span className="promo-tab__label">{p.tab}</span>
                     <span className="promo-tab__sub">{p.tabSub}</span>
                   </span>
-                  {p.countLabel && <span className="promo-tab__badge" aria-label={`${p.gallery.length} unidades`}>{p.gallery.length}</span>}
+                  {p.countLabel && <span className="promo-tab__badge" aria-label={`${p.count || p.gallery.length} unidades`}>{p.count || p.gallery.length}</span>}
                   <span className="promo-tab__go" aria-hidden="true"><Icon.Arrow /></span>
                   <span className="promo-tab__bar" aria-hidden="true">
                     {on && (
