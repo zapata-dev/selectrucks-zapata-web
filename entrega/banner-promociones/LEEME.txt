@@ -1,0 +1,105 @@
+BANNER DE PROMOCIONES — SELECTRUCKS ZAPATA (VERSIÓN INDEPENDIENTE)
+===================================================================
+
+Es el mismo banner del Home del rediseño, hecho con HTML, CSS y JavaScript simples:
+no usa React, Babel ni ninguna otra librería. Funciona en computadora y en celular,
+cabe en una sola pantalla y rota solo.
+
+
+QUÉ TRAE ESTA CARPETA
+---------------------
+  banner-promociones.css   Los estilos. Todo va bajo la clase .stz-promo, así que no choca
+                           con los estilos del sitio.
+  banner-promociones.js    El banner: contenido, rotación, flechas, pestañas, «Ampliar» y
+                           los botones que abren Contacto.
+  assets/                  Los 11 artes en WebP: 10 de la promoción especial y el de la
+                           Gran Feria de Seminuevos de León.
+  index.html               Muestra: se abre con doble clic.
+  contacto-demo.html       Muestra de cómo llega el formulario de Contacto lleno.
+  LEEME.txt                Este archivo.
+
+
+CÓMO SE MONTA
+-------------
+1. Suban la carpeta completa a su sitio (por ejemplo, en /banner-promociones/).
+
+2. En la página donde va el banner, dentro de <head>:
+
+     <link rel="stylesheet" href="/banner-promociones/banner-promociones.css">
+
+   Si su sitio todavía no carga las tipografías League Spartan, Poppins y JetBrains Mono,
+   copien también la línea de Google Fonts que viene en index.html.
+
+3. Donde debe aparecer el banner:
+
+     <div data-stz-promo></div>
+
+4. Antes de cerrar </body>:
+
+     <script src="/banner-promociones/banner-promociones.js" defer></script>
+
+
+QUÉ TIENEN QUE AJUSTAR
+----------------------
+a) En banner-promociones.js, dentro de CONFIG (al principio del archivo):
+
+     CONTACTO_URL: la liga de su página de Contacto. Hoy dice contacto-demo.html.
+     BASE:         dónde quedó esta carpeta, relativo a la página del banner.
+                   Ejemplo: si el banner está en /index.html y la carpeta en
+                   /banner-promociones/, pongan 'banner-promociones/'.
+                   Vacío = la misma carpeta que la página.
+
+b) El formulario de Contacto necesita:
+     - Las opciones «Promoción especial» y «Gran Feria de Seminuevos» en el motivo.
+     - Este script, al final de la página de Contacto. Lee la sucursal, el motivo y el
+       mensaje de la dirección (?sucursal=…&motivo=…&mensaje=…) y los pone en el formulario.
+       Cambien cf-sucursal, cf-motivo y cf-mensaje por los id de sus campos.
+
+     <script>
+       (function () {
+         var params = new URLSearchParams(window.location.search);
+         function fill(id, value) {
+           var el = document.getElementById(id);
+           if (!el || !value) return;
+           if (el.tagName === 'SELECT') {
+             for (var i = 0; i < el.options.length; i++) {
+               var o = el.options[i];
+               if (o.value === value || o.text === value) { el.selectedIndex = i; return; }
+             }
+           } else {
+             el.value = value;
+           }
+         }
+         fill('cf-sucursal', params.get('sucursal'));
+         fill('cf-motivo', params.get('motivo'));
+         fill('cf-mensaje', params.get('mensaje'));
+       })();
+     </script>
+
+   Sin esto, el botón sí lleva a Contacto, pero el formulario llega vacío.
+   El botón termina la liga en #formulario: si su formulario tiene otro id, se abre la
+   página arriba en lugar de bajar al formulario.
+
+c) Si su menú queda fijo arriba de la página, pongan su altura para que el banner no
+   quede debajo. En su CSS:
+
+     :root { --stz-header-h: 80px; }   /* la altura de su menú */
+
+d) WhatsApp: se queda como está hoy en su sitio. Este paquete no trae ni cambia ningún
+   botón de WhatsApp.
+
+
+CÓMO SE CAMBIA EL CONTENIDO
+---------------------------
+Todo está al principio de banner-promociones.js:
+  - PROMO_ESPECIAL: un renglón por arte (nombre de la unidad, sucursal y archivo).
+    «form» es el nombre de la sucursal en el formulario cuando el arte dice otro
+    (las de Zapopan dicen «Guadalajara Zapopan» y mandan «Guadalajara»).
+  - EVENTOS: el arte del evento.
+  - PROMOS: los textos de cada pestaña. «count» es el número de unidades disponibles
+    (16), que no es lo mismo que el número de artes (10 modelos).
+
+
+DUDAS
+-----
+Innovación y Tecnología, Corporación Zapata.

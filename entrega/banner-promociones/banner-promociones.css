@@ -1,0 +1,222 @@
+/* Banner de promociones SelecTrucks Zapata — versión independiente (HTML, CSS y JS, sin React ni librerías).
+   Todo vive bajo la clase .stz-promo: no toca los estilos del sitio ni los suyos se le meten.
+   Ajuste del sitio: si su menú queda fijo arriba, pongan su altura en --stz-header-h (ver LEEME.txt). */
+
+.stz-promo {
+  --red: #ce0000; --red-hot: #ff1414; --black: #111111; --white: #ffffff; --lime: #d6ff00; --fog: #a8a8a8;
+  font-family: 'Poppins', system-ui, sans-serif; font-size: 16px; line-height: 1.55; color: var(--white);
+  -webkit-font-smoothing: antialiased; text-align: left;
+}
+.stz-promo { box-sizing: border-box; margin: 0; }
+.stz-promo *, .stz-promo *::before, .stz-promo *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.stz-promo h3 { font-family: 'League Spartan', 'Poppins', sans-serif; font-weight: 800; line-height: 0.92; letter-spacing: -0.02em; text-transform: uppercase; color: inherit; }
+.stz-promo a { color: inherit; text-decoration: none; }
+.stz-promo button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+.stz-promo img { display: block; max-width: 100%; border: 0; }
+.stz-promo ul { list-style: none; }
+.stz-promo .stz-promo__wrap { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 32px; }
+.stz-promo .stz-promo-mono { font-family: 'JetBrains Mono', 'Courier New', monospace; }
+.stz-promo :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+@media (max-width: 820px) { .stz-promo .stz-promo__wrap { padding: 0 16px; } }
+
+.stz-promo { --nav-h: var(--stz-header-h, 0px); --gap-top: 28px; --head-h: 0px; --gap-head: 0px; --gap-bottom: 18px; --tabs-h: 80px; height: 100svh; min-height: 560px; padding: calc(var(--nav-h) + var(--gap-top)) 0 var(--gap-bottom); background: var(--black); }
+.stz-promo .stz-promo__box { height: 100%; display: flex; flex-direction: column; gap: var(--gap-head); }
+
+/* Marco: carrusel + pestañas en una sola pieza */
+.stz-promo .stz-promo-stage { flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative; overflow: hidden; border-radius: 16px; background: #0b0b0b; border: 1px solid rgba(255,255,255,0.07); box-shadow: 0 30px 70px rgba(0,0,0,0.5); }
+.stz-promo .stz-promo-car { flex: 1; min-height: 0; position: relative; outline: none; --cut: 48px; --cutx: var(--cut); --vis: 0px; --thumb: 44px; --gpad: 14px; --media-h: calc(100svh - var(--nav-h) - var(--gap-top) - var(--head-h) - var(--gap-head) - var(--gap-bottom) - var(--tabs-h) - 2px); --size: calc(var(--media-h) - var(--vis) - var(--thumb) - var(--gpad) * 3); }
+
+/* Todas las diapositivas en la misma celda */
+.stz-promo .stz-promo-car__track { height: 100%; display: grid; overflow: hidden; }
+.stz-promo .stz-promo-slide { grid-area: 1 / 1; height: 100%; min-height: 0; display: grid; grid-template-columns: 2fr 1fr; opacity: 0; visibility: hidden; transition: opacity .6s ease, visibility 0s linear .6s; }
+.stz-promo .stz-promo-slide.is-active { opacity: 1; visibility: visible; transition: opacity .6s ease; }
+
+.stz-promo .stz-promo-slide__media { position: relative; overflow: hidden; background: #0a0a0a; }
+.stz-promo .stz-promo-slide__media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 6s ease-out; }
+.stz-promo .stz-promo-slide.is-active .stz-promo-slide__media > img { transform: scale(1); }
+
+/* Galería de artes: la protagonista */
+.stz-promo .stz-promo-gallery { position: absolute; inset: 0; overflow: hidden; --gap: 18px; }
+.stz-promo .stz-promo-gallery__bg { position: absolute; inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); object-fit: cover; filter: blur(34px) brightness(0.36) saturate(1.2); }
+.stz-promo .stz-promo-gallery__track { position: absolute; z-index: 2; top: var(--gpad); left: calc(50% - var(--cutx) / 2); width: max-content; display: flex; gap: var(--gap); transform: translateX(calc(-1 * (var(--i) * (var(--size) + var(--gap)) + var(--size) / 2))); transition: transform .5s cubic-bezier(.22,.7,.2,1); }
+.stz-promo .stz-promo-gallery__item { width: var(--size); height: var(--size); max-width: none; flex-shrink: 0; object-fit: cover; border-radius: 12px; opacity: 0.28; transform: scale(0.86); transition: opacity .5s ease, transform .5s ease; box-shadow: 0 24px 50px rgba(0,0,0,0.55); }
+.stz-promo .stz-promo-gallery__item.is-current { opacity: 1; transform: scale(1); cursor: zoom-in; }
+/* Solo se ve el arte actual: nada translúcido se asoma junto al panel */
+.stz-promo .stz-promo-gallery__item:not(.is-current) { opacity: 0; }
+.stz-promo .stz-promo-gallery__item:not(.is-current) { cursor: pointer; }
+.stz-promo .stz-promo-gallery__thumbs { position: absolute; z-index: 3; left: 0; right: 0; bottom: calc(var(--vis) + var(--gpad) - 4px); display: flex; gap: 6px; padding: 6px calc(var(--cutx) + 20px) 4px 118px; overflow-x: auto; scrollbar-width: none; }
+.stz-promo .stz-promo-gallery__thumbs::-webkit-scrollbar { display: none; }
+.stz-promo .stz-promo-gallery__thumb { flex: 0 0 var(--thumb); height: var(--thumb); padding: 0; overflow: hidden; border-radius: 8px; border: 2px solid transparent; opacity: 0.5; transition: opacity .2s ease, border-color .2s ease, transform .2s ease; }
+.stz-promo .stz-promo-gallery__thumb:first-child { margin-left: auto; }
+.stz-promo .stz-promo-gallery__thumb:last-child { margin-right: auto; }
+.stz-promo .stz-promo-gallery__thumb img { width: 100%; height: 100%; max-width: none; object-fit: cover; }
+.stz-promo .stz-promo-gallery__thumb:hover { opacity: 0.9; transform: translateY(-2px); }
+.stz-promo .stz-promo-gallery__thumb.is-current { opacity: 1; border-color: var(--white); transform: translateY(-3px); }
+/* «Ampliar»: esquina inferior izquierda, a la altura de las miniaturas */
+.stz-promo .stz-promo-gallery__zoom { position: absolute; z-index: 4; left: 16px; bottom: calc(var(--vis) + var(--gpad) + (var(--thumb) - 32px) / 2); height: 32px; display: inline-flex; align-items: center; gap: 6px; padding: 0 11px; border-radius: 8px; background: var(--white); color: var(--black); font-family: 'League Spartan', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; transition: background .2s ease, color .2s ease; }
+.stz-promo .stz-promo-gallery__zoom svg { width: 13px; height: 13px; }
+.stz-promo .stz-promo-gallery__zoom:hover { background: var(--red); color: var(--white); }
+
+/* Panel informativo: colores sólidos, jerarquía clara */
+.stz-promo .stz-promo-slide__panel { position: relative; z-index: 1; min-height: 0; overflow: hidden; margin-left: calc(var(--cut) * -1); padding: clamp(28px, 5vh, 52px) clamp(28px, 3vw, 48px) clamp(24px, 4.2vh, 40px) calc(var(--cut) + clamp(28px, 2.8vw, 44px)); clip-path: polygon(var(--cut) 0, 100% 0, 100% 100%, 0 100%); display: flex; flex-direction: column; justify-content: space-between; gap: 20px; }
+.stz-promo .stz-promo-slide__body { margin: auto 0; display: flex; flex-direction: column; align-items: flex-start; gap: clamp(14px, 2.8vh, 26px); }
+.stz-promo .stz-promo-slide__tag { padding: 8px 12px 7px; font-family: 'League Spartan', sans-serif; font-weight: 800; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; line-height: 1; }
+
+/* Titular: se lee como frase; el tamaño sigue al ancho y al alto de la pantalla */
+.stz-promo .stz-promo-slide__headline { max-width: none; font-size: clamp(28px, min(2.9vw, 5.2vh), 50px); line-height: 1.04; letter-spacing: 0; }
+/* El número de unidades resalta dentro de la frase */
+.stz-promo .stz-promo-slide__headline strong { display: block; margin-bottom: 0.08em; font-size: 2.1em; line-height: 0.85; letter-spacing: -0.03em; }
+.stz-promo .stz-promo-slide__desc { max-width: 30ch; font-size: clamp(15px, min(1.25vw, 2.4vh), 19px); font-weight: 500; line-height: 1.55; }
+.stz-promo .stz-promo-slide__stock { display: inline-flex; align-items: center; gap: 10px; padding: 11px 16px 10px; background: var(--white); color: var(--red); font-family: 'League Spartan', sans-serif; font-weight: 800; font-size: clamp(13px, 1.8vh, 15px); letter-spacing: 0.14em; text-transform: uppercase; line-height: 1; }
+.stz-promo .stz-promo-slide__pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--red); animation: stz-promo-pulse 1.4s ease-out infinite; }
+@keyframes stz-promo-pulse { 0% { box-shadow: 0 0 0 0 rgba(206,0,0,0.55); } 70%, 100% { box-shadow: 0 0 0 9px rgba(206,0,0,0); } }
+
+.stz-promo .stz-promo-slide__perks { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+.stz-promo .stz-promo-slide__legal { max-width: 46ch; font-size: clamp(11px, 1.5vh, 12.5px); font-weight: 500; line-height: 1.45; }
+.stz-promo .stz-promo-slide__perks li { padding: 10px 13px 9px; background: var(--black); color: var(--lime); font-family: 'League Spartan', sans-serif; font-weight: 800; font-size: clamp(12px, 1.7vh, 14px); letter-spacing: 0.06em; text-transform: uppercase; line-height: 1; }
+
+.stz-promo .stz-promo-slide__foot { display: flex; flex-direction: column; gap: clamp(12px, 2vh, 18px); padding-top: clamp(14px, 2.4vh, 22px); border-top: 1px solid var(--line-c); }
+.stz-promo .stz-promo-slide__unit { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.stz-promo .stz-promo-slide__unit-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
+.stz-promo .stz-promo-slide__unit strong { font-family: 'League Spartan', sans-serif; font-weight: 800; font-size: clamp(18px, min(1.7vw, 3vh), 26px); text-transform: uppercase; line-height: 1.05; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stz-promo .stz-promo-slide__unit-branch, .stz-promo .stz-promo-slide__place { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; }
+.stz-promo .stz-promo-slide__unit-branch svg, .stz-promo .stz-promo-slide__place svg { width: 14px; height: 14px; flex-shrink: 0; }
+.stz-promo .stz-promo-slide__cta { display: inline-flex; align-items: center; gap: 10px; font-family: 'League Spartan', sans-serif; font-weight: 700; text-transform: uppercase; line-height: 1; white-space: nowrap; border: 2px solid transparent; transition: all .18s ease; text-decoration: none; width: 100%; min-height: clamp(48px, 6.6vh, 58px); justify-content: space-between; padding: 0 22px; font-size: clamp(14px, 1.9vh, 16px); letter-spacing: 0.1em; clip-path: none; }
+.stz-promo .stz-promo-slide__cta svg { width: 16px; height: 16px; transition: transform .2s ease; }
+.stz-promo .stz-promo-slide__cta:hover svg { transform: translateX(4px); }
+
+/* Promoción: rojo sólido de marca */
+.stz-promo .stz-promo-slide--promo .stz-promo-slide__panel { --line-c: #e85a5a; background: var(--red); color: var(--white); }
+.stz-promo .stz-promo-slide--promo .stz-promo-slide__tag { background: var(--black); color: var(--white); }
+.stz-promo .stz-promo-slide--promo .stz-promo-slide__cta { background: var(--black); color: var(--white); }
+.stz-promo .stz-promo-slide--promo .stz-promo-slide__cta:hover { background: var(--white); color: var(--red); }
+/* Evento: lima sólido de marca */
+.stz-promo .stz-promo-slide--evento .stz-promo-slide__panel { --line-c: #9fbf00; background: var(--lime); color: var(--black); }
+.stz-promo .stz-promo-slide--evento .stz-promo-slide__tag { background: var(--black); color: var(--lime); }
+.stz-promo .stz-promo-slide--evento .stz-promo-slide__cta { background: var(--black); color: var(--lime); }
+.stz-promo .stz-promo-slide--evento .stz-promo-slide__cta:hover { background: var(--red); color: var(--white); }
+/* Anuncio: blanco con acento rojo */
+.stz-promo .stz-promo-slide--anuncio .stz-promo-slide__panel { --line-c: #d9d9d9; background: var(--white); color: var(--black); }
+.stz-promo .stz-promo-slide--anuncio .stz-promo-slide__tag { background: var(--red); color: var(--white); }
+.stz-promo .stz-promo-slide--anuncio .stz-promo-slide__cta { background: var(--red); color: var(--white); }
+
+/* Flechas redondas a los lados del arte */
+.stz-promo .stz-promo-car__nav { position: absolute; z-index: 5; left: 16px; width: calc(100% * 2 / 3 - var(--cut) - 32px); top: calc(var(--gpad) + var(--size) / 2 - 26px); display: flex; justify-content: space-between; pointer-events: none; }
+.stz-promo .stz-promo-car__arrow { pointer-events: auto; width: 52px; height: 52px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(12,12,12,0.6); color: var(--white); border: 1.5px solid rgba(255,255,255,0.45); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: background .2s ease, border-color .2s ease, transform .2s ease; }
+.stz-promo .stz-promo-car__arrow:hover { background: var(--red); border-color: var(--red); transform: scale(1.06); }
+.stz-promo .stz-promo-car__arrow:active { transform: scale(0.95); }
+.stz-promo .stz-promo-car__arrow svg { width: 20px; height: 20px; }
+.stz-promo .stz-promo-car__arrow-icon--prev { display: inline-flex; transform: rotate(180deg); }
+
+/* Pestañas: verde lima de marca, muy visibles; la que se está viendo pasa a blanco */
+.stz-promo .stz-promo-tabs { flex-shrink: 0; height: var(--tabs-h); display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; background: var(--black); }
+.stz-promo .stz-promo-tab { position: relative; display: flex; align-items: center; gap: 16px; padding: 0 22px; border-radius: 10px; background: var(--lime); color: var(--black); text-align: left; overflow: hidden; transition: background .25s ease, transform .2s ease, box-shadow .2s ease; }
+.stz-promo .stz-promo-tab:hover { background: #e6ff4d; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(214,255,0,0.25); }
+.stz-promo .stz-promo-tab.is-active { background: #ffc400; color: var(--black); box-shadow: 0 0 0 2px #ffe066, 0 10px 28px rgba(255,196,0,0.45); }
+.stz-promo .stz-promo-tab.is-active:hover { background: #ffcf26; }
+.stz-promo .stz-promo-tab__mark { width: 9px; height: 30px; flex-shrink: 0; background: var(--black); transform: skewX(-18deg); }
+.stz-promo .stz-promo-tab.is-active .stz-promo-tab__mark { background: var(--black); }
+.stz-promo .stz-promo-tab__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.stz-promo .stz-promo-tab__label { font-family: 'League Spartan', sans-serif; font-weight: 800; font-size: clamp(17px, 1.4vw, 21px); letter-spacing: 0.04em; text-transform: uppercase; line-height: 1; }
+.stz-promo .stz-promo-tab__sub { font-size: 13px; font-weight: 600; line-height: 1.2; }
+.stz-promo .stz-promo-tab__badge { min-width: 34px; height: 34px; padding: 0 8px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 17px; background: var(--red); color: var(--white); font-family: 'League Spartan', sans-serif; font-size: 16px; font-weight: 900; }
+.stz-promo .stz-promo-tab__go { width: 40px; height: 40px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--black); color: var(--lime); transition: transform .2s ease; }
+.stz-promo .stz-promo-tab__go svg { width: 16px; height: 16px; }
+.stz-promo .stz-promo-tab.is-active .stz-promo-tab__go { background: var(--black); color: #ffc400; }
+.stz-promo .stz-promo-tab.is-active .stz-promo-tab__badge { background: var(--black); }
+.stz-promo .stz-promo-tab:hover .stz-promo-tab__go { transform: translateX(3px); }
+.stz-promo .stz-promo-tab__bar { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; }
+.stz-promo .stz-promo-tab__bar span { display: block; height: 100%; background: var(--black); transform-origin: left; animation: stz-promo-fill linear forwards; }
+.stz-promo .stz-promo__box.is-paused .stz-promo-tab__bar span { animation-play-state: paused; }
+@keyframes stz-promo-fill { from { transform: scaleX(var(--from, 0)); } to { transform: scaleX(var(--to, 1)); } }
+
+/* Vista en grande de un arte */
+.stz-promo .stz-promo-lightbox { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 56px 110px; background: rgba(5,5,5,0.93); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); animation: stz-promo-lb-in .2s ease; }
+.stz-promo .stz-promo-lightbox__inner { width: min(calc(100vw - 220px), calc(100vh - 150px)); display: flex; flex-direction: column; gap: 14px; }
+.stz-promo .stz-promo-lightbox__inner img { width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; box-shadow: 0 30px 80px rgba(0,0,0,0.6); }
+.stz-promo .stz-promo-lightbox__bar { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fog); }
+.stz-promo .stz-promo-lightbox__bar strong { color: var(--white); font-weight: 600; }
+.stz-promo .stz-promo-lightbox__bar span + span { white-space: nowrap; }
+.stz-promo .stz-promo-lightbox__close { position: absolute; top: 18px; right: 18px; width: 52px; height: 52px; display: inline-flex; align-items: center; justify-content: center; background: var(--white); color: var(--black); transition: background .18s ease, color .18s ease; }
+.stz-promo .stz-promo-lightbox__close:hover { background: var(--red); color: var(--white); }
+.stz-promo .stz-promo-lightbox__close svg { width: 22px; height: 22px; }
+.stz-promo .stz-promo-lightbox__arrow { position: absolute; top: 50%; width: 64px; height: 64px; margin-top: -32px; display: inline-flex; align-items: center; justify-content: center; background: var(--red); color: var(--white); border: 2px solid var(--white); transition: background .18s ease, transform .18s ease; }
+.stz-promo .stz-promo-lightbox__arrow:hover { background: var(--red-hot); transform: scale(1.06); }
+.stz-promo .stz-promo-lightbox__arrow svg { width: 26px; height: 26px; }
+.stz-promo .stz-promo-lightbox__arrow span { display: inline-flex; transform: rotate(180deg); }
+.stz-promo .stz-promo-lightbox__arrow--prev { left: 24px; }
+.stz-promo .stz-promo-lightbox__arrow--next { right: 24px; }
+@keyframes stz-promo-lb-in { from { opacity: 0; } to { opacity: 1; } }
+
+
+@media (prefers-reduced-motion: reduce) {
+  .stz-promo .stz-promo-slide__media > img { transition: none; transform: none; }
+  .stz-promo .stz-promo-gallery__track, .stz-promo .stz-promo-gallery__item { transition: none; }
+  .stz-promo .stz-promo-slide__pulse, .stz-promo .stz-promo-lightbox { animation: none; }
+  .stz-promo .stz-promo-tab__bar span { animation: none; transform: scaleX(1); }
+}
+/* Deja libre la esquina del botón flotante de WhatsApp */
+@media (min-width: 821px) and (max-width: 1600px) {
+  .stz-promo .stz-promo-tab:last-child { padding-right: 96px; }
+}
+/* Pantallas bajas (720 px): panel más compacto para que todo quepa */
+@media (min-width: 821px) and (max-height: 820px) {
+  .stz-promo { --gap-top: 20px; --tabs-h: 72px; }
+  .stz-promo .stz-promo-slide__panel { padding-top: 24px; padding-bottom: 22px; }
+  .stz-promo .stz-promo-slide__body { gap: 14px; }
+  .stz-promo .stz-promo-slide__unit-label { display: none; }
+  .stz-promo .stz-promo-slide__headline { font-size: clamp(24px, 2.2vw, 32px); }
+  .stz-promo .stz-promo-slide__headline strong { font-size: 1.75em; }
+  .stz-promo .stz-promo-slide__desc { font-size: 15px; line-height: 1.45; }
+  .stz-promo .stz-promo-slide__foot { gap: 10px; padding-top: 14px; }
+  .stz-promo .stz-promo-slide__cta { min-height: 48px; }
+}
+@media (max-width: 1100px) {
+  .stz-promo .stz-promo-slide { grid-template-columns: 1.6fr 1fr; }
+  .stz-promo .stz-promo-car__nav { width: calc(100% * 1.6 / 2.6 - var(--cut) - 32px); }
+}
+/* Celular: foto arriba, panel compacto abajo; todo en una pantalla */
+@media (max-width: 820px) {
+  .stz-promo { --gap-top: 14px; --head-h: 0px; --gap-head: 0px; --gap-bottom: 12px; --tabs-h: 68px; height: auto; min-height: 0; }
+  .stz-promo .stz-promo-stage { flex: none; border-radius: 14px; }
+  .stz-promo .stz-promo-car { flex: none; --media-h: 360px; --cutx: 0px; --vis: 18px; --thumb: 40px; --gpad: 10px; }
+  .stz-promo .stz-promo-car__track, .stz-promo .stz-promo-slide { height: auto; }
+  .stz-promo .stz-promo-slide { grid-template-columns: 1fr; grid-template-rows: var(--media-h) auto; }
+  .stz-promo .stz-promo-slide__panel { margin: -18px 0 0; padding: 32px 18px 16px; clip-path: polygon(0 18px, 100% 0, 100% 100%, 0 100%); gap: 14px; justify-content: flex-start; }
+  .stz-promo .stz-promo-slide__body { gap: 10px; }
+  .stz-promo .stz-promo-slide__headline { font-size: 22px; max-width: none; }
+  .stz-promo .stz-promo-slide__headline strong { display: inline; font-size: 1.6em; margin: 0 0.15em 0 0; }
+  .stz-promo .stz-promo-slide__desc { font-size: 14px; line-height: 1.5; }
+  .stz-promo .stz-promo-slide__stock { font-size: 12px; padding: 9px 12px 8px; }
+  .stz-promo .stz-promo-slide__perks, .stz-promo .stz-promo-slide__unit, .stz-promo .stz-promo-slide__place { display: none; }
+  .stz-promo .stz-promo-slide__foot { padding-top: 0; border-top: 0; }
+  .stz-promo .stz-promo-slide__cta { min-height: 48px; font-size: 14px; }
+  .stz-promo .stz-promo-gallery__thumbs { padding-left: 52px; padding-right: 10px; }
+  .stz-promo .stz-promo-gallery__zoom { left: 10px; width: 32px; padding: 0; justify-content: center; }
+  .stz-promo .stz-promo-gallery__zoom span { display: none; }
+  .stz-promo .stz-promo-car__nav { left: 8px; width: calc(100% - 16px); top: calc(var(--gpad) + var(--size) / 2 - 22px); }
+  .stz-promo .stz-promo-car__arrow { width: 44px; height: 44px; }
+  .stz-promo .stz-promo-tabs { gap: 8px; padding: 8px; }
+  .stz-promo .stz-promo-tab { padding: 0 12px; gap: 8px; }
+  .stz-promo .stz-promo-tab__mark { display: none; }
+  .stz-promo .stz-promo-tab__label { font-size: 14px; }
+  .stz-promo .stz-promo-tab__sub { font-size: 11px; }
+  .stz-promo .stz-promo-tab__badge { min-width: 24px; height: 24px; font-size: 12px; }
+  .stz-promo .stz-promo-tab__go { width: 28px; height: 28px; }
+  .stz-promo .stz-promo-tab__go svg { width: 12px; height: 12px; }
+  .stz-promo .stz-promo-tab__badge + .stz-promo-tab__go { display: none; }
+  .stz-promo .stz-promo-lightbox { padding: 72px 12px 104px; }
+  .stz-promo .stz-promo-lightbox__inner { width: min(calc(100vw - 24px), calc(100vh - 200px)); }
+  .stz-promo .stz-promo-lightbox__arrow { top: auto; bottom: 24px; margin-top: 0; width: 56px; height: 56px; }
+  .stz-promo .stz-promo-lightbox__arrow--prev { left: calc(50% - 68px); }
+  .stz-promo .stz-promo-lightbox__arrow--next { right: calc(50% - 68px); }
+}
+/* Teléfonos de poca altura */
+@media (max-width: 820px) and (max-height: 760px) {
+  .stz-promo .stz-promo-car { --media-h: 300px; }
+}
+
+/* Leyenda del financiamiento en celular: letra chica para que el banner siga cabiendo en una pantalla */
+@media (max-width: 820px) {
+  .stz-promo .stz-promo-slide__legal { max-width: none; font-size: 10.5px; line-height: 1.35; }
+}

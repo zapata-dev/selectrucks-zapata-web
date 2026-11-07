@@ -9,6 +9,7 @@ imágenes, sin servidor de aplicación ni base de datos.
 | Carpeta o archivo | Qué es |
 |---|---|
 | `sitio/` | El sitio completo: diseño, textos, imágenes y el código de las páginas. |
+| `banner-promociones/` | El banner de promociones del Home en HTML, CSS y JavaScript simples, **sin React**, listo para montarlo en su sitio. Los pasos están en `banner-promociones/LEEME.txt`. |
 
 Las páginas son Home, Inventario (y su versión para imprimir), ficha de unidad (Cascadia 2017), Sucursales,
 Financiamiento, Contacto y Nosotros. `sitio/index.html` redirige al Home.
@@ -36,8 +37,9 @@ servirlas por HTTP:
 
 - **Diseño, textos e imágenes:** se respetan tal cual. El código les sirve de base y **pueden adaptarlo** para
   integrarlo a su sitio.
-- **Qué aplica de esta entrega:** el banner del Home y los cambios de Contacto. El Inventario no cambia: el filtro
-  de promoción (`?promo=especial`) y las fichas «por confirmar» de las unidades en promoción son solo de la maqueta.
+- **Qué aplica de esta entrega:** el banner del Home (para montarlo, usen `banner-promociones/`) y los cambios de
+  Contacto. El Inventario no cambia: el filtro de promoción (`?promo=especial`) y las fichas «por confirmar» de las
+  unidades en promoción son solo de la maqueta.
 - **Inventario:** las unidades de `data.js` son una muestra para ver el diseño, con fotos de ejemplo, y la ficha
   de unidad existe solo para la Cascadia 2017. En el sitio publicado el inventario y las fichas salen de los datos
   reales de unidades.

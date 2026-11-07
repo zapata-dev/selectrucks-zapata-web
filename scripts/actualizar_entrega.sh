@@ -7,7 +7,9 @@
 #
 # Qué entra:
 #   - sitio/: las páginas, estilos, scripts, datos y assets/ del repositorio,
-#   - entrega/README.md como README.md.
+#   - entrega/README.md como README.md,
+#   - entrega/banner-promociones/ como banner-promociones/: el banner en HTML, CSS y JS sin React, para montarlo
+#     tal cual en su sitio.
 # Qué NO entra (EXCLUIR, abajo): el README interno, render.yaml, las versiones «standalone»
 # (copias de 5 MB con todo incrustado, y sus fuentes) y las carpetas de trabajo (.github/, scripts/, entrega/,
 # docs/, tests/ y cualquier cosa que empiece con «_»).
@@ -42,9 +44,13 @@ for patron in "${EXCLUIR[@]}"; do
   find "$TMP/sitio" -mindepth 1 -maxdepth 1 -name "$patron" -exec rm -rf {} +
 done
 cp "$RAIZ/entrega/README.md" "$TMP/README.md"
+# El banner independiente, también desde el commit.
+git -C "$RAIZ" archive HEAD entrega/banner-promociones | tar -x -C "$TMP"
+mv "$TMP/entrega/banner-promociones" "$TMP/banner-promociones"
+rmdir "$TMP/entrega"
 
 # 2) Nada fuera de lo permitido.
-fuera="$(cd "$TMP" && find . -mindepth 1 -maxdepth 1 ! -name sitio ! -name README.md)"
+fuera="$(cd "$TMP" && find . -mindepth 1 -maxdepth 1 ! -name sitio ! -name README.md ! -name banner-promociones)"
 [ -z "$fuera" ] || { echo "ALTO: sobra $fuera"; exit 1; }
 seguridad="$(grep -rlIwE 'Qualys|DAST|QID' "$TMP" || true)"
 [ -z "$seguridad" ] || { echo "ALTO: material de seguridad en la entrega:"; echo "$seguridad"; exit 1; }
@@ -54,10 +60,11 @@ prohibidos="$(find "$TMP" \( -name '_*' -o -name 'AGENTS.md' -o -name 'CLAUDE.md
 
 # 3) Verificación del sitio (referencias, dominios externos, acentos) y gitleaks sobre lo que se va a entregar.
 python3 "$RAIZ/scripts/verificar_entrega.py" "$TMP/sitio"
+python3 "$RAIZ/scripts/verificar_entrega.py" "$TMP/banner-promociones"
 gitleaks dir --redact --no-banner "$TMP"
 
 if [ "$DESTINO" = "--solo-verificar" ]; then
-  echo "Entrega verificada ($(find "$TMP/sitio" -type f | wc -l) archivos, $(du -sh "$TMP/sitio" | cut -f1)); no se tocó ningún repositorio."
+  echo "Entrega verificada ($(find "$TMP" -type f | wc -l) archivos, $(du -sh "$TMP" | cut -f1)); no se tocó ningún repositorio."
   exit 0
 fi
 
