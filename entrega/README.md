@@ -29,6 +29,8 @@ servirlas por HTTP:
   editan en `PROMOS` de `components-top.jsx`; los artes están en `sitio/assets/promo-especial/` y
   `sitio/assets/eventos/`. Sus botones abren Contacto con la sucursal, el motivo y el mensaje ya llenos (por la
   dirección: `?sucursal=…&motivo=…&mensaje=…#formulario`).
+- **El mismo banner sin React:** `sitio/banner-promociones/` lo trae en HTML, CSS y JavaScript simples, para
+  ponerlo en un sitio que no usa React. Las instrucciones están en su `README.md`.
 - **Datos:** sucursales, marcas, tipos e inventario están en `sitio/data.js`.
 - **Tipografías:** Google Fonts (League Spartan, Poppins y JetBrains Mono).
 
