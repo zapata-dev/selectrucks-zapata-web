@@ -65,12 +65,12 @@ campos ya llenos.
 
 Los botones llevan a Contacto con estos datos en la dirección:
 
-- **«Me interesa esta unidad»:** `?sucursal=Guadalajara&motivo=Promoción especial&mensaje=Hola, quiero conocer más sobre la unidad Cascadia 2017 de Zapata Guadalajara Zapopan que está en promoción especial.#formulario`
+- **«Me interesa esta unidad»:** `?sucursal=Guadalajara Otero&motivo=Promoción especial&mensaje=Hola, quiero conocer más sobre la unidad Cascadia 2017 de Zapata Guadalajara Zapopan que está en promoción especial.#formulario`
 - **«Quiero asistir»:** `?sucursal=León&motivo=Gran Feria de Seminuevos#formulario`
 
 Para que el formulario llegue lleno:
 
-- El campo de sucursal tiene las opciones Guadalajara, Tlalnepantla, Querétaro y León.
+- El campo de sucursal tiene las opciones Guadalajara Otero, Tlalnepantla, Querétaro y León.
 - El campo de motivo tiene dos opciones nuevas: «Promoción especial» y «Gran Feria de Seminuevos».
 - El bloque del formulario lleva `id="formulario"`.
 - Este script, en la página de Contacto, llena los campos. Cambien los `id` por los de su formulario:
@@ -90,8 +90,9 @@ Para que el formulario llegue lleno:
   </script>
   ```
 
-Las unidades de Zapopan dicen «Zapata Guadalajara Zapopan» en el arte y en el banner, pero mandan «Guadalajara»
-al formulario, porque el formulario no tiene la opción «Zapopan».
+Las unidades de Zapopan dicen «Zapata Guadalajara Zapopan» en el arte y en el banner, y mandan «Guadalajara Otero»
+al formulario: es su opción en el Contacto del sitio. Así el prospecto le llega a un vendedor de Zapopan y no a
+Zapata Guadalajara.
 
 ## Importante
 
