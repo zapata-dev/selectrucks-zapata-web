@@ -44,7 +44,7 @@
     {
       name: 'Gran Feria de Seminuevos',
       branch: 'León',
-            file: 'assets/eventos/gran-feria-seminuevos-leon.webp',
+      file: 'assets/eventos/gran-feria-seminuevos-leon.webp',
       alt: 'Gran Feria de Seminuevos, 25 y 26 de noviembre en Agencia Zapata Camiones León. Desde 0% de enganche y tasa desde 9% anual. ' +
            'Arrendamiento financiero con Financiera Daimler Truck, con tasa fija anual del 9% a un plazo de 12 meses. ' +
            'Sujeto a aprobación y condiciones de la financiera.'
