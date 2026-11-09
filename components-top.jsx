@@ -108,19 +108,20 @@ function Navbar({ onContact, onBranch }) {
 // Carrusel de promociones y eventos. Para publicar un anuncio, edita PROMOS.
 // type: 'promo' (rojo) · 'evento' (lima) · 'anuncio' (blanco) · tab: nombre de su pestaña
 // Un anuncio con `gallery` muestra sus artes completos (con miniaturas si son varios) y se pueden ampliar.
-// branch: la sucursal como la dice el arte · form: su nombre en el formulario de Contacto
-// (el formulario no tiene «Guadalajara Zapopan»; ahí le corresponde «Guadalajara»)
+// branch: la sucursal como la dice el arte · form: su nombre en el formulario de Contacto, solo si es distinto.
+// Las de Zapopan van a «Guadalajara Otero», para que el prospecto le llegue a un vendedor de Zapopan
+// («Guadalajara» es otra sucursal, la de R. Michel).
 const PROMO_ESPECIAL = [
-  { name: 'Cascadia 2017',         branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '01-cascadia-2017-zapopan.webp' },
-  { name: 'Cascadia 2017',         branch: 'Tlalnepantla',        file: '02-cascadia-2017-tlalnepantla.webp' },
-  { name: 'Cascadia 2012',         branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '03-cascadia-2012-zapopan.webp' },
-  { name: 'Cascadia 2021',         branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '04-cascadia-2021-zapopan.webp' },
-  { name: 'LT Hi Rise Euro 2022',  branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '05-lt-hi-rise-euro-2022-zapopan.webp' },
-  { name: 'VNL64T 2019',           branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '06-vnl64t-2019-zapopan.webp' },
-  { name: 'Cascadia 2018',         branch: 'Guadalajara Zapopan', form: 'Guadalajara', file: '07-cascadia-2018-zapopan.webp' },
-  { name: 'Cascadia 2020',         branch: 'Querétaro',           file: '08-cascadia-2020-queretaro.webp' },
-  { name: 'Caja refrigerada 2019', branch: 'León',                file: '09-caja-refrigerada-2019-leon.webp' },
-  { name: 'Cascadia 2016',         branch: 'Tlalnepantla',        file: '10-cascadia-2016-tlalnepantla.webp' },
+  { name: 'Cascadia 2017',         branch: 'Guadalajara Zapopan', form: 'Guadalajara Otero', file: '01-cascadia-2017-zapopan.webp' },
+  { name: 'Cascadia 2017',         branch: 'Tlalnepantla',                                   file: '02-cascadia-2017-tlalnepantla.webp' },
+  { name: 'Cascadia 2012',         branch: 'Guadalajara Zapopan', form: 'Guadalajara Otero', file: '03-cascadia-2012-zapopan.webp' },
+  { name: 'Cascadia 2021',         branch: 'Guadalajara Zapopan', form: 'Guadalajara Otero', file: '04-cascadia-2021-zapopan.webp' },
+  { name: 'LT Hi Rise Euro 2022',  branch: 'Guadalajara Zapopan', form: 'Guadalajara Otero', file: '05-lt-hi-rise-euro-2022-zapopan.webp' },
+  { name: 'VNL64T 2019',           branch: 'Guadalajara Zapopan', form: 'Guadalajara Otero', file: '06-vnl64t-2019-zapopan.webp' },
+  { name: 'Cascadia 2018',         branch: 'Guadalajara Zapopan', form: 'Guadalajara Otero', file: '07-cascadia-2018-zapopan.webp' },
+  { name: 'Cascadia 2020',         branch: 'Querétaro',                                      file: '08-cascadia-2020-queretaro.webp' },
+  { name: 'Caja refrigerada 2019', branch: 'León',                                           file: '09-caja-refrigerada-2019-leon.webp' },
+  { name: 'Cascadia 2016',         branch: 'Tlalnepantla',                                   file: '10-cascadia-2016-tlalnepantla.webp' },
 ].map((a) => ({ ...a, image: 'assets/promo-especial/' + a.file }));
 
 const EVENTOS = [
